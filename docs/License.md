@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **CancellableUntil** | **NullableTime** | End of the money back guarantee: until then, the customer can cancel the license from the customer portal, or with a token. Set from the policy&#39;s &#x60;moneyBackGuaranteeDays&#x60; when the license is created. &#x60;null&#x60; when the customer can&#39;t cancel it. | 
 **CanceledAt** | **NullableTime** | When the license was canceled: validating its key fails since. &#x60;null&#x60; when it wasn&#39;t. | 
 **CancellationReason** | [**CancellationReason**](CancellationReason.md) |  | 
+**Subscription** | [**NullableLicenseSubscription**](LicenseSubscription.md) |  | 
 **CancellationComment** | **NullableString** | Comment given when the license was canceled. &#x60;null&#x60; when there&#39;s none. | 
 **StripeRefundId** | **NullableString** | Id of the Stripe refund of the license&#39;s payment once it was canceled, through the Stripe integration. &#x60;null&#x60; otherwise. | 
 **UpdatedAt** | **time.Time** | Last time the license&#39;s settings were edited, not when its key was validated. | 
@@ -31,7 +32,7 @@ Name | Type | Description | Notes
 
 ### NewLicense
 
-`func NewLicense(id string, productId string, policyId string, customerId string, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason CancellationReason, cancellationComment NullableString, stripeRefundId NullableString, updatedAt time.Time, ) *License`
+`func NewLicense(id string, productId string, policyId string, customerId string, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason CancellationReason, subscription NullableLicenseSubscription, cancellationComment NullableString, stripeRefundId NullableString, updatedAt time.Time, ) *License`
 
 NewLicense instantiates a new License object
 This constructor will assign default values to properties that have it defined,
@@ -506,6 +507,36 @@ and a boolean to check if the value has been set.
 SetCancellationReason sets CancellationReason field to given value.
 
 
+### GetSubscription
+
+`func (o *License) GetSubscription() LicenseSubscription`
+
+GetSubscription returns the Subscription field if non-nil, zero value otherwise.
+
+### GetSubscriptionOk
+
+`func (o *License) GetSubscriptionOk() (*LicenseSubscription, bool)`
+
+GetSubscriptionOk returns a tuple with the Subscription field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubscription
+
+`func (o *License) SetSubscription(v LicenseSubscription)`
+
+SetSubscription sets Subscription field to given value.
+
+
+### SetSubscriptionNil
+
+`func (o *License) SetSubscriptionNil(b bool)`
+
+ SetSubscriptionNil sets the value for Subscription to be an explicit nil
+
+### UnsetSubscription
+`func (o *License) UnsetSubscription()`
+
+UnsetSubscription ensures that no value is present for Subscription, not even an explicit nil
 ### GetCancellationComment
 
 `func (o *License) GetCancellationComment() string`

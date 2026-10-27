@@ -50,6 +50,7 @@ type License struct {
 	// When the license was canceled: validating its key fails since. `null` when it wasn't.
 	CanceledAt NullableTime `json:"canceledAt"`
 	CancellationReason CancellationReason `json:"cancellationReason"`
+	Subscription NullableLicenseSubscription `json:"subscription"`
 	// Comment given when the license was canceled. `null` when there's none.
 	CancellationComment NullableString `json:"cancellationComment"`
 	// Id of the Stripe refund of the license's payment once it was canceled, through the Stripe integration. `null` otherwise.
@@ -65,7 +66,7 @@ type _License License
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLicense(id string, productId string, policyId string, customerId string, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason CancellationReason, cancellationComment NullableString, stripeRefundId NullableString, updatedAt time.Time) *License {
+func NewLicense(id string, productId string, policyId string, customerId string, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason CancellationReason, subscription NullableLicenseSubscription, cancellationComment NullableString, stripeRefundId NullableString, updatedAt time.Time) *License {
 	this := License{}
 	this.Id = id
 	this.ProductId = productId
@@ -86,6 +87,7 @@ func NewLicense(id string, productId string, policyId string, customerId string,
 	this.CancellableUntil = cancellableUntil
 	this.CanceledAt = canceledAt
 	this.CancellationReason = cancellationReason
+	this.Subscription = subscription
 	this.CancellationComment = cancellationComment
 	this.StripeRefundId = stripeRefundId
 	this.UpdatedAt = updatedAt
@@ -572,6 +574,32 @@ func (o *License) SetCancellationReason(v CancellationReason) {
 	o.CancellationReason = v
 }
 
+// GetSubscription returns the Subscription field value
+// If the value is explicit nil, the zero value for LicenseSubscription will be returned
+func (o *License) GetSubscription() LicenseSubscription {
+	if o == nil || o.Subscription.Get() == nil {
+		var ret LicenseSubscription
+		return ret
+	}
+
+	return *o.Subscription.Get()
+}
+
+// GetSubscriptionOk returns a tuple with the Subscription field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *License) GetSubscriptionOk() (*LicenseSubscription, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Subscription.Get(), o.Subscription.IsSet()
+}
+
+// SetSubscription sets field value
+func (o *License) SetSubscription(v LicenseSubscription) {
+	o.Subscription.Set(&v)
+}
+
 // GetCancellationComment returns the CancellationComment field value
 // If the value is explicit nil, the zero value for string will be returned
 func (o *License) GetCancellationComment() string {
@@ -679,6 +707,7 @@ func (o License) ToMap() (map[string]interface{}, error) {
 	toSerialize["cancellableUntil"] = o.CancellableUntil.Get()
 	toSerialize["canceledAt"] = o.CanceledAt.Get()
 	toSerialize["cancellationReason"] = o.CancellationReason
+	toSerialize["subscription"] = o.Subscription.Get()
 	toSerialize["cancellationComment"] = o.CancellationComment.Get()
 	toSerialize["stripeRefundId"] = o.StripeRefundId.Get()
 	toSerialize["updatedAt"] = o.UpdatedAt
@@ -714,6 +743,7 @@ func (o *License) UnmarshalJSON(data []byte) (err error) {
 		"cancellableUntil",
 		"canceledAt",
 		"cancellationReason",
+		"subscription",
 		"cancellationComment",
 		"stripeRefundId",
 		"updatedAt",
@@ -765,6 +795,7 @@ func (o *License) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "cancellableUntil")
 		delete(additionalProperties, "canceledAt")
 		delete(additionalProperties, "cancellationReason")
+		delete(additionalProperties, "subscription")
 		delete(additionalProperties, "cancellationComment")
 		delete(additionalProperties, "stripeRefundId")
 		delete(additionalProperties, "updatedAt")

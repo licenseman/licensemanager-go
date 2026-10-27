@@ -8,12 +8,13 @@ Name | Type | Description | Notes
 **Access** | **string** |  | 
 **Reason** | **string** |  | 
 **Optional** | **bool** | Whether the key can connect without it, losing what it&#39;s for, explained by &#x60;reason&#x60;. | 
+**Subscriptions** | **bool** | Whether it&#39;s only needed to sell subscriptions: checked once a recurring price is mapped. | 
 
 ## Methods
 
 ### NewStripePermission
 
-`func NewStripePermission(resource string, access string, reason string, optional bool, ) *StripePermission`
+`func NewStripePermission(resource string, access string, reason string, optional bool, subscriptions bool, ) *StripePermission`
 
 NewStripePermission instantiates a new StripePermission object
 This constructor will assign default values to properties that have it defined,
@@ -106,6 +107,26 @@ and a boolean to check if the value has been set.
 `func (o *StripePermission) SetOptional(v bool)`
 
 SetOptional sets Optional field to given value.
+
+
+### GetSubscriptions
+
+`func (o *StripePermission) GetSubscriptions() bool`
+
+GetSubscriptions returns the Subscriptions field if non-nil, zero value otherwise.
+
+### GetSubscriptionsOk
+
+`func (o *StripePermission) GetSubscriptionsOk() (*bool, bool)`
+
+GetSubscriptionsOk returns a tuple with the Subscriptions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubscriptions
+
+`func (o *StripePermission) SetSubscriptions(v bool)`
+
+SetSubscriptions sets Subscriptions field to given value.
 
 
 

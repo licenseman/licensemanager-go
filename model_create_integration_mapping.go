@@ -20,7 +20,7 @@ var _ MappedNullable = &CreateIntegrationMapping{}
 
 // CreateIntegrationMapping struct for CreateIntegrationMapping
 type CreateIntegrationMapping struct {
-	// Active one-time price of the Stripe account.
+	// Active one-time or licensed recurring price of the Stripe account.
 	StripePriceId string `json:"stripePriceId"`
 	PolicyId string `json:"policyId"`
 	AdditionalProperties map[string]interface{}

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **StripePriceId** | **string** |  | 
 **ProductName** | **string** | Name of the Stripe product when it was mapped. | 
 **Price** | [**NullablePrice**](Price.md) |  | 
+**Recurring** | [**NullableIntegrationMappingRecurring**](IntegrationMappingRecurring.md) |  | 
 **Status** | **string** | &#x60;error&#x60; when the price can no longer be paid, explained by &#x60;statusReason&#x60;. | 
 **StatusReason** | **NullableString** |  | 
 **CreatedAt** | **time.Time** |  | 
@@ -20,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewIntegrationMapping
 
-`func NewIntegrationMapping(id string, integrationId string, productId string, policyId string, stripeProductId string, stripePriceId string, productName string, price NullablePrice, status string, statusReason NullableString, createdAt time.Time, ) *IntegrationMapping`
+`func NewIntegrationMapping(id string, integrationId string, productId string, policyId string, stripeProductId string, stripePriceId string, productName string, price NullablePrice, recurring NullableIntegrationMappingRecurring, status string, statusReason NullableString, createdAt time.Time, ) *IntegrationMapping`
 
 NewIntegrationMapping instantiates a new IntegrationMapping object
 This constructor will assign default values to properties that have it defined,
@@ -205,6 +206,36 @@ SetPrice sets Price field to given value.
 `func (o *IntegrationMapping) UnsetPrice()`
 
 UnsetPrice ensures that no value is present for Price, not even an explicit nil
+### GetRecurring
+
+`func (o *IntegrationMapping) GetRecurring() IntegrationMappingRecurring`
+
+GetRecurring returns the Recurring field if non-nil, zero value otherwise.
+
+### GetRecurringOk
+
+`func (o *IntegrationMapping) GetRecurringOk() (*IntegrationMappingRecurring, bool)`
+
+GetRecurringOk returns a tuple with the Recurring field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRecurring
+
+`func (o *IntegrationMapping) SetRecurring(v IntegrationMappingRecurring)`
+
+SetRecurring sets Recurring field to given value.
+
+
+### SetRecurringNil
+
+`func (o *IntegrationMapping) SetRecurringNil(b bool)`
+
+ SetRecurringNil sets the value for Recurring to be an explicit nil
+
+### UnsetRecurring
+`func (o *IntegrationMapping) UnsetRecurring()`
+
+UnsetRecurring ensures that no value is present for Recurring, not even an explicit nil
 ### GetStatus
 
 `func (o *IntegrationMapping) GetStatus() string`

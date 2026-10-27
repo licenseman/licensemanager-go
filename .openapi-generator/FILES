@@ -15,11 +15,13 @@ api_releases.go
 api_tokens.go
 client.go
 configuration.go
+docs/BillingPortalSession.md
 docs/CancelLicense.md
 docs/CancellationReason.md
 docs/CancellationStats.md
 docs/CancellationStatsByReasonInner.md
 docs/ConnectStripe.md
+docs/CreateBillingPortalSession.md
 docs/CreateCustomer.md
 docs/CreateIntegrationMapping.md
 docs/CreateLicense.md
@@ -50,6 +52,7 @@ docs/EventsAPI.md
 docs/FixedMaxVersion.md
 docs/Integration.md
 docs/IntegrationMapping.md
+docs/IntegrationMappingRecurring.md
 docs/IntegrationStatus.md
 docs/IntegrationsAPI.md
 docs/License.md
@@ -60,6 +63,7 @@ docs/LicenseStats.md
 docs/LicenseStatsActivationsByMachineInner.md
 docs/LicenseStatsActivationsByVersionInner.md
 docs/LicenseStatus.md
+docs/LicenseSubscription.md
 docs/LicenseToken.md
 docs/LicensesAPI.md
 docs/ListPolicyEventsTypeParameter.md
@@ -72,6 +76,9 @@ docs/LockMaxVersionMinorAfter.md
 docs/Machine.md
 docs/MachineList.md
 docs/MachinesAPI.md
+docs/Mrr.md
+docs/MrrByIntervalInner.md
+docs/MrrByPolicyInner.md
 docs/Pagination.md
 docs/PoliciesAPI.md
 docs/Policy.md
@@ -109,6 +116,8 @@ docs/SigningKey.md
 docs/StripeIntegration.md
 docs/StripePermission.md
 docs/StripePrice.md
+docs/StripePriceRecurring.md
+docs/SubscriptionStats.md
 docs/Token.md
 docs/TokensAPI.md
 docs/UpdateCustomer.md
@@ -125,11 +134,13 @@ docs/ValidateKeyErrorError.md
 git_push.sh
 go.mod
 go.sum
+model_billing_portal_session.go
 model_cancel_license.go
 model_cancellation_reason.go
 model_cancellation_stats.go
 model_cancellation_stats_by_reason_inner.go
 model_connect_stripe.go
+model_create_billing_portal_session.go
 model_create_customer.go
 model_create_integration_mapping.go
 model_create_license.go
@@ -158,6 +169,7 @@ model_event_type.go
 model_fixed_max_version.go
 model_integration.go
 model_integration_mapping.go
+model_integration_mapping_recurring.go
 model_integration_status.go
 model_license.go
 model_license_list.go
@@ -167,6 +179,7 @@ model_license_stats.go
 model_license_stats_activations_by_machine_inner.go
 model_license_stats_activations_by_version_inner.go
 model_license_status.go
+model_license_subscription.go
 model_license_token.go
 model_list_policy_events_type_parameter.go
 model_list_stripe_prices_200_response.go
@@ -177,6 +190,9 @@ model_lock_max_version_major_after_one_of_1.go
 model_lock_max_version_minor_after.go
 model_machine.go
 model_machine_list.go
+model_mrr.go
+model_mrr_by_interval_inner.go
+model_mrr_by_policy_inner.go
 model_pagination.go
 model_policy.go
 model_policy_duration.go
@@ -210,6 +226,8 @@ model_signing_key.go
 model_stripe_integration.go
 model_stripe_permission.go
 model_stripe_price.go
+model_stripe_price_recurring.go
+model_subscription_stats.go
 model_token.go
 model_update_customer.go
 model_update_integration.go

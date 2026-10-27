@@ -18,17 +18,21 @@ import (
 // checks if the Revenue type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Revenue{}
 
-// Revenue Revenue of the licenses sold in one currency, each license counting on the day it was created. Licenses without a price are left out, and so are canceled ones, but in `canceledLicenseCount` and `canceledTotal`.
+// Revenue Revenue in one currency: the licenses sold once, each counting on the day it was created, and the payments of the subscription licenses, each counting on the day it was paid, with the license's policy. Licenses without a price are left out, and so are canceled ones, but in `canceledLicenseCount` and `canceledTotal`.
 type Revenue struct {
 	// ISO 4217 code of the currency of the revenue.
 	Currency string `json:"currency"`
-	// Number of licenses sold in the currency, free ones included, canceled ones left out.
+	// Number of licenses sold once in the currency, free ones included, canceled ones and subscription licenses left out.
 	LicenseCount int32 `json:"licenseCount"`
-	// Sum of the prices of the licenses sold in the currency, in major units, canceled ones left out.
+	// Revenue in the currency, in major units: the prices of the licenses sold once, canceled ones left out, plus the payments of the subscriptions, `subscriptionTotal`.
 	Total float32 `json:"total"`
-	// Number of canceled licenses sold in the currency.
+	// Sum of the payments of the subscription licenses in the currency, before taxes, in major units.
+	SubscriptionTotal float32 `json:"subscriptionTotal"`
+	// Number of payments of the subscription licenses in the currency.
+	PaymentCount int32 `json:"paymentCount"`
+	// Number of canceled licenses sold once in the currency.
 	CanceledLicenseCount int32 `json:"canceledLicenseCount"`
-	// Sum of the prices of the canceled licenses sold in the currency, in major units: revenue lost to cancellations.
+	// Sum of the prices of the canceled licenses sold once in the currency, in major units: revenue lost to cancellations.
 	CanceledTotal float32 `json:"canceledTotal"`
 	// Revenue of the current month, in UTC.
 	ThisMonth float32 `json:"thisMonth"`
@@ -51,11 +55,13 @@ type _Revenue Revenue
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRevenue(currency string, licenseCount int32, total float32, canceledLicenseCount int32, canceledTotal float32, thisMonth float32, lastMonth float32, last30Days float32, byDay []float32, byMonth []float32, byPolicy []ProductStatsNewLicensesByPolicyInner) *Revenue {
+func NewRevenue(currency string, licenseCount int32, total float32, subscriptionTotal float32, paymentCount int32, canceledLicenseCount int32, canceledTotal float32, thisMonth float32, lastMonth float32, last30Days float32, byDay []float32, byMonth []float32, byPolicy []ProductStatsNewLicensesByPolicyInner) *Revenue {
 	this := Revenue{}
 	this.Currency = currency
 	this.LicenseCount = licenseCount
 	this.Total = total
+	this.SubscriptionTotal = subscriptionTotal
+	this.PaymentCount = paymentCount
 	this.CanceledLicenseCount = canceledLicenseCount
 	this.CanceledTotal = canceledTotal
 	this.ThisMonth = thisMonth
@@ -145,6 +151,54 @@ func (o *Revenue) GetTotalOk() (*float32, bool) {
 // SetTotal sets field value
 func (o *Revenue) SetTotal(v float32) {
 	o.Total = v
+}
+
+// GetSubscriptionTotal returns the SubscriptionTotal field value
+func (o *Revenue) GetSubscriptionTotal() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.SubscriptionTotal
+}
+
+// GetSubscriptionTotalOk returns a tuple with the SubscriptionTotal field value
+// and a boolean to check if the value has been set.
+func (o *Revenue) GetSubscriptionTotalOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SubscriptionTotal, true
+}
+
+// SetSubscriptionTotal sets field value
+func (o *Revenue) SetSubscriptionTotal(v float32) {
+	o.SubscriptionTotal = v
+}
+
+// GetPaymentCount returns the PaymentCount field value
+func (o *Revenue) GetPaymentCount() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.PaymentCount
+}
+
+// GetPaymentCountOk returns a tuple with the PaymentCount field value
+// and a boolean to check if the value has been set.
+func (o *Revenue) GetPaymentCountOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PaymentCount, true
+}
+
+// SetPaymentCount sets field value
+func (o *Revenue) SetPaymentCount(v int32) {
+	o.PaymentCount = v
 }
 
 // GetCanceledLicenseCount returns the CanceledLicenseCount field value
@@ -352,6 +406,8 @@ func (o Revenue) ToMap() (map[string]interface{}, error) {
 	toSerialize["currency"] = o.Currency
 	toSerialize["licenseCount"] = o.LicenseCount
 	toSerialize["total"] = o.Total
+	toSerialize["subscriptionTotal"] = o.SubscriptionTotal
+	toSerialize["paymentCount"] = o.PaymentCount
 	toSerialize["canceledLicenseCount"] = o.CanceledLicenseCount
 	toSerialize["canceledTotal"] = o.CanceledTotal
 	toSerialize["thisMonth"] = o.ThisMonth
@@ -376,6 +432,8 @@ func (o *Revenue) UnmarshalJSON(data []byte) (err error) {
 		"currency",
 		"licenseCount",
 		"total",
+		"subscriptionTotal",
+		"paymentCount",
 		"canceledLicenseCount",
 		"canceledTotal",
 		"thisMonth",
@@ -416,6 +474,8 @@ func (o *Revenue) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "currency")
 		delete(additionalProperties, "licenseCount")
 		delete(additionalProperties, "total")
+		delete(additionalProperties, "subscriptionTotal")
+		delete(additionalProperties, "paymentCount")
 		delete(additionalProperties, "canceledLicenseCount")
 		delete(additionalProperties, "canceledTotal")
 		delete(additionalProperties, "thisMonth")

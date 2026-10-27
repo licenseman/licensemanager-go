@@ -16,13 +16,16 @@ Name | Type | Description | Notes
 **LastEventAt** | **NullableTime** | Last time it received an event from the provider. | 
 **AutoRefund** | **bool** | Whether canceling a license bought through Stripe refunds its payment. On by default, always off when &#x60;canRefund&#x60; is false. | 
 **CanRefund** | **bool** | Whether the API key has the optional Refunds: Write permission, checked when connecting and every day. Without it, canceled licenses aren&#39;t refunded: refund their payments from Stripe. | 
+**CanManageSubscriptions** | **bool** | Whether the API key has the optional Subscriptions: Write permission, checked when connecting and every day. Without it, subscription licenses can&#39;t be canceled from the app: cancel their subscriptions from Stripe. | 
+**CanBillingPortal** | **bool** | Whether the API key has the optional Customer portal: Write permission, checked when connecting and every day. Without it, the license portal doesn&#39;t link to the Stripe customer portal. | 
+**SubscriptionGraceDays** | **int32** | Days a subscription license stays valid after its period ends while its renewal is unpaid, as Stripe retries the payment. 7 by default. | 
 **CreatedAt** | **time.Time** |  | 
 
 ## Methods
 
 ### NewIntegration
 
-`func NewIntegration(id string, provider string, livemode bool, accountName NullableString, apiKeyHint string, webhookUrl string, status IntegrationStatus, statusReason NullableString, lastCheckedAt NullableTime, lastEventAt NullableTime, autoRefund bool, canRefund bool, createdAt time.Time, ) *Integration`
+`func NewIntegration(id string, provider string, livemode bool, accountName NullableString, apiKeyHint string, webhookUrl string, status IntegrationStatus, statusReason NullableString, lastCheckedAt NullableTime, lastEventAt NullableTime, autoRefund bool, canRefund bool, canManageSubscriptions bool, canBillingPortal bool, subscriptionGraceDays int32, createdAt time.Time, ) *Integration`
 
 NewIntegration instantiates a new Integration object
 This constructor will assign default values to properties that have it defined,
@@ -315,6 +318,66 @@ and a boolean to check if the value has been set.
 `func (o *Integration) SetCanRefund(v bool)`
 
 SetCanRefund sets CanRefund field to given value.
+
+
+### GetCanManageSubscriptions
+
+`func (o *Integration) GetCanManageSubscriptions() bool`
+
+GetCanManageSubscriptions returns the CanManageSubscriptions field if non-nil, zero value otherwise.
+
+### GetCanManageSubscriptionsOk
+
+`func (o *Integration) GetCanManageSubscriptionsOk() (*bool, bool)`
+
+GetCanManageSubscriptionsOk returns a tuple with the CanManageSubscriptions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanManageSubscriptions
+
+`func (o *Integration) SetCanManageSubscriptions(v bool)`
+
+SetCanManageSubscriptions sets CanManageSubscriptions field to given value.
+
+
+### GetCanBillingPortal
+
+`func (o *Integration) GetCanBillingPortal() bool`
+
+GetCanBillingPortal returns the CanBillingPortal field if non-nil, zero value otherwise.
+
+### GetCanBillingPortalOk
+
+`func (o *Integration) GetCanBillingPortalOk() (*bool, bool)`
+
+GetCanBillingPortalOk returns a tuple with the CanBillingPortal field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanBillingPortal
+
+`func (o *Integration) SetCanBillingPortal(v bool)`
+
+SetCanBillingPortal sets CanBillingPortal field to given value.
+
+
+### GetSubscriptionGraceDays
+
+`func (o *Integration) GetSubscriptionGraceDays() int32`
+
+GetSubscriptionGraceDays returns the SubscriptionGraceDays field if non-nil, zero value otherwise.
+
+### GetSubscriptionGraceDaysOk
+
+`func (o *Integration) GetSubscriptionGraceDaysOk() (*int32, bool)`
+
+GetSubscriptionGraceDaysOk returns a tuple with the SubscriptionGraceDays field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubscriptionGraceDays
+
+`func (o *Integration) SetSubscriptionGraceDays(v int32)`
+
+SetSubscriptionGraceDays sets SubscriptionGraceDays field to given value.
 
 
 ### GetCreatedAt

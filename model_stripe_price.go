@@ -25,6 +25,7 @@ type StripePrice struct {
 	ProductName string `json:"productName"`
 	Nickname NullableString `json:"nickname"`
 	Price NullablePrice `json:"price"`
+	Recurring NullableStripePriceRecurring `json:"recurring"`
 	// Whether the price already creates licenses of a product.
 	Mapped bool `json:"mapped"`
 	AdditionalProperties map[string]interface{}
@@ -36,13 +37,14 @@ type _StripePrice StripePrice
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStripePrice(id string, productId string, productName string, nickname NullableString, price NullablePrice, mapped bool) *StripePrice {
+func NewStripePrice(id string, productId string, productName string, nickname NullableString, price NullablePrice, recurring NullableStripePriceRecurring, mapped bool) *StripePrice {
 	this := StripePrice{}
 	this.Id = id
 	this.ProductId = productId
 	this.ProductName = productName
 	this.Nickname = nickname
 	this.Price = price
+	this.Recurring = recurring
 	this.Mapped = mapped
 	return &this
 }
@@ -179,6 +181,32 @@ func (o *StripePrice) SetPrice(v Price) {
 	o.Price.Set(&v)
 }
 
+// GetRecurring returns the Recurring field value
+// If the value is explicit nil, the zero value for StripePriceRecurring will be returned
+func (o *StripePrice) GetRecurring() StripePriceRecurring {
+	if o == nil || o.Recurring.Get() == nil {
+		var ret StripePriceRecurring
+		return ret
+	}
+
+	return *o.Recurring.Get()
+}
+
+// GetRecurringOk returns a tuple with the Recurring field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *StripePrice) GetRecurringOk() (*StripePriceRecurring, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Recurring.Get(), o.Recurring.IsSet()
+}
+
+// SetRecurring sets field value
+func (o *StripePrice) SetRecurring(v StripePriceRecurring) {
+	o.Recurring.Set(&v)
+}
+
 // GetMapped returns the Mapped field value
 func (o *StripePrice) GetMapped() bool {
 	if o == nil {
@@ -218,6 +246,7 @@ func (o StripePrice) ToMap() (map[string]interface{}, error) {
 	toSerialize["productName"] = o.ProductName
 	toSerialize["nickname"] = o.Nickname.Get()
 	toSerialize["price"] = o.Price.Get()
+	toSerialize["recurring"] = o.Recurring.Get()
 	toSerialize["mapped"] = o.Mapped
 
 	for key, value := range o.AdditionalProperties {
@@ -237,6 +266,7 @@ func (o *StripePrice) UnmarshalJSON(data []byte) (err error) {
 		"productName",
 		"nickname",
 		"price",
+		"recurring",
 		"mapped",
 	}
 
@@ -272,6 +302,7 @@ func (o *StripePrice) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "productName")
 		delete(additionalProperties, "nickname")
 		delete(additionalProperties, "price")
+		delete(additionalProperties, "recurring")
 		delete(additionalProperties, "mapped")
 		o.AdditionalProperties = additionalProperties
 	}

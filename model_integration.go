@@ -42,6 +42,12 @@ type Integration struct {
 	AutoRefund bool `json:"autoRefund"`
 	// Whether the API key has the optional Refunds: Write permission, checked when connecting and every day. Without it, canceled licenses aren't refunded: refund their payments from Stripe.
 	CanRefund bool `json:"canRefund"`
+	// Whether the API key has the optional Subscriptions: Write permission, checked when connecting and every day. Without it, subscription licenses can't be canceled from the app: cancel their subscriptions from Stripe.
+	CanManageSubscriptions bool `json:"canManageSubscriptions"`
+	// Whether the API key has the optional Customer portal: Write permission, checked when connecting and every day. Without it, the license portal doesn't link to the Stripe customer portal.
+	CanBillingPortal bool `json:"canBillingPortal"`
+	// Days a subscription license stays valid after its period ends while its renewal is unpaid, as Stripe retries the payment. 7 by default.
+	SubscriptionGraceDays int32 `json:"subscriptionGraceDays"`
 	CreatedAt time.Time `json:"createdAt"`
 	AdditionalProperties map[string]interface{}
 }
@@ -52,7 +58,7 @@ type _Integration Integration
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIntegration(id string, provider string, livemode bool, accountName NullableString, apiKeyHint string, webhookUrl string, status IntegrationStatus, statusReason NullableString, lastCheckedAt NullableTime, lastEventAt NullableTime, autoRefund bool, canRefund bool, createdAt time.Time) *Integration {
+func NewIntegration(id string, provider string, livemode bool, accountName NullableString, apiKeyHint string, webhookUrl string, status IntegrationStatus, statusReason NullableString, lastCheckedAt NullableTime, lastEventAt NullableTime, autoRefund bool, canRefund bool, canManageSubscriptions bool, canBillingPortal bool, subscriptionGraceDays int32, createdAt time.Time) *Integration {
 	this := Integration{}
 	this.Id = id
 	this.Provider = provider
@@ -66,6 +72,9 @@ func NewIntegration(id string, provider string, livemode bool, accountName Nulla
 	this.LastEventAt = lastEventAt
 	this.AutoRefund = autoRefund
 	this.CanRefund = canRefund
+	this.CanManageSubscriptions = canManageSubscriptions
+	this.CanBillingPortal = canBillingPortal
+	this.SubscriptionGraceDays = subscriptionGraceDays
 	this.CreatedAt = createdAt
 	return &this
 }
@@ -374,6 +383,78 @@ func (o *Integration) SetCanRefund(v bool) {
 	o.CanRefund = v
 }
 
+// GetCanManageSubscriptions returns the CanManageSubscriptions field value
+func (o *Integration) GetCanManageSubscriptions() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.CanManageSubscriptions
+}
+
+// GetCanManageSubscriptionsOk returns a tuple with the CanManageSubscriptions field value
+// and a boolean to check if the value has been set.
+func (o *Integration) GetCanManageSubscriptionsOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CanManageSubscriptions, true
+}
+
+// SetCanManageSubscriptions sets field value
+func (o *Integration) SetCanManageSubscriptions(v bool) {
+	o.CanManageSubscriptions = v
+}
+
+// GetCanBillingPortal returns the CanBillingPortal field value
+func (o *Integration) GetCanBillingPortal() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.CanBillingPortal
+}
+
+// GetCanBillingPortalOk returns a tuple with the CanBillingPortal field value
+// and a boolean to check if the value has been set.
+func (o *Integration) GetCanBillingPortalOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CanBillingPortal, true
+}
+
+// SetCanBillingPortal sets field value
+func (o *Integration) SetCanBillingPortal(v bool) {
+	o.CanBillingPortal = v
+}
+
+// GetSubscriptionGraceDays returns the SubscriptionGraceDays field value
+func (o *Integration) GetSubscriptionGraceDays() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.SubscriptionGraceDays
+}
+
+// GetSubscriptionGraceDaysOk returns a tuple with the SubscriptionGraceDays field value
+// and a boolean to check if the value has been set.
+func (o *Integration) GetSubscriptionGraceDaysOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SubscriptionGraceDays, true
+}
+
+// SetSubscriptionGraceDays sets field value
+func (o *Integration) SetSubscriptionGraceDays(v int32) {
+	o.SubscriptionGraceDays = v
+}
+
 // GetCreatedAt returns the CreatedAt field value
 func (o *Integration) GetCreatedAt() time.Time {
 	if o == nil {
@@ -420,6 +501,9 @@ func (o Integration) ToMap() (map[string]interface{}, error) {
 	toSerialize["lastEventAt"] = o.LastEventAt.Get()
 	toSerialize["autoRefund"] = o.AutoRefund
 	toSerialize["canRefund"] = o.CanRefund
+	toSerialize["canManageSubscriptions"] = o.CanManageSubscriptions
+	toSerialize["canBillingPortal"] = o.CanBillingPortal
+	toSerialize["subscriptionGraceDays"] = o.SubscriptionGraceDays
 	toSerialize["createdAt"] = o.CreatedAt
 
 	for key, value := range o.AdditionalProperties {
@@ -446,6 +530,9 @@ func (o *Integration) UnmarshalJSON(data []byte) (err error) {
 		"lastEventAt",
 		"autoRefund",
 		"canRefund",
+		"canManageSubscriptions",
+		"canBillingPortal",
+		"subscriptionGraceDays",
 		"createdAt",
 	}
 
@@ -488,6 +575,9 @@ func (o *Integration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "lastEventAt")
 		delete(additionalProperties, "autoRefund")
 		delete(additionalProperties, "canRefund")
+		delete(additionalProperties, "canManageSubscriptions")
+		delete(additionalProperties, "canBillingPortal")
+		delete(additionalProperties, "subscriptionGraceDays")
 		delete(additionalProperties, "createdAt")
 		o.AdditionalProperties = additionalProperties
 	}

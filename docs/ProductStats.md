@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **NewLicensesByMonth** | **[]int32** | Number of licenses created each month, aligned on &#x60;months&#x60;. | 
 **NewLicensesByPolicy** | [**[]ProductStatsNewLicensesByPolicyInner**](ProductStatsNewLicensesByPolicyInner.md) | Number of licenses of each policy created each day and each month, for the policies with licenses created over the covered months. | 
 **Cancellation** | [**NullableCancellationStats**](CancellationStats.md) | Cancellations of the licenses with a money back guarantee. &#x60;null&#x60; when no license of the product has one. | 
+**Subscriptions** | [**NullableSubscriptionStats**](SubscriptionStats.md) | Subscriptions of the product. &#x60;null&#x60; when it has never had one. | 
 **Revenue** | [**[]Revenue**](Revenue.md) | Revenue in each currency licenses were sold in, from the one with the most licenses sold. Amounts aren&#39;t converted between currencies. | 
 **ActivationsByVersion** | [**[]ProductStatsActivationsByVersionInner**](ProductStatsActivationsByVersionInner.md) | Successful activations of the licenses of the product each day, per version of the application, from the most recent one. | 
 **ActiveMachinesByVersion** | [**[]ProductStatsActiveMachinesByVersionInner**](ProductStatsActiveMachinesByVersionInner.md) | Number of active machines running each version of the application, from the most recent one. | 
@@ -29,7 +30,7 @@ Name | Type | Description | Notes
 
 ### NewProductStats
 
-`func NewProductStats(licenseCount int32, activeLicenseCount int32, newLicenseCount int32, expiringLicenseCount int32, expiredLicenseCount int32, activeMachineCount int32, inUseLicenseCount int32, seatCount int32, usedSeatCount int32, fullLicenseCount int32, days []string, months []string, newLicensesByDay []int32, newLicensesByMonth []int32, newLicensesByPolicy []ProductStatsNewLicensesByPolicyInner, cancellation NullableCancellationStats, revenue []Revenue, activationsByVersion []ProductStatsActivationsByVersionInner, activeMachinesByVersion []ProductStatsActiveMachinesByVersionInner, activeMachinesByPlatform []ProductStatsActiveMachinesByPlatformInner, ) *ProductStats`
+`func NewProductStats(licenseCount int32, activeLicenseCount int32, newLicenseCount int32, expiringLicenseCount int32, expiredLicenseCount int32, activeMachineCount int32, inUseLicenseCount int32, seatCount int32, usedSeatCount int32, fullLicenseCount int32, days []string, months []string, newLicensesByDay []int32, newLicensesByMonth []int32, newLicensesByPolicy []ProductStatsNewLicensesByPolicyInner, cancellation NullableCancellationStats, subscriptions NullableSubscriptionStats, revenue []Revenue, activationsByVersion []ProductStatsActivationsByVersionInner, activeMachinesByVersion []ProductStatsActiveMachinesByVersionInner, activeMachinesByPlatform []ProductStatsActiveMachinesByPlatformInner, ) *ProductStats`
 
 NewProductStats instantiates a new ProductStats object
 This constructor will assign default values to properties that have it defined,
@@ -374,6 +375,36 @@ SetCancellation sets Cancellation field to given value.
 `func (o *ProductStats) UnsetCancellation()`
 
 UnsetCancellation ensures that no value is present for Cancellation, not even an explicit nil
+### GetSubscriptions
+
+`func (o *ProductStats) GetSubscriptions() SubscriptionStats`
+
+GetSubscriptions returns the Subscriptions field if non-nil, zero value otherwise.
+
+### GetSubscriptionsOk
+
+`func (o *ProductStats) GetSubscriptionsOk() (*SubscriptionStats, bool)`
+
+GetSubscriptionsOk returns a tuple with the Subscriptions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubscriptions
+
+`func (o *ProductStats) SetSubscriptions(v SubscriptionStats)`
+
+SetSubscriptions sets Subscriptions field to given value.
+
+
+### SetSubscriptionsNil
+
+`func (o *ProductStats) SetSubscriptionsNil(b bool)`
+
+ SetSubscriptionsNil sets the value for Subscriptions to be an explicit nil
+
+### UnsetSubscriptions
+`func (o *ProductStats) UnsetSubscriptions()`
+
+UnsetSubscriptions ensures that no value is present for Subscriptions, not even an explicit nil
 ### GetRevenue
 
 `func (o *ProductStats) GetRevenue() []Revenue`

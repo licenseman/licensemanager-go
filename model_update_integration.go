@@ -21,6 +21,8 @@ var _ MappedNullable = &UpdateIntegration{}
 type UpdateIntegration struct {
 	// Whether canceling a license bought through Stripe refunds its payment. Can only be turned on when the integration's `canRefund` is true: the API key has the Refunds: Write permission.
 	AutoRefund *bool `json:"autoRefund,omitempty"`
+	// Days a subscription license stays valid after its period ends while its renewal is unpaid, as Stripe retries the payment.
+	SubscriptionGraceDays *int32 `json:"subscriptionGraceDays,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -75,6 +77,38 @@ func (o *UpdateIntegration) SetAutoRefund(v bool) {
 	o.AutoRefund = &v
 }
 
+// GetSubscriptionGraceDays returns the SubscriptionGraceDays field value if set, zero value otherwise.
+func (o *UpdateIntegration) GetSubscriptionGraceDays() int32 {
+	if o == nil || IsNil(o.SubscriptionGraceDays) {
+		var ret int32
+		return ret
+	}
+	return *o.SubscriptionGraceDays
+}
+
+// GetSubscriptionGraceDaysOk returns a tuple with the SubscriptionGraceDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateIntegration) GetSubscriptionGraceDaysOk() (*int32, bool) {
+	if o == nil || IsNil(o.SubscriptionGraceDays) {
+		return nil, false
+	}
+	return o.SubscriptionGraceDays, true
+}
+
+// HasSubscriptionGraceDays returns a boolean if a field has been set.
+func (o *UpdateIntegration) HasSubscriptionGraceDays() bool {
+	if o != nil && !IsNil(o.SubscriptionGraceDays) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubscriptionGraceDays gets a reference to the given int32 and assigns it to the SubscriptionGraceDays field.
+func (o *UpdateIntegration) SetSubscriptionGraceDays(v int32) {
+	o.SubscriptionGraceDays = &v
+}
+
 func (o UpdateIntegration) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -87,6 +121,9 @@ func (o UpdateIntegration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.AutoRefund) {
 		toSerialize["autoRefund"] = o.AutoRefund
+	}
+	if !IsNil(o.SubscriptionGraceDays) {
+		toSerialize["subscriptionGraceDays"] = o.SubscriptionGraceDays
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -111,6 +148,7 @@ func (o *UpdateIntegration) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "autoRefund")
+		delete(additionalProperties, "subscriptionGraceDays")
 		o.AdditionalProperties = additionalProperties
 	}
 

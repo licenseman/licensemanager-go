@@ -30,6 +30,7 @@ type IntegrationMapping struct {
 	// Name of the Stripe product when it was mapped.
 	ProductName string `json:"productName"`
 	Price NullablePrice `json:"price"`
+	Recurring NullableIntegrationMappingRecurring `json:"recurring"`
 	// `error` when the price can no longer be paid, explained by `statusReason`.
 	Status string `json:"status"`
 	StatusReason NullableString `json:"statusReason"`
@@ -43,7 +44,7 @@ type _IntegrationMapping IntegrationMapping
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIntegrationMapping(id string, integrationId string, productId string, policyId string, stripeProductId string, stripePriceId string, productName string, price NullablePrice, status string, statusReason NullableString, createdAt time.Time) *IntegrationMapping {
+func NewIntegrationMapping(id string, integrationId string, productId string, policyId string, stripeProductId string, stripePriceId string, productName string, price NullablePrice, recurring NullableIntegrationMappingRecurring, status string, statusReason NullableString, createdAt time.Time) *IntegrationMapping {
 	this := IntegrationMapping{}
 	this.Id = id
 	this.IntegrationId = integrationId
@@ -53,6 +54,7 @@ func NewIntegrationMapping(id string, integrationId string, productId string, po
 	this.StripePriceId = stripePriceId
 	this.ProductName = productName
 	this.Price = price
+	this.Recurring = recurring
 	this.Status = status
 	this.StatusReason = statusReason
 	this.CreatedAt = createdAt
@@ -261,6 +263,32 @@ func (o *IntegrationMapping) SetPrice(v Price) {
 	o.Price.Set(&v)
 }
 
+// GetRecurring returns the Recurring field value
+// If the value is explicit nil, the zero value for IntegrationMappingRecurring will be returned
+func (o *IntegrationMapping) GetRecurring() IntegrationMappingRecurring {
+	if o == nil || o.Recurring.Get() == nil {
+		var ret IntegrationMappingRecurring
+		return ret
+	}
+
+	return *o.Recurring.Get()
+}
+
+// GetRecurringOk returns a tuple with the Recurring field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *IntegrationMapping) GetRecurringOk() (*IntegrationMappingRecurring, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Recurring.Get(), o.Recurring.IsSet()
+}
+
+// SetRecurring sets field value
+func (o *IntegrationMapping) SetRecurring(v IntegrationMappingRecurring) {
+	o.Recurring.Set(&v)
+}
+
 // GetStatus returns the Status field value
 func (o *IntegrationMapping) GetStatus() string {
 	if o == nil {
@@ -353,6 +381,7 @@ func (o IntegrationMapping) ToMap() (map[string]interface{}, error) {
 	toSerialize["stripePriceId"] = o.StripePriceId
 	toSerialize["productName"] = o.ProductName
 	toSerialize["price"] = o.Price.Get()
+	toSerialize["recurring"] = o.Recurring.Get()
 	toSerialize["status"] = o.Status
 	toSerialize["statusReason"] = o.StatusReason.Get()
 	toSerialize["createdAt"] = o.CreatedAt
@@ -377,6 +406,7 @@ func (o *IntegrationMapping) UnmarshalJSON(data []byte) (err error) {
 		"stripePriceId",
 		"productName",
 		"price",
+		"recurring",
 		"status",
 		"statusReason",
 		"createdAt",
@@ -417,6 +447,7 @@ func (o *IntegrationMapping) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "stripePriceId")
 		delete(additionalProperties, "productName")
 		delete(additionalProperties, "price")
+		delete(additionalProperties, "recurring")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "statusReason")
 		delete(additionalProperties, "createdAt")

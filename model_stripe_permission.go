@@ -25,6 +25,8 @@ type StripePermission struct {
 	Reason string `json:"reason"`
 	// Whether the key can connect without it, losing what it's for, explained by `reason`.
 	Optional bool `json:"optional"`
+	// Whether it's only needed to sell subscriptions: checked once a recurring price is mapped.
+	Subscriptions bool `json:"subscriptions"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,12 +36,13 @@ type _StripePermission StripePermission
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStripePermission(resource string, access string, reason string, optional bool) *StripePermission {
+func NewStripePermission(resource string, access string, reason string, optional bool, subscriptions bool) *StripePermission {
 	this := StripePermission{}
 	this.Resource = resource
 	this.Access = access
 	this.Reason = reason
 	this.Optional = optional
+	this.Subscriptions = subscriptions
 	return &this
 }
 
@@ -147,6 +150,30 @@ func (o *StripePermission) SetOptional(v bool) {
 	o.Optional = v
 }
 
+// GetSubscriptions returns the Subscriptions field value
+func (o *StripePermission) GetSubscriptions() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Subscriptions
+}
+
+// GetSubscriptionsOk returns a tuple with the Subscriptions field value
+// and a boolean to check if the value has been set.
+func (o *StripePermission) GetSubscriptionsOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Subscriptions, true
+}
+
+// SetSubscriptions sets field value
+func (o *StripePermission) SetSubscriptions(v bool) {
+	o.Subscriptions = v
+}
+
 func (o StripePermission) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -161,6 +188,7 @@ func (o StripePermission) ToMap() (map[string]interface{}, error) {
 	toSerialize["access"] = o.Access
 	toSerialize["reason"] = o.Reason
 	toSerialize["optional"] = o.Optional
+	toSerialize["subscriptions"] = o.Subscriptions
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -178,6 +206,7 @@ func (o *StripePermission) UnmarshalJSON(data []byte) (err error) {
 		"access",
 		"reason",
 		"optional",
+		"subscriptions",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -211,6 +240,7 @@ func (o *StripePermission) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "access")
 		delete(additionalProperties, "reason")
 		delete(additionalProperties, "optional")
+		delete(additionalProperties, "subscriptions")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -9,13 +9,14 @@ Name | Type | Description | Notes
 **ProductName** | **string** |  | 
 **Nickname** | **NullableString** |  | 
 **Price** | [**NullablePrice**](Price.md) |  | 
+**Recurring** | [**NullableStripePriceRecurring**](StripePriceRecurring.md) |  | 
 **Mapped** | **bool** | Whether the price already creates licenses of a product. | 
 
 ## Methods
 
 ### NewStripePrice
 
-`func NewStripePrice(id string, productId string, productName string, nickname NullableString, price NullablePrice, mapped bool, ) *StripePrice`
+`func NewStripePrice(id string, productId string, productName string, nickname NullableString, price NullablePrice, recurring NullableStripePriceRecurring, mapped bool, ) *StripePrice`
 
 NewStripePrice instantiates a new StripePrice object
 This constructor will assign default values to properties that have it defined,
@@ -150,6 +151,36 @@ SetPrice sets Price field to given value.
 `func (o *StripePrice) UnsetPrice()`
 
 UnsetPrice ensures that no value is present for Price, not even an explicit nil
+### GetRecurring
+
+`func (o *StripePrice) GetRecurring() StripePriceRecurring`
+
+GetRecurring returns the Recurring field if non-nil, zero value otherwise.
+
+### GetRecurringOk
+
+`func (o *StripePrice) GetRecurringOk() (*StripePriceRecurring, bool)`
+
+GetRecurringOk returns a tuple with the Recurring field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRecurring
+
+`func (o *StripePrice) SetRecurring(v StripePriceRecurring)`
+
+SetRecurring sets Recurring field to given value.
+
+
+### SetRecurringNil
+
+`func (o *StripePrice) SetRecurringNil(b bool)`
+
+ SetRecurringNil sets the value for Recurring to be an explicit nil
+
+### UnsetRecurring
+`func (o *StripePrice) UnsetRecurring()`
+
+UnsetRecurring ensures that no value is present for Recurring, not even an explicit nil
 ### GetMapped
 
 `func (o *StripePrice) GetMapped() bool`
