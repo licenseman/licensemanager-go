@@ -7,12 +7,13 @@ Name | Type | Description | Notes
 **Resource** | **string** |  | 
 **Access** | **string** |  | 
 **Reason** | **string** |  | 
+**Optional** | **bool** | Whether the key can connect without it, losing what it&#39;s for, explained by &#x60;reason&#x60;. | 
 
 ## Methods
 
 ### NewStripePermission
 
-`func NewStripePermission(resource string, access string, reason string, ) *StripePermission`
+`func NewStripePermission(resource string, access string, reason string, optional bool, ) *StripePermission`
 
 NewStripePermission instantiates a new StripePermission object
 This constructor will assign default values to properties that have it defined,
@@ -85,6 +86,26 @@ and a boolean to check if the value has been set.
 `func (o *StripePermission) SetReason(v string)`
 
 SetReason sets Reason field to given value.
+
+
+### GetOptional
+
+`func (o *StripePermission) GetOptional() bool`
+
+GetOptional returns the Optional field if non-nil, zero value otherwise.
+
+### GetOptionalOk
+
+`func (o *StripePermission) GetOptionalOk() (*bool, bool)`
+
+GetOptionalOk returns a tuple with the Optional field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOptional
+
+`func (o *StripePermission) SetOptional(v bool)`
+
+SetOptional sets Optional field to given value.
 
 
 

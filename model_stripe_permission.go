@@ -23,6 +23,8 @@ type StripePermission struct {
 	Resource string `json:"resource"`
 	Access string `json:"access"`
 	Reason string `json:"reason"`
+	// Whether the key can connect without it, losing what it's for, explained by `reason`.
+	Optional bool `json:"optional"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,11 +34,12 @@ type _StripePermission StripePermission
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStripePermission(resource string, access string, reason string) *StripePermission {
+func NewStripePermission(resource string, access string, reason string, optional bool) *StripePermission {
 	this := StripePermission{}
 	this.Resource = resource
 	this.Access = access
 	this.Reason = reason
+	this.Optional = optional
 	return &this
 }
 
@@ -120,6 +123,30 @@ func (o *StripePermission) SetReason(v string) {
 	o.Reason = v
 }
 
+// GetOptional returns the Optional field value
+func (o *StripePermission) GetOptional() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Optional
+}
+
+// GetOptionalOk returns a tuple with the Optional field value
+// and a boolean to check if the value has been set.
+func (o *StripePermission) GetOptionalOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Optional, true
+}
+
+// SetOptional sets field value
+func (o *StripePermission) SetOptional(v bool) {
+	o.Optional = v
+}
+
 func (o StripePermission) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -133,6 +160,7 @@ func (o StripePermission) ToMap() (map[string]interface{}, error) {
 	toSerialize["resource"] = o.Resource
 	toSerialize["access"] = o.Access
 	toSerialize["reason"] = o.Reason
+	toSerialize["optional"] = o.Optional
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -149,6 +177,7 @@ func (o *StripePermission) UnmarshalJSON(data []byte) (err error) {
 		"resource",
 		"access",
 		"reason",
+		"optional",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -181,6 +210,7 @@ func (o *StripePermission) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "resource")
 		delete(additionalProperties, "access")
 		delete(additionalProperties, "reason")
+		delete(additionalProperties, "optional")
 		o.AdditionalProperties = additionalProperties
 	}
 

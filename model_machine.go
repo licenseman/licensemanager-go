@@ -27,10 +27,12 @@ type Machine struct {
 	Fingerprint string `json:"fingerprint"`
 	Platform NullableString `json:"platform"`
 	Name NullableString `json:"name"`
-	// Whether the machine counts as using the license.
+	// Whether the machine counts as using the license. A `locked` machine doesn't, and its validations are refused with `machine_locked`: it overrode a machine that came back. See `validateKey`.
 	Status string `json:"status"`
 	// Version of the application last validated on the machine.
 	Version NullableString `json:"version"`
+	// For a machine deactivated or locked by automatic machine changes, the machine that took its place. Validating the key on a deactivated machine that has one takes its place back. `null` otherwise.
+	OverriddenByMachineId NullableString `json:"overriddenByMachineId"`
 	// When the license was last validated on the machine.
 	LastValidatedAt NullableTime `json:"lastValidatedAt"`
 	CreatedAt time.Time `json:"createdAt"`
@@ -44,7 +46,7 @@ type _Machine Machine
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMachine(id string, licenseId string, fingerprint string, platform NullableString, name NullableString, status string, version NullableString, lastValidatedAt NullableTime, createdAt time.Time, updatedAt time.Time) *Machine {
+func NewMachine(id string, licenseId string, fingerprint string, platform NullableString, name NullableString, status string, version NullableString, overriddenByMachineId NullableString, lastValidatedAt NullableTime, createdAt time.Time, updatedAt time.Time) *Machine {
 	this := Machine{}
 	this.Id = id
 	this.LicenseId = licenseId
@@ -53,6 +55,7 @@ func NewMachine(id string, licenseId string, fingerprint string, platform Nullab
 	this.Name = name
 	this.Status = status
 	this.Version = version
+	this.OverriddenByMachineId = overriddenByMachineId
 	this.LastValidatedAt = lastValidatedAt
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
@@ -241,6 +244,32 @@ func (o *Machine) SetVersion(v string) {
 	o.Version.Set(&v)
 }
 
+// GetOverriddenByMachineId returns the OverriddenByMachineId field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *Machine) GetOverriddenByMachineId() string {
+	if o == nil || o.OverriddenByMachineId.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.OverriddenByMachineId.Get()
+}
+
+// GetOverriddenByMachineIdOk returns a tuple with the OverriddenByMachineId field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Machine) GetOverriddenByMachineIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.OverriddenByMachineId.Get(), o.OverriddenByMachineId.IsSet()
+}
+
+// SetOverriddenByMachineId sets field value
+func (o *Machine) SetOverriddenByMachineId(v string) {
+	o.OverriddenByMachineId.Set(&v)
+}
+
 // GetLastValidatedAt returns the LastValidatedAt field value
 // If the value is explicit nil, the zero value for time.Time will be returned
 func (o *Machine) GetLastValidatedAt() time.Time {
@@ -332,6 +361,7 @@ func (o Machine) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name.Get()
 	toSerialize["status"] = o.Status
 	toSerialize["version"] = o.Version.Get()
+	toSerialize["overriddenByMachineId"] = o.OverriddenByMachineId.Get()
 	toSerialize["lastValidatedAt"] = o.LastValidatedAt.Get()
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
@@ -355,6 +385,7 @@ func (o *Machine) UnmarshalJSON(data []byte) (err error) {
 		"name",
 		"status",
 		"version",
+		"overriddenByMachineId",
 		"lastValidatedAt",
 		"createdAt",
 		"updatedAt",
@@ -394,6 +425,7 @@ func (o *Machine) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "version")
+		delete(additionalProperties, "overriddenByMachineId")
 		delete(additionalProperties, "lastValidatedAt")
 		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "updatedAt")

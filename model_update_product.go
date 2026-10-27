@@ -23,6 +23,8 @@ type UpdateProduct struct {
 	// Unique within the organization. Defaults to the name, lower cased, without accents and special characters. Starts with `test_` in test products, which is added when missing, and removed in live products.
 	Slug *string `json:"slug,omitempty" validate:"regexp=^(test_)?[a-z0-9]+(-[a-z0-9]+)*$"`
 	Portal *UpdateProductPortal `json:"portal,omitempty"`
+	// Whether a new machine validating a license already on its max machines takes the place of the license's machine validated the longest ago, rather than being refused with `machine_limit_reached`. When the replaced machine is validated again, it takes its place back and the machine that replaced it is locked. See `validateKey`.
+	AutoMachineChange *bool `json:"autoMachineChange,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -141,6 +143,38 @@ func (o *UpdateProduct) SetPortal(v UpdateProductPortal) {
 	o.Portal = &v
 }
 
+// GetAutoMachineChange returns the AutoMachineChange field value if set, zero value otherwise.
+func (o *UpdateProduct) GetAutoMachineChange() bool {
+	if o == nil || IsNil(o.AutoMachineChange) {
+		var ret bool
+		return ret
+	}
+	return *o.AutoMachineChange
+}
+
+// GetAutoMachineChangeOk returns a tuple with the AutoMachineChange field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateProduct) GetAutoMachineChangeOk() (*bool, bool) {
+	if o == nil || IsNil(o.AutoMachineChange) {
+		return nil, false
+	}
+	return o.AutoMachineChange, true
+}
+
+// HasAutoMachineChange returns a boolean if a field has been set.
+func (o *UpdateProduct) HasAutoMachineChange() bool {
+	if o != nil && !IsNil(o.AutoMachineChange) {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoMachineChange gets a reference to the given bool and assigns it to the AutoMachineChange field.
+func (o *UpdateProduct) SetAutoMachineChange(v bool) {
+	o.AutoMachineChange = &v
+}
+
 func (o UpdateProduct) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -159,6 +193,9 @@ func (o UpdateProduct) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Portal) {
 		toSerialize["portal"] = o.Portal
+	}
+	if !IsNil(o.AutoMachineChange) {
+		toSerialize["autoMachineChange"] = o.AutoMachineChange
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -185,6 +222,7 @@ func (o *UpdateProduct) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "slug")
 		delete(additionalProperties, "portal")
+		delete(additionalProperties, "autoMachineChange")
 		o.AdditionalProperties = additionalProperties
 	}
 

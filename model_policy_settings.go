@@ -25,6 +25,8 @@ type PolicySettings struct {
 	// Longest the applications can run offline with the licenses created with this policy, in seconds, copied to each of them. At least one hour (`3600`). Defaults to one week.
 	MaxOfflineDurationSeconds *int32 `json:"maxOfflineDurationSeconds,omitempty"`
 	MaxVersion NullablePolicySettingsMaxVersion `json:"maxVersion,omitempty"`
+	// Number of days after their creation during which customers can cancel the licenses created with this policy, from the customer portal or with `cancelLicense`, which refunds their Stripe payment. Each license keeps the end of its own period as `cancellableUntil`. `null` for no money back guarantee. Defaults to `null`.
+	MoneyBackGuaranteeDays NullableInt32 `json:"moneyBackGuaranteeDays,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -205,6 +207,48 @@ func (o *PolicySettings) UnsetMaxVersion() {
 	o.MaxVersion.Unset()
 }
 
+// GetMoneyBackGuaranteeDays returns the MoneyBackGuaranteeDays field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PolicySettings) GetMoneyBackGuaranteeDays() int32 {
+	if o == nil || IsNil(o.MoneyBackGuaranteeDays.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.MoneyBackGuaranteeDays.Get()
+}
+
+// GetMoneyBackGuaranteeDaysOk returns a tuple with the MoneyBackGuaranteeDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PolicySettings) GetMoneyBackGuaranteeDaysOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.MoneyBackGuaranteeDays.Get(), o.MoneyBackGuaranteeDays.IsSet()
+}
+
+// HasMoneyBackGuaranteeDays returns a boolean if a field has been set.
+func (o *PolicySettings) HasMoneyBackGuaranteeDays() bool {
+	if o != nil && o.MoneyBackGuaranteeDays.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetMoneyBackGuaranteeDays gets a reference to the given NullableInt32 and assigns it to the MoneyBackGuaranteeDays field.
+func (o *PolicySettings) SetMoneyBackGuaranteeDays(v int32) {
+	o.MoneyBackGuaranteeDays.Set(&v)
+}
+// SetMoneyBackGuaranteeDaysNil sets the value for MoneyBackGuaranteeDays to be an explicit nil
+func (o *PolicySettings) SetMoneyBackGuaranteeDaysNil() {
+	o.MoneyBackGuaranteeDays.Set(nil)
+}
+
+// UnsetMoneyBackGuaranteeDays ensures that no value is present for MoneyBackGuaranteeDays, not even an explicit nil
+func (o *PolicySettings) UnsetMoneyBackGuaranteeDays() {
+	o.MoneyBackGuaranteeDays.Unset()
+}
+
 func (o PolicySettings) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -226,6 +270,9 @@ func (o PolicySettings) ToMap() (map[string]interface{}, error) {
 	}
 	if o.MaxVersion.IsSet() {
 		toSerialize["maxVersion"] = o.MaxVersion.Get()
+	}
+	if o.MoneyBackGuaranteeDays.IsSet() {
+		toSerialize["moneyBackGuaranteeDays"] = o.MoneyBackGuaranteeDays.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -253,6 +300,7 @@ func (o *PolicySettings) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "maxMachines")
 		delete(additionalProperties, "maxOfflineDurationSeconds")
 		delete(additionalProperties, "maxVersion")
+		delete(additionalProperties, "moneyBackGuaranteeDays")
 		o.AdditionalProperties = additionalProperties
 	}
 

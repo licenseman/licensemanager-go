@@ -37,6 +37,8 @@ type CreateLicense struct {
 	MaxOfflineDurationSeconds *int32 `json:"maxOfflineDurationSeconds,omitempty"`
 	Price NullablePriceInput `json:"price,omitempty"`
 	MaxVersion *LicenseMaxVersionInput `json:"maxVersion,omitempty"`
+	// End of the money back guarantee: until then, the customer can cancel the license from the customer portal, or with a token. `null` to not let them. Defaults to the creation date plus the policy's `moneyBackGuaranteeDays`, or `null` when it has none.
+	CancellableUntil NullableTime `json:"cancellableUntil,omitempty"`
 	// `true` emails the key to the customer once the license is created, like `sendLicenseKeys`. Sent in the background: a failed email doesn't fail the creation. In test products, it's only sent when the customer's email is a member's of the organization. Defaults to `false`.
 	SendKey *bool `json:"sendKey,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -373,6 +375,48 @@ func (o *CreateLicense) SetMaxVersion(v LicenseMaxVersionInput) {
 	o.MaxVersion = &v
 }
 
+// GetCancellableUntil returns the CancellableUntil field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateLicense) GetCancellableUntil() time.Time {
+	if o == nil || IsNil(o.CancellableUntil.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CancellableUntil.Get()
+}
+
+// GetCancellableUntilOk returns a tuple with the CancellableUntil field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateLicense) GetCancellableUntilOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.CancellableUntil.Get(), o.CancellableUntil.IsSet()
+}
+
+// HasCancellableUntil returns a boolean if a field has been set.
+func (o *CreateLicense) HasCancellableUntil() bool {
+	if o != nil && o.CancellableUntil.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCancellableUntil gets a reference to the given NullableTime and assigns it to the CancellableUntil field.
+func (o *CreateLicense) SetCancellableUntil(v time.Time) {
+	o.CancellableUntil.Set(&v)
+}
+// SetCancellableUntilNil sets the value for CancellableUntil to be an explicit nil
+func (o *CreateLicense) SetCancellableUntilNil() {
+	o.CancellableUntil.Set(nil)
+}
+
+// UnsetCancellableUntil ensures that no value is present for CancellableUntil, not even an explicit nil
+func (o *CreateLicense) UnsetCancellableUntil() {
+	o.CancellableUntil.Unset()
+}
+
 // GetSendKey returns the SendKey field value if set, zero value otherwise.
 func (o *CreateLicense) GetSendKey() bool {
 	if o == nil || IsNil(o.SendKey) {
@@ -440,6 +484,9 @@ func (o CreateLicense) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MaxVersion) {
 		toSerialize["maxVersion"] = o.MaxVersion
 	}
+	if o.CancellableUntil.IsSet() {
+		toSerialize["cancellableUntil"] = o.CancellableUntil.Get()
+	}
 	if !IsNil(o.SendKey) {
 		toSerialize["sendKey"] = o.SendKey
 	}
@@ -495,6 +542,7 @@ func (o *CreateLicense) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "maxOfflineDurationSeconds")
 		delete(additionalProperties, "price")
 		delete(additionalProperties, "maxVersion")
+		delete(additionalProperties, "cancellableUntil")
 		delete(additionalProperties, "sendKey")
 		o.AdditionalProperties = additionalProperties
 	}

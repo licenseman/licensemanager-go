@@ -118,6 +118,20 @@ func Test_licensemanager_IntegrationsAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test IntegrationsAPIService UpdateIntegration", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.IntegrationsAPI.UpdateIntegration(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test IntegrationsAPIService UpdateStripeMapping", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

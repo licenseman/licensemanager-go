@@ -33,6 +33,8 @@ type Policy struct {
 	// Longest the applications can run offline with the licenses created with this policy, in seconds.
 	MaxOfflineDurationSeconds int32 `json:"maxOfflineDurationSeconds"`
 	MaxVersion NullablePolicyMaxVersion `json:"maxVersion"`
+	// Number of days after their creation during which customers can cancel the licenses created with this policy, from the customer portal or with `cancelLicense`. `null` when they can't.
+	MoneyBackGuaranteeDays NullableInt32 `json:"moneyBackGuaranteeDays"`
 	// Number of licenses following this policy.
 	LicenseCount int32 `json:"licenseCount"`
 	CreatedAt time.Time `json:"createdAt"`
@@ -46,7 +48,7 @@ type _Policy Policy
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPolicy(id string, productId string, slug string, name string, isDefault bool, duration NullablePolicyDuration, maxMachines NullableInt32, maxOfflineDurationSeconds int32, maxVersion NullablePolicyMaxVersion, licenseCount int32, createdAt time.Time, updatedAt time.Time) *Policy {
+func NewPolicy(id string, productId string, slug string, name string, isDefault bool, duration NullablePolicyDuration, maxMachines NullableInt32, maxOfflineDurationSeconds int32, maxVersion NullablePolicyMaxVersion, moneyBackGuaranteeDays NullableInt32, licenseCount int32, createdAt time.Time, updatedAt time.Time) *Policy {
 	this := Policy{}
 	this.Id = id
 	this.ProductId = productId
@@ -57,6 +59,7 @@ func NewPolicy(id string, productId string, slug string, name string, isDefault 
 	this.MaxMachines = maxMachines
 	this.MaxOfflineDurationSeconds = maxOfflineDurationSeconds
 	this.MaxVersion = maxVersion
+	this.MoneyBackGuaranteeDays = moneyBackGuaranteeDays
 	this.LicenseCount = licenseCount
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
@@ -293,6 +296,32 @@ func (o *Policy) SetMaxVersion(v PolicyMaxVersion) {
 	o.MaxVersion.Set(&v)
 }
 
+// GetMoneyBackGuaranteeDays returns the MoneyBackGuaranteeDays field value
+// If the value is explicit nil, the zero value for int32 will be returned
+func (o *Policy) GetMoneyBackGuaranteeDays() int32 {
+	if o == nil || o.MoneyBackGuaranteeDays.Get() == nil {
+		var ret int32
+		return ret
+	}
+
+	return *o.MoneyBackGuaranteeDays.Get()
+}
+
+// GetMoneyBackGuaranteeDaysOk returns a tuple with the MoneyBackGuaranteeDays field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Policy) GetMoneyBackGuaranteeDaysOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.MoneyBackGuaranteeDays.Get(), o.MoneyBackGuaranteeDays.IsSet()
+}
+
+// SetMoneyBackGuaranteeDays sets field value
+func (o *Policy) SetMoneyBackGuaranteeDays(v int32) {
+	o.MoneyBackGuaranteeDays.Set(&v)
+}
+
 // GetLicenseCount returns the LicenseCount field value
 func (o *Policy) GetLicenseCount() int32 {
 	if o == nil {
@@ -384,6 +413,7 @@ func (o Policy) ToMap() (map[string]interface{}, error) {
 	toSerialize["maxMachines"] = o.MaxMachines.Get()
 	toSerialize["maxOfflineDurationSeconds"] = o.MaxOfflineDurationSeconds
 	toSerialize["maxVersion"] = o.MaxVersion.Get()
+	toSerialize["moneyBackGuaranteeDays"] = o.MoneyBackGuaranteeDays.Get()
 	toSerialize["licenseCount"] = o.LicenseCount
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
@@ -409,6 +439,7 @@ func (o *Policy) UnmarshalJSON(data []byte) (err error) {
 		"maxMachines",
 		"maxOfflineDurationSeconds",
 		"maxVersion",
+		"moneyBackGuaranteeDays",
 		"licenseCount",
 		"createdAt",
 		"updatedAt",
@@ -450,6 +481,7 @@ func (o *Policy) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "maxMachines")
 		delete(additionalProperties, "maxOfflineDurationSeconds")
 		delete(additionalProperties, "maxVersion")
+		delete(additionalProperties, "moneyBackGuaranteeDays")
 		delete(additionalProperties, "licenseCount")
 		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "updatedAt")

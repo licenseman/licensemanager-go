@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Livemode** | **bool** | Mode of the Stripe connection the product uses: live for live products, test for test products. | 
 **WebhookUrlReachable** | **bool** | Whether Stripe can reach the API&#39;s webhook URL. A local URL can&#39;t be: set &#x60;WEBHOOK_URL&#x60; on the server, like to a tunnel in development. | 
-**RequiredPermissions** | [**[]StripePermission**](StripePermission.md) | Permissions the restricted API key needs, and why. Every other permission can stay &#x60;None&#x60;. | 
+**RequiredPermissions** | [**[]StripePermission**](StripePermission.md) | Permissions the restricted API key needs, and why, the &#x60;optional&#x60; ones included. Every other permission can stay &#x60;None&#x60;. | 
 **Integration** | [**NullableIntegration**](Integration.md) | The organization&#39;s Stripe connection in this mode, &#x60;null&#x60; when there&#39;s none. | 
 **Mappings** | [**[]IntegrationMapping**](IntegrationMapping.md) | Stripe prices creating licenses of the product. | 
 

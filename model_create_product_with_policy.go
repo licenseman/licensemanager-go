@@ -24,7 +24,7 @@ type CreateProductWithPolicy struct {
 	// Unique within the organization. Defaults to the name, lower cased, without accents and special characters. Starts with `test_` in test products, which is added when missing, and removed in live products.
 	Slug *string `json:"slug,omitempty" validate:"regexp=^(test_)?[a-z0-9]+(-[a-z0-9]+)*$"`
 	DefaultPolicy *PolicySettings `json:"defaultPolicy,omitempty"`
-	// Creates a test product: a sandbox of this live product of the organization, starting with copies of its policies, releases and portal settings.
+	// Creates a test product: a sandbox of this live product of the organization, starting with copies of its policies, releases, portal settings and `autoMachineChange`.
 	IsTestFromProductId *string `json:"isTestFromProductId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

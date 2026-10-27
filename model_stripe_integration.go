@@ -24,7 +24,7 @@ type StripeIntegration struct {
 	Livemode bool `json:"livemode"`
 	// Whether Stripe can reach the API's webhook URL. A local URL can't be: set `WEBHOOK_URL` on the server, like to a tunnel in development.
 	WebhookUrlReachable bool `json:"webhookUrlReachable"`
-	// Permissions the restricted API key needs, and why. Every other permission can stay `None`.
+	// Permissions the restricted API key needs, and why, the `optional` ones included. Every other permission can stay `None`.
 	RequiredPermissions []StripePermission `json:"requiredPermissions"`
 	// The organization's Stripe connection in this mode, `null` when there's none.
 	Integration NullableIntegration `json:"integration"`

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **IsTestFromProductId** | **NullableString** | For test products, id of the live product they&#39;re a sandbox of. &#x60;null&#x60; for live products. | 
 **LogoUrl** | **NullableString** | Public URL of the product&#39;s logo, shown in the web app and the customer portal. &#x60;null&#x60; without a logo. | 
 **Portal** | [**PortalSettings**](PortalSettings.md) |  | 
+**AutoMachineChange** | **bool** | Whether a new machine validating a license already on its max machines takes the place of the license&#39;s machine validated the longest ago, rather than being refused with &#x60;machine_limit_reached&#x60;. When the replaced machine is validated again, it takes its place back and the machine that replaced it is locked. See &#x60;validateKey&#x60;. | 
 **CreatedAt** | **time.Time** |  | 
 **UpdatedAt** | **time.Time** |  | 
 
@@ -17,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewProduct
 
-`func NewProduct(id string, slug string, name string, isTestFromProductId NullableString, logoUrl NullableString, portal PortalSettings, createdAt time.Time, updatedAt time.Time, ) *Product`
+`func NewProduct(id string, slug string, name string, isTestFromProductId NullableString, logoUrl NullableString, portal PortalSettings, autoMachineChange bool, createdAt time.Time, updatedAt time.Time, ) *Product`
 
 NewProduct instantiates a new Product object
 This constructor will assign default values to properties that have it defined,
@@ -170,6 +171,26 @@ and a boolean to check if the value has been set.
 `func (o *Product) SetPortal(v PortalSettings)`
 
 SetPortal sets Portal field to given value.
+
+
+### GetAutoMachineChange
+
+`func (o *Product) GetAutoMachineChange() bool`
+
+GetAutoMachineChange returns the AutoMachineChange field if non-nil, zero value otherwise.
+
+### GetAutoMachineChangeOk
+
+`func (o *Product) GetAutoMachineChangeOk() (*bool, bool)`
+
+GetAutoMachineChangeOk returns a tuple with the AutoMachineChange field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAutoMachineChange
+
+`func (o *Product) SetAutoMachineChange(v bool)`
+
+SetAutoMachineChange sets AutoMachineChange field to given value.
 
 
 ### GetCreatedAt

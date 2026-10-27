@@ -15,7 +15,7 @@ import (
 	"fmt"
 )
 
-// LicenseStatus `expired` when the license has expired, `active` when a machine validated its key in the last 90 days, `inactive` otherwise.
+// LicenseStatus `canceled` when the license was canceled, `expired` when it has expired, `active` when a machine validated its key in the last 90 days, `inactive` otherwise.
 type LicenseStatus string
 
 // List of LicenseStatus
@@ -23,6 +23,7 @@ const (
 	LICENSESTATUS_ACTIVE LicenseStatus = "active"
 	LICENSESTATUS_INACTIVE LicenseStatus = "inactive"
 	LICENSESTATUS_EXPIRED LicenseStatus = "expired"
+	LICENSESTATUS_CANCELED LicenseStatus = "canceled"
 	LICENSESTATUS_UNKNOWN_DEFAULT_OPEN_API LicenseStatus = "unknown_default_open_api"
 )
 
@@ -31,6 +32,7 @@ var AllowedLicenseStatusEnumValues = []LicenseStatus{
 	"active",
 	"inactive",
 	"expired",
+	"canceled",
 	"unknown_default_open_api",
 }
 

@@ -18,14 +18,18 @@ import (
 // checks if the Revenue type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Revenue{}
 
-// Revenue Revenue of the licenses sold in one currency, each license counting on the day it was created. Licenses without a price are left out.
+// Revenue Revenue of the licenses sold in one currency, each license counting on the day it was created. Licenses without a price are left out, and so are canceled ones, but in `canceledLicenseCount` and `canceledTotal`.
 type Revenue struct {
 	// ISO 4217 code of the currency of the revenue.
 	Currency string `json:"currency"`
-	// Number of licenses sold in the currency, free ones included.
+	// Number of licenses sold in the currency, free ones included, canceled ones left out.
 	LicenseCount int32 `json:"licenseCount"`
-	// Sum of the prices of the licenses sold in the currency, in major units.
+	// Sum of the prices of the licenses sold in the currency, in major units, canceled ones left out.
 	Total float32 `json:"total"`
+	// Number of canceled licenses sold in the currency.
+	CanceledLicenseCount int32 `json:"canceledLicenseCount"`
+	// Sum of the prices of the canceled licenses sold in the currency, in major units: revenue lost to cancellations.
+	CanceledTotal float32 `json:"canceledTotal"`
 	// Revenue of the current month, in UTC.
 	ThisMonth float32 `json:"thisMonth"`
 	// Revenue of the previous month, in UTC.
@@ -47,11 +51,13 @@ type _Revenue Revenue
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRevenue(currency string, licenseCount int32, total float32, thisMonth float32, lastMonth float32, last30Days float32, byDay []float32, byMonth []float32, byPolicy []ProductStatsNewLicensesByPolicyInner) *Revenue {
+func NewRevenue(currency string, licenseCount int32, total float32, canceledLicenseCount int32, canceledTotal float32, thisMonth float32, lastMonth float32, last30Days float32, byDay []float32, byMonth []float32, byPolicy []ProductStatsNewLicensesByPolicyInner) *Revenue {
 	this := Revenue{}
 	this.Currency = currency
 	this.LicenseCount = licenseCount
 	this.Total = total
+	this.CanceledLicenseCount = canceledLicenseCount
+	this.CanceledTotal = canceledTotal
 	this.ThisMonth = thisMonth
 	this.LastMonth = lastMonth
 	this.Last30Days = last30Days
@@ -139,6 +145,54 @@ func (o *Revenue) GetTotalOk() (*float32, bool) {
 // SetTotal sets field value
 func (o *Revenue) SetTotal(v float32) {
 	o.Total = v
+}
+
+// GetCanceledLicenseCount returns the CanceledLicenseCount field value
+func (o *Revenue) GetCanceledLicenseCount() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.CanceledLicenseCount
+}
+
+// GetCanceledLicenseCountOk returns a tuple with the CanceledLicenseCount field value
+// and a boolean to check if the value has been set.
+func (o *Revenue) GetCanceledLicenseCountOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CanceledLicenseCount, true
+}
+
+// SetCanceledLicenseCount sets field value
+func (o *Revenue) SetCanceledLicenseCount(v int32) {
+	o.CanceledLicenseCount = v
+}
+
+// GetCanceledTotal returns the CanceledTotal field value
+func (o *Revenue) GetCanceledTotal() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.CanceledTotal
+}
+
+// GetCanceledTotalOk returns a tuple with the CanceledTotal field value
+// and a boolean to check if the value has been set.
+func (o *Revenue) GetCanceledTotalOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CanceledTotal, true
+}
+
+// SetCanceledTotal sets field value
+func (o *Revenue) SetCanceledTotal(v float32) {
+	o.CanceledTotal = v
 }
 
 // GetThisMonth returns the ThisMonth field value
@@ -298,6 +352,8 @@ func (o Revenue) ToMap() (map[string]interface{}, error) {
 	toSerialize["currency"] = o.Currency
 	toSerialize["licenseCount"] = o.LicenseCount
 	toSerialize["total"] = o.Total
+	toSerialize["canceledLicenseCount"] = o.CanceledLicenseCount
+	toSerialize["canceledTotal"] = o.CanceledTotal
 	toSerialize["thisMonth"] = o.ThisMonth
 	toSerialize["lastMonth"] = o.LastMonth
 	toSerialize["last30Days"] = o.Last30Days
@@ -320,6 +376,8 @@ func (o *Revenue) UnmarshalJSON(data []byte) (err error) {
 		"currency",
 		"licenseCount",
 		"total",
+		"canceledLicenseCount",
+		"canceledTotal",
 		"thisMonth",
 		"lastMonth",
 		"last30Days",
@@ -358,6 +416,8 @@ func (o *Revenue) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "currency")
 		delete(additionalProperties, "licenseCount")
 		delete(additionalProperties, "total")
+		delete(additionalProperties, "canceledLicenseCount")
+		delete(additionalProperties, "canceledTotal")
 		delete(additionalProperties, "thisMonth")
 		delete(additionalProperties, "lastMonth")
 		delete(additionalProperties, "last30Days")

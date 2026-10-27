@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **MaxMachines** | **NullableInt32** | Maximum number of active machines of the licenses created with this policy. &#x60;null&#x60; when there&#39;s no limit. | 
 **MaxOfflineDurationSeconds** | **int32** | Longest the applications can run offline with the licenses created with this policy, in seconds. | 
 **MaxVersion** | [**NullablePolicyMaxVersion**](PolicyMaxVersion.md) |  | 
+**MoneyBackGuaranteeDays** | **NullableInt32** | Number of days after their creation during which customers can cancel the licenses created with this policy, from the customer portal or with &#x60;cancelLicense&#x60;. &#x60;null&#x60; when they can&#39;t. | 
 **LicenseCount** | **int32** | Number of licenses following this policy. | 
 **CreatedAt** | **time.Time** |  | 
 **UpdatedAt** | **time.Time** |  | 
@@ -21,7 +22,7 @@ Name | Type | Description | Notes
 
 ### NewPolicy
 
-`func NewPolicy(id string, productId string, slug string, name string, isDefault bool, duration NullablePolicyDuration, maxMachines NullableInt32, maxOfflineDurationSeconds int32, maxVersion NullablePolicyMaxVersion, licenseCount int32, createdAt time.Time, updatedAt time.Time, ) *Policy`
+`func NewPolicy(id string, productId string, slug string, name string, isDefault bool, duration NullablePolicyDuration, maxMachines NullableInt32, maxOfflineDurationSeconds int32, maxVersion NullablePolicyMaxVersion, moneyBackGuaranteeDays NullableInt32, licenseCount int32, createdAt time.Time, updatedAt time.Time, ) *Policy`
 
 NewPolicy instantiates a new Policy object
 This constructor will assign default values to properties that have it defined,
@@ -246,6 +247,36 @@ SetMaxVersion sets MaxVersion field to given value.
 `func (o *Policy) UnsetMaxVersion()`
 
 UnsetMaxVersion ensures that no value is present for MaxVersion, not even an explicit nil
+### GetMoneyBackGuaranteeDays
+
+`func (o *Policy) GetMoneyBackGuaranteeDays() int32`
+
+GetMoneyBackGuaranteeDays returns the MoneyBackGuaranteeDays field if non-nil, zero value otherwise.
+
+### GetMoneyBackGuaranteeDaysOk
+
+`func (o *Policy) GetMoneyBackGuaranteeDaysOk() (*int32, bool)`
+
+GetMoneyBackGuaranteeDaysOk returns a tuple with the MoneyBackGuaranteeDays field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMoneyBackGuaranteeDays
+
+`func (o *Policy) SetMoneyBackGuaranteeDays(v int32)`
+
+SetMoneyBackGuaranteeDays sets MoneyBackGuaranteeDays field to given value.
+
+
+### SetMoneyBackGuaranteeDaysNil
+
+`func (o *Policy) SetMoneyBackGuaranteeDaysNil(b bool)`
+
+ SetMoneyBackGuaranteeDaysNil sets the value for MoneyBackGuaranteeDays to be an explicit nil
+
+### UnsetMoneyBackGuaranteeDays
+`func (o *Policy) UnsetMoneyBackGuaranteeDays()`
+
+UnsetMoneyBackGuaranteeDays ensures that no value is present for MoneyBackGuaranteeDays, not even an explicit nil
 ### GetLicenseCount
 
 `func (o *Policy) GetLicenseCount() int32`

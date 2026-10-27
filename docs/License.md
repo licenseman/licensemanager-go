@@ -20,13 +20,18 @@ Name | Type | Description | Notes
 **MaxVersion** | [**LicenseMaxVersion**](LicenseMaxVersion.md) |  | 
 **Price** | [**NullablePrice**](Price.md) |  | 
 **Status** | [**LicenseStatus**](LicenseStatus.md) |  | 
+**CancellableUntil** | **NullableTime** | End of the money back guarantee: until then, the customer can cancel the license from the customer portal, or with a token. Set from the policy&#39;s &#x60;moneyBackGuaranteeDays&#x60; when the license is created. &#x60;null&#x60; when the customer can&#39;t cancel it. | 
+**CanceledAt** | **NullableTime** | When the license was canceled: validating its key fails since. &#x60;null&#x60; when it wasn&#39;t. | 
+**CancellationReason** | [**CancellationReason**](CancellationReason.md) |  | 
+**CancellationComment** | **NullableString** | Comment given when the license was canceled. &#x60;null&#x60; when there&#39;s none. | 
+**StripeRefundId** | **NullableString** | Id of the Stripe refund of the license&#39;s payment once it was canceled, through the Stripe integration. &#x60;null&#x60; otherwise. | 
 **UpdatedAt** | **time.Time** | Last time the license&#39;s settings were edited, not when its key was validated. | 
 
 ## Methods
 
 ### NewLicense
 
-`func NewLicense(id string, productId string, policyId string, customerId string, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, updatedAt time.Time, ) *License`
+`func NewLicense(id string, productId string, policyId string, customerId string, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason CancellationReason, cancellationComment NullableString, stripeRefundId NullableString, updatedAt time.Time, ) *License`
 
 NewLicense instantiates a new License object
 This constructor will assign default values to properties that have it defined,
@@ -421,6 +426,146 @@ and a boolean to check if the value has been set.
 SetStatus sets Status field to given value.
 
 
+### GetCancellableUntil
+
+`func (o *License) GetCancellableUntil() time.Time`
+
+GetCancellableUntil returns the CancellableUntil field if non-nil, zero value otherwise.
+
+### GetCancellableUntilOk
+
+`func (o *License) GetCancellableUntilOk() (*time.Time, bool)`
+
+GetCancellableUntilOk returns a tuple with the CancellableUntil field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCancellableUntil
+
+`func (o *License) SetCancellableUntil(v time.Time)`
+
+SetCancellableUntil sets CancellableUntil field to given value.
+
+
+### SetCancellableUntilNil
+
+`func (o *License) SetCancellableUntilNil(b bool)`
+
+ SetCancellableUntilNil sets the value for CancellableUntil to be an explicit nil
+
+### UnsetCancellableUntil
+`func (o *License) UnsetCancellableUntil()`
+
+UnsetCancellableUntil ensures that no value is present for CancellableUntil, not even an explicit nil
+### GetCanceledAt
+
+`func (o *License) GetCanceledAt() time.Time`
+
+GetCanceledAt returns the CanceledAt field if non-nil, zero value otherwise.
+
+### GetCanceledAtOk
+
+`func (o *License) GetCanceledAtOk() (*time.Time, bool)`
+
+GetCanceledAtOk returns a tuple with the CanceledAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanceledAt
+
+`func (o *License) SetCanceledAt(v time.Time)`
+
+SetCanceledAt sets CanceledAt field to given value.
+
+
+### SetCanceledAtNil
+
+`func (o *License) SetCanceledAtNil(b bool)`
+
+ SetCanceledAtNil sets the value for CanceledAt to be an explicit nil
+
+### UnsetCanceledAt
+`func (o *License) UnsetCanceledAt()`
+
+UnsetCanceledAt ensures that no value is present for CanceledAt, not even an explicit nil
+### GetCancellationReason
+
+`func (o *License) GetCancellationReason() CancellationReason`
+
+GetCancellationReason returns the CancellationReason field if non-nil, zero value otherwise.
+
+### GetCancellationReasonOk
+
+`func (o *License) GetCancellationReasonOk() (*CancellationReason, bool)`
+
+GetCancellationReasonOk returns a tuple with the CancellationReason field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCancellationReason
+
+`func (o *License) SetCancellationReason(v CancellationReason)`
+
+SetCancellationReason sets CancellationReason field to given value.
+
+
+### GetCancellationComment
+
+`func (o *License) GetCancellationComment() string`
+
+GetCancellationComment returns the CancellationComment field if non-nil, zero value otherwise.
+
+### GetCancellationCommentOk
+
+`func (o *License) GetCancellationCommentOk() (*string, bool)`
+
+GetCancellationCommentOk returns a tuple with the CancellationComment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCancellationComment
+
+`func (o *License) SetCancellationComment(v string)`
+
+SetCancellationComment sets CancellationComment field to given value.
+
+
+### SetCancellationCommentNil
+
+`func (o *License) SetCancellationCommentNil(b bool)`
+
+ SetCancellationCommentNil sets the value for CancellationComment to be an explicit nil
+
+### UnsetCancellationComment
+`func (o *License) UnsetCancellationComment()`
+
+UnsetCancellationComment ensures that no value is present for CancellationComment, not even an explicit nil
+### GetStripeRefundId
+
+`func (o *License) GetStripeRefundId() string`
+
+GetStripeRefundId returns the StripeRefundId field if non-nil, zero value otherwise.
+
+### GetStripeRefundIdOk
+
+`func (o *License) GetStripeRefundIdOk() (*string, bool)`
+
+GetStripeRefundIdOk returns a tuple with the StripeRefundId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStripeRefundId
+
+`func (o *License) SetStripeRefundId(v string)`
+
+SetStripeRefundId sets StripeRefundId field to given value.
+
+
+### SetStripeRefundIdNil
+
+`func (o *License) SetStripeRefundIdNil(b bool)`
+
+ SetStripeRefundIdNil sets the value for StripeRefundId to be an explicit nil
+
+### UnsetStripeRefundId
+`func (o *License) UnsetStripeRefundId()`
+
+UnsetStripeRefundId ensures that no value is present for StripeRefundId, not even an explicit nil
 ### GetUpdatedAt
 
 `func (o *License) GetUpdatedAt() time.Time`

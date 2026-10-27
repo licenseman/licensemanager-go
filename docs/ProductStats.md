@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LicenseCount** | **int32** | Number of licenses of the product. | 
-**ActiveLicenseCount** | **int32** | Number of licenses that haven&#39;t expired, and that a machine validated in the last 90 days. | 
+**ActiveLicenseCount** | **int32** | Number of licenses that haven&#39;t expired nor were canceled, and that a machine validated in the last 90 days. | 
 **NewLicenseCount** | **int32** | Number of licenses created in the last 30 days, today included, in UTC. | 
-**ExpiringLicenseCount** | **int32** | Number of licenses expiring in the next 30 days. | 
-**ExpiredLicenseCount** | **int32** | Number of licenses that expired in the last 30 days. | 
+**ExpiringLicenseCount** | **int32** | Number of licenses expiring in the next 30 days, canceled ones left out. | 
+**ExpiredLicenseCount** | **int32** | Number of licenses that expired in the last 30 days, canceled ones left out. | 
 **ActiveMachineCount** | **int32** | Number of active machines of the licenses of the product. | 
 **InUseLicenseCount** | **int32** | Number of licenses with at least one active machine. | 
-**SeatCount** | **int32** | Sum of the maximum numbers of machines of the licenses that haven&#39;t expired. Licenses without a maximum are left out. | 
+**SeatCount** | **int32** | Sum of the maximum numbers of machines of the licenses that haven&#39;t expired nor were canceled. Licenses without a maximum are left out. | 
 **UsedSeatCount** | **int32** | Number of active machines of the licenses counted in &#x60;seatCount&#x60;, at most their maximum number of machines each. | 
 **FullLicenseCount** | **int32** | Number of licenses counted in &#x60;seatCount&#x60; active on their maximum number of machines. | 
 **Days** | **[]string** | The 30 days covered by the daily stats, from the oldest one, in UTC. | 
@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **NewLicensesByDay** | **[]int32** | Number of licenses created each day, aligned on &#x60;days&#x60;. | 
 **NewLicensesByMonth** | **[]int32** | Number of licenses created each month, aligned on &#x60;months&#x60;. | 
 **NewLicensesByPolicy** | [**[]ProductStatsNewLicensesByPolicyInner**](ProductStatsNewLicensesByPolicyInner.md) | Number of licenses of each policy created each day and each month, for the policies with licenses created over the covered months. | 
+**Cancellation** | [**NullableCancellationStats**](CancellationStats.md) | Cancellations of the licenses with a money back guarantee. &#x60;null&#x60; when no license of the product has one. | 
 **Revenue** | [**[]Revenue**](Revenue.md) | Revenue in each currency licenses were sold in, from the one with the most licenses sold. Amounts aren&#39;t converted between currencies. | 
 **ActivationsByVersion** | [**[]ProductStatsActivationsByVersionInner**](ProductStatsActivationsByVersionInner.md) | Successful activations of the licenses of the product each day, per version of the application, from the most recent one. | 
 **ActiveMachinesByVersion** | [**[]ProductStatsActiveMachinesByVersionInner**](ProductStatsActiveMachinesByVersionInner.md) | Number of active machines running each version of the application, from the most recent one. | 
@@ -28,7 +29,7 @@ Name | Type | Description | Notes
 
 ### NewProductStats
 
-`func NewProductStats(licenseCount int32, activeLicenseCount int32, newLicenseCount int32, expiringLicenseCount int32, expiredLicenseCount int32, activeMachineCount int32, inUseLicenseCount int32, seatCount int32, usedSeatCount int32, fullLicenseCount int32, days []string, months []string, newLicensesByDay []int32, newLicensesByMonth []int32, newLicensesByPolicy []ProductStatsNewLicensesByPolicyInner, revenue []Revenue, activationsByVersion []ProductStatsActivationsByVersionInner, activeMachinesByVersion []ProductStatsActiveMachinesByVersionInner, activeMachinesByPlatform []ProductStatsActiveMachinesByPlatformInner, ) *ProductStats`
+`func NewProductStats(licenseCount int32, activeLicenseCount int32, newLicenseCount int32, expiringLicenseCount int32, expiredLicenseCount int32, activeMachineCount int32, inUseLicenseCount int32, seatCount int32, usedSeatCount int32, fullLicenseCount int32, days []string, months []string, newLicensesByDay []int32, newLicensesByMonth []int32, newLicensesByPolicy []ProductStatsNewLicensesByPolicyInner, cancellation NullableCancellationStats, revenue []Revenue, activationsByVersion []ProductStatsActivationsByVersionInner, activeMachinesByVersion []ProductStatsActiveMachinesByVersionInner, activeMachinesByPlatform []ProductStatsActiveMachinesByPlatformInner, ) *ProductStats`
 
 NewProductStats instantiates a new ProductStats object
 This constructor will assign default values to properties that have it defined,
@@ -343,6 +344,36 @@ and a boolean to check if the value has been set.
 SetNewLicensesByPolicy sets NewLicensesByPolicy field to given value.
 
 
+### GetCancellation
+
+`func (o *ProductStats) GetCancellation() CancellationStats`
+
+GetCancellation returns the Cancellation field if non-nil, zero value otherwise.
+
+### GetCancellationOk
+
+`func (o *ProductStats) GetCancellationOk() (*CancellationStats, bool)`
+
+GetCancellationOk returns a tuple with the Cancellation field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCancellation
+
+`func (o *ProductStats) SetCancellation(v CancellationStats)`
+
+SetCancellation sets Cancellation field to given value.
+
+
+### SetCancellationNil
+
+`func (o *ProductStats) SetCancellationNil(b bool)`
+
+ SetCancellationNil sets the value for Cancellation to be an explicit nil
+
+### UnsetCancellation
+`func (o *ProductStats) UnsetCancellation()`
+
+UnsetCancellation ensures that no value is present for Cancellation, not even an explicit nil
 ### GetRevenue
 
 `func (o *ProductStats) GetRevenue() []Revenue`

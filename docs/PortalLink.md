@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Url** | **string** | Link to the customer portal, holding the token. | 
-**Token** | **string** | Customer token in the link, with the &#x60;customer:read&#x60;, &#x60;license:read&#x60; and &#x60;machine:write&#x60; permissions. | 
+**Token** | **string** | Customer token in the link, with the &#x60;customer:read&#x60;, &#x60;license:read&#x60;, &#x60;license:cancel&#x60; and &#x60;machine:write&#x60; permissions. | 
 **ExpiresAt** | **time.Time** | When the link stops working. | 
 
 ## Methods

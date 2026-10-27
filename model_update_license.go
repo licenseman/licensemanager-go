@@ -31,6 +31,8 @@ type UpdateLicense struct {
 	// Latest version of the product the license can use. The values left out are kept.
 	MaxVersion *LicenseMaxVersionInput `json:"maxVersion,omitempty"`
 	Price NullablePriceInput `json:"price,omitempty"`
+	// End of the money back guarantee: until then, the customer can cancel the license from the customer portal, or with a token. `null` to not let them.
+	CancellableUntil NullableTime `json:"cancellableUntil,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -276,6 +278,48 @@ func (o *UpdateLicense) UnsetPrice() {
 	o.Price.Unset()
 }
 
+// GetCancellableUntil returns the CancellableUntil field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateLicense) GetCancellableUntil() time.Time {
+	if o == nil || IsNil(o.CancellableUntil.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CancellableUntil.Get()
+}
+
+// GetCancellableUntilOk returns a tuple with the CancellableUntil field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateLicense) GetCancellableUntilOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.CancellableUntil.Get(), o.CancellableUntil.IsSet()
+}
+
+// HasCancellableUntil returns a boolean if a field has been set.
+func (o *UpdateLicense) HasCancellableUntil() bool {
+	if o != nil && o.CancellableUntil.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCancellableUntil gets a reference to the given NullableTime and assigns it to the CancellableUntil field.
+func (o *UpdateLicense) SetCancellableUntil(v time.Time) {
+	o.CancellableUntil.Set(&v)
+}
+// SetCancellableUntilNil sets the value for CancellableUntil to be an explicit nil
+func (o *UpdateLicense) SetCancellableUntilNil() {
+	o.CancellableUntil.Set(nil)
+}
+
+// UnsetCancellableUntil ensures that no value is present for CancellableUntil, not even an explicit nil
+func (o *UpdateLicense) UnsetCancellableUntil() {
+	o.CancellableUntil.Unset()
+}
+
 func (o UpdateLicense) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -303,6 +347,9 @@ func (o UpdateLicense) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Price.IsSet() {
 		toSerialize["price"] = o.Price.Get()
+	}
+	if o.CancellableUntil.IsSet() {
+		toSerialize["cancellableUntil"] = o.CancellableUntil.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -332,6 +379,7 @@ func (o *UpdateLicense) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "maxOfflineDurationSeconds")
 		delete(additionalProperties, "maxVersion")
 		delete(additionalProperties, "price")
+		delete(additionalProperties, "cancellableUntil")
 		o.AdditionalProperties = additionalProperties
 	}
 

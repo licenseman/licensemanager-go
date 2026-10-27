@@ -14,13 +14,15 @@ Name | Type | Description | Notes
 **StatusReason** | **NullableString** | Why the integration isn&#39;t &#x60;active&#x60;, &#x60;null&#x60; when it is. | 
 **LastCheckedAt** | **NullableTime** | Last time its health was checked, done every day. | 
 **LastEventAt** | **NullableTime** | Last time it received an event from the provider. | 
+**AutoRefund** | **bool** | Whether canceling a license bought through Stripe refunds its payment. On by default, always off when &#x60;canRefund&#x60; is false. | 
+**CanRefund** | **bool** | Whether the API key has the optional Refunds: Write permission, checked when connecting and every day. Without it, canceled licenses aren&#39;t refunded: refund their payments from Stripe. | 
 **CreatedAt** | **time.Time** |  | 
 
 ## Methods
 
 ### NewIntegration
 
-`func NewIntegration(id string, provider string, livemode bool, accountName NullableString, apiKeyHint string, webhookUrl string, status IntegrationStatus, statusReason NullableString, lastCheckedAt NullableTime, lastEventAt NullableTime, createdAt time.Time, ) *Integration`
+`func NewIntegration(id string, provider string, livemode bool, accountName NullableString, apiKeyHint string, webhookUrl string, status IntegrationStatus, statusReason NullableString, lastCheckedAt NullableTime, lastEventAt NullableTime, autoRefund bool, canRefund bool, createdAt time.Time, ) *Integration`
 
 NewIntegration instantiates a new Integration object
 This constructor will assign default values to properties that have it defined,
@@ -275,6 +277,46 @@ SetLastEventAt sets LastEventAt field to given value.
 `func (o *Integration) UnsetLastEventAt()`
 
 UnsetLastEventAt ensures that no value is present for LastEventAt, not even an explicit nil
+### GetAutoRefund
+
+`func (o *Integration) GetAutoRefund() bool`
+
+GetAutoRefund returns the AutoRefund field if non-nil, zero value otherwise.
+
+### GetAutoRefundOk
+
+`func (o *Integration) GetAutoRefundOk() (*bool, bool)`
+
+GetAutoRefundOk returns a tuple with the AutoRefund field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAutoRefund
+
+`func (o *Integration) SetAutoRefund(v bool)`
+
+SetAutoRefund sets AutoRefund field to given value.
+
+
+### GetCanRefund
+
+`func (o *Integration) GetCanRefund() bool`
+
+GetCanRefund returns the CanRefund field if non-nil, zero value otherwise.
+
+### GetCanRefundOk
+
+`func (o *Integration) GetCanRefundOk() (*bool, bool)`
+
+GetCanRefundOk returns a tuple with the CanRefund field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanRefund
+
+`func (o *Integration) SetCanRefund(v bool)`
+
+SetCanRefund sets CanRefund field to given value.
+
+
 ### GetCreatedAt
 
 `func (o *Integration) GetCreatedAt() time.Time`

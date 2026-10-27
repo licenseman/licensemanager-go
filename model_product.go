@@ -29,6 +29,8 @@ type Product struct {
 	// Public URL of the product's logo, shown in the web app and the customer portal. `null` without a logo.
 	LogoUrl NullableString `json:"logoUrl"`
 	Portal PortalSettings `json:"portal"`
+	// Whether a new machine validating a license already on its max machines takes the place of the license's machine validated the longest ago, rather than being refused with `machine_limit_reached`. When the replaced machine is validated again, it takes its place back and the machine that replaced it is locked. See `validateKey`.
+	AutoMachineChange bool `json:"autoMachineChange"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 	AdditionalProperties map[string]interface{}
@@ -40,7 +42,7 @@ type _Product Product
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewProduct(id string, slug string, name string, isTestFromProductId NullableString, logoUrl NullableString, portal PortalSettings, createdAt time.Time, updatedAt time.Time) *Product {
+func NewProduct(id string, slug string, name string, isTestFromProductId NullableString, logoUrl NullableString, portal PortalSettings, autoMachineChange bool, createdAt time.Time, updatedAt time.Time) *Product {
 	this := Product{}
 	this.Id = id
 	this.Slug = slug
@@ -48,6 +50,7 @@ func NewProduct(id string, slug string, name string, isTestFromProductId Nullabl
 	this.IsTestFromProductId = isTestFromProductId
 	this.LogoUrl = logoUrl
 	this.Portal = portal
+	this.AutoMachineChange = autoMachineChange
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
 	return &this
@@ -209,6 +212,30 @@ func (o *Product) SetPortal(v PortalSettings) {
 	o.Portal = v
 }
 
+// GetAutoMachineChange returns the AutoMachineChange field value
+func (o *Product) GetAutoMachineChange() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.AutoMachineChange
+}
+
+// GetAutoMachineChangeOk returns a tuple with the AutoMachineChange field value
+// and a boolean to check if the value has been set.
+func (o *Product) GetAutoMachineChangeOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AutoMachineChange, true
+}
+
+// SetAutoMachineChange sets field value
+func (o *Product) SetAutoMachineChange(v bool) {
+	o.AutoMachineChange = v
+}
+
 // GetCreatedAt returns the CreatedAt field value
 func (o *Product) GetCreatedAt() time.Time {
 	if o == nil {
@@ -273,6 +300,7 @@ func (o Product) ToMap() (map[string]interface{}, error) {
 	toSerialize["isTestFromProductId"] = o.IsTestFromProductId.Get()
 	toSerialize["logoUrl"] = o.LogoUrl.Get()
 	toSerialize["portal"] = o.Portal
+	toSerialize["autoMachineChange"] = o.AutoMachineChange
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
 
@@ -294,6 +322,7 @@ func (o *Product) UnmarshalJSON(data []byte) (err error) {
 		"isTestFromProductId",
 		"logoUrl",
 		"portal",
+		"autoMachineChange",
 		"createdAt",
 		"updatedAt",
 	}
@@ -331,6 +360,7 @@ func (o *Product) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "isTestFromProductId")
 		delete(additionalProperties, "logoUrl")
 		delete(additionalProperties, "portal")
+		delete(additionalProperties, "autoMachineChange")
 		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "updatedAt")
 		o.AdditionalProperties = additionalProperties

@@ -38,6 +38,10 @@ type Integration struct {
 	LastCheckedAt NullableTime `json:"lastCheckedAt"`
 	// Last time it received an event from the provider.
 	LastEventAt NullableTime `json:"lastEventAt"`
+	// Whether canceling a license bought through Stripe refunds its payment. On by default, always off when `canRefund` is false.
+	AutoRefund bool `json:"autoRefund"`
+	// Whether the API key has the optional Refunds: Write permission, checked when connecting and every day. Without it, canceled licenses aren't refunded: refund their payments from Stripe.
+	CanRefund bool `json:"canRefund"`
 	CreatedAt time.Time `json:"createdAt"`
 	AdditionalProperties map[string]interface{}
 }
@@ -48,7 +52,7 @@ type _Integration Integration
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIntegration(id string, provider string, livemode bool, accountName NullableString, apiKeyHint string, webhookUrl string, status IntegrationStatus, statusReason NullableString, lastCheckedAt NullableTime, lastEventAt NullableTime, createdAt time.Time) *Integration {
+func NewIntegration(id string, provider string, livemode bool, accountName NullableString, apiKeyHint string, webhookUrl string, status IntegrationStatus, statusReason NullableString, lastCheckedAt NullableTime, lastEventAt NullableTime, autoRefund bool, canRefund bool, createdAt time.Time) *Integration {
 	this := Integration{}
 	this.Id = id
 	this.Provider = provider
@@ -60,6 +64,8 @@ func NewIntegration(id string, provider string, livemode bool, accountName Nulla
 	this.StatusReason = statusReason
 	this.LastCheckedAt = lastCheckedAt
 	this.LastEventAt = lastEventAt
+	this.AutoRefund = autoRefund
+	this.CanRefund = canRefund
 	this.CreatedAt = createdAt
 	return &this
 }
@@ -320,6 +326,54 @@ func (o *Integration) SetLastEventAt(v time.Time) {
 	o.LastEventAt.Set(&v)
 }
 
+// GetAutoRefund returns the AutoRefund field value
+func (o *Integration) GetAutoRefund() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.AutoRefund
+}
+
+// GetAutoRefundOk returns a tuple with the AutoRefund field value
+// and a boolean to check if the value has been set.
+func (o *Integration) GetAutoRefundOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AutoRefund, true
+}
+
+// SetAutoRefund sets field value
+func (o *Integration) SetAutoRefund(v bool) {
+	o.AutoRefund = v
+}
+
+// GetCanRefund returns the CanRefund field value
+func (o *Integration) GetCanRefund() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.CanRefund
+}
+
+// GetCanRefundOk returns a tuple with the CanRefund field value
+// and a boolean to check if the value has been set.
+func (o *Integration) GetCanRefundOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CanRefund, true
+}
+
+// SetCanRefund sets field value
+func (o *Integration) SetCanRefund(v bool) {
+	o.CanRefund = v
+}
+
 // GetCreatedAt returns the CreatedAt field value
 func (o *Integration) GetCreatedAt() time.Time {
 	if o == nil {
@@ -364,6 +418,8 @@ func (o Integration) ToMap() (map[string]interface{}, error) {
 	toSerialize["statusReason"] = o.StatusReason.Get()
 	toSerialize["lastCheckedAt"] = o.LastCheckedAt.Get()
 	toSerialize["lastEventAt"] = o.LastEventAt.Get()
+	toSerialize["autoRefund"] = o.AutoRefund
+	toSerialize["canRefund"] = o.CanRefund
 	toSerialize["createdAt"] = o.CreatedAt
 
 	for key, value := range o.AdditionalProperties {
@@ -388,6 +444,8 @@ func (o *Integration) UnmarshalJSON(data []byte) (err error) {
 		"statusReason",
 		"lastCheckedAt",
 		"lastEventAt",
+		"autoRefund",
+		"canRefund",
 		"createdAt",
 	}
 
@@ -428,6 +486,8 @@ func (o *Integration) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "statusReason")
 		delete(additionalProperties, "lastCheckedAt")
 		delete(additionalProperties, "lastEventAt")
+		delete(additionalProperties, "autoRefund")
+		delete(additionalProperties, "canRefund")
 		delete(additionalProperties, "createdAt")
 		o.AdditionalProperties = additionalProperties
 	}

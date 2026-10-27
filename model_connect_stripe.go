@@ -20,7 +20,7 @@ var _ MappedNullable = &ConnectStripe{}
 
 // ConnectStripe struct for ConnectStripe
 type ConnectStripe struct {
-	// Restricted API key of the Stripe account (`rk_live_…` for live products, `rk_test_…` for test products), with the `requiredPermissions` of `getStripeIntegration`. A secret key works too, but gives the app more access than it needs.
+	// Restricted API key of the Stripe account (`rk_live_…` for live products, `rk_test_…` for test products), with the `requiredPermissions` of `getStripeIntegration`. Without the optional ones, it connects with what they're for turned off. A secret key works too, but gives the app more access than it needs.
 	ApiKey string `json:"apiKey"`
 	AdditionalProperties map[string]interface{}
 }

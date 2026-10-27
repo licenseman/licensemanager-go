@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **MaxOfflineDurationSeconds** | Pointer to **int32** | Longest the applications can run offline with the license, in seconds. At least one hour (&#x60;3600&#x60;). Defaults to the one of the policy. | [optional] 
 **Price** | Pointer to [**NullablePriceInput**](PriceInput.md) |  | [optional] 
 **MaxVersion** | Pointer to [**LicenseMaxVersionInput**](LicenseMaxVersionInput.md) |  | [optional] 
+**CancellableUntil** | Pointer to **NullableTime** | End of the money back guarantee: until then, the customer can cancel the license from the customer portal, or with a token. &#x60;null&#x60; to not let them. Defaults to the creation date plus the policy&#39;s &#x60;moneyBackGuaranteeDays&#x60;, or &#x60;null&#x60; when it has none. | [optional] 
 **SendKey** | Pointer to **bool** | &#x60;true&#x60; emails the key to the customer once the license is created, like &#x60;sendLicenseKeys&#x60;. Sent in the background: a failed email doesn&#39;t fail the creation. In test products, it&#39;s only sent when the customer&#39;s email is a member&#39;s of the organization. Defaults to &#x60;false&#x60;. | [optional] 
 
 ## Methods
@@ -294,6 +295,41 @@ SetMaxVersion sets MaxVersion field to given value.
 
 HasMaxVersion returns a boolean if a field has been set.
 
+### GetCancellableUntil
+
+`func (o *CreateLicense) GetCancellableUntil() time.Time`
+
+GetCancellableUntil returns the CancellableUntil field if non-nil, zero value otherwise.
+
+### GetCancellableUntilOk
+
+`func (o *CreateLicense) GetCancellableUntilOk() (*time.Time, bool)`
+
+GetCancellableUntilOk returns a tuple with the CancellableUntil field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCancellableUntil
+
+`func (o *CreateLicense) SetCancellableUntil(v time.Time)`
+
+SetCancellableUntil sets CancellableUntil field to given value.
+
+### HasCancellableUntil
+
+`func (o *CreateLicense) HasCancellableUntil() bool`
+
+HasCancellableUntil returns a boolean if a field has been set.
+
+### SetCancellableUntilNil
+
+`func (o *CreateLicense) SetCancellableUntilNil(b bool)`
+
+ SetCancellableUntilNil sets the value for CancellableUntil to be an explicit nil
+
+### UnsetCancellableUntil
+`func (o *CreateLicense) UnsetCancellableUntil()`
+
+UnsetCancellableUntil ensures that no value is present for CancellableUntil, not even an explicit nil
 ### GetSendKey
 
 `func (o *CreateLicense) GetSendKey() bool`

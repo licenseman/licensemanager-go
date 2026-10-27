@@ -4,6 +4,7 @@ All URIs are relative to *https://api.licensemanager.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CancelLicense**](LicensesAPI.md#CancelLicense) | **Post** /v1/licenses/{id}/cancel | Cancel a license
 [**CreateLicense**](LicensesAPI.md#CreateLicense) | **Post** /v1/products/{productId}/licenses | Create a license
 [**DeleteLicense**](LicensesAPI.md#DeleteLicense) | **Delete** /v1/licenses/{id} | Delete a license
 [**GetLicense**](LicensesAPI.md#GetLicense) | **Get** /v1/licenses/{id} | Get a license
@@ -15,6 +16,78 @@ Method | HTTP request | Description
 [**UpdateLicense**](LicensesAPI.md#UpdateLicense) | **Patch** /v1/licenses/{id} | Update a license
 [**ValidateKey**](LicensesAPI.md#ValidateKey) | **Post** /v1/products/{productId}/validate-key | Validate a license key
 
+
+
+## CancelLicense
+
+> License CancelLicense(ctx, id).CancelLicense(cancelLicense).Execute()
+
+Cancel a license
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/licenseman/licensemanager-go"
+)
+
+func main() {
+	id := "l3Nv8KwB" // string | 
+	cancelLicense := *openapiclient.NewCancelLicense(openapiclient.CancellationReason("too_expensive")) // CancelLicense | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LicensesAPI.CancelLicense(context.Background(), id).CancelLicense(cancelLicense).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LicensesAPI.CancelLicense``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CancelLicense`: License
+	fmt.Fprintf(os.Stdout, "Response from `LicensesAPI.CancelLicense`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCancelLicenseRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **cancelLicense** | [**CancelLicense**](CancelLicense.md) |  | 
+
+### Return type
+
+[**License**](License.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [token](../README.md#token)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## CreateLicense

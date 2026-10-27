@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **MaxOfflineDurationSeconds** | Pointer to **int32** | Longest the applications can run offline with the license, in seconds. At least one hour (&#x60;3600&#x60;). | [optional] 
 **MaxVersion** | Pointer to [**LicenseMaxVersionInput**](LicenseMaxVersionInput.md) | Latest version of the product the license can use. The values left out are kept. | [optional] 
 **Price** | Pointer to [**NullablePriceInput**](PriceInput.md) |  | [optional] 
+**CancellableUntil** | Pointer to **NullableTime** | End of the money back guarantee: until then, the customer can cancel the license from the customer portal, or with a token. &#x60;null&#x60; to not let them. | [optional] 
 
 ## Methods
 
@@ -220,6 +221,41 @@ HasPrice returns a boolean if a field has been set.
 `func (o *UpdateLicense) UnsetPrice()`
 
 UnsetPrice ensures that no value is present for Price, not even an explicit nil
+### GetCancellableUntil
+
+`func (o *UpdateLicense) GetCancellableUntil() time.Time`
+
+GetCancellableUntil returns the CancellableUntil field if non-nil, zero value otherwise.
+
+### GetCancellableUntilOk
+
+`func (o *UpdateLicense) GetCancellableUntilOk() (*time.Time, bool)`
+
+GetCancellableUntilOk returns a tuple with the CancellableUntil field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCancellableUntil
+
+`func (o *UpdateLicense) SetCancellableUntil(v time.Time)`
+
+SetCancellableUntil sets CancellableUntil field to given value.
+
+### HasCancellableUntil
+
+`func (o *UpdateLicense) HasCancellableUntil() bool`
+
+HasCancellableUntil returns a boolean if a field has been set.
+
+### SetCancellableUntilNil
+
+`func (o *UpdateLicense) SetCancellableUntilNil(b bool)`
+
+ SetCancellableUntilNil sets the value for CancellableUntil to be an explicit nil
+
+### UnsetCancellableUntil
+`func (o *UpdateLicense) UnsetCancellableUntil()`
+
+UnsetCancellableUntil ensures that no value is present for CancellableUntil, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

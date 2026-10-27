@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**DisconnectIntegration**](IntegrationsAPI.md#DisconnectIntegration) | **Delete** /v1/integrations/{id} | Disconnect an integration
 [**GetStripeIntegration**](IntegrationsAPI.md#GetStripeIntegration) | **Get** /v1/products/{productId}/integrations/stripe | Get the Stripe integration of a product
 [**ListStripePrices**](IntegrationsAPI.md#ListStripePrices) | **Get** /v1/integrations/{id}/stripe/prices | List the Stripe prices of an integration
+[**UpdateIntegration**](IntegrationsAPI.md#UpdateIntegration) | **Patch** /v1/integrations/{id} | Update an integration
 [**UpdateStripeMapping**](IntegrationsAPI.md#UpdateStripeMapping) | **Patch** /v1/integration-mappings/{id} | Change the policy of a mapping
 
 
@@ -498,6 +499,78 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateIntegration
+
+> Integration UpdateIntegration(ctx, id).UpdateIntegration(updateIntegration).Execute()
+
+Update an integration
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/licenseman/licensemanager-go"
+)
+
+func main() {
+	id := "i8Fz4QnRt" // string | 
+	updateIntegration := *openapiclient.NewUpdateIntegration() // UpdateIntegration | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.UpdateIntegration(context.Background(), id).UpdateIntegration(updateIntegration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.UpdateIntegration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateIntegration`: Integration
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.UpdateIntegration`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateIntegrationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **updateIntegration** | [**UpdateIntegration**](UpdateIntegration.md) |  | 
+
+### Return type
+
+[**Integration**](Integration.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

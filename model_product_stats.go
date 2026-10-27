@@ -22,19 +22,19 @@ var _ MappedNullable = &ProductStats{}
 type ProductStats struct {
 	// Number of licenses of the product.
 	LicenseCount int32 `json:"licenseCount"`
-	// Number of licenses that haven't expired, and that a machine validated in the last 90 days.
+	// Number of licenses that haven't expired nor were canceled, and that a machine validated in the last 90 days.
 	ActiveLicenseCount int32 `json:"activeLicenseCount"`
 	// Number of licenses created in the last 30 days, today included, in UTC.
 	NewLicenseCount int32 `json:"newLicenseCount"`
-	// Number of licenses expiring in the next 30 days.
+	// Number of licenses expiring in the next 30 days, canceled ones left out.
 	ExpiringLicenseCount int32 `json:"expiringLicenseCount"`
-	// Number of licenses that expired in the last 30 days.
+	// Number of licenses that expired in the last 30 days, canceled ones left out.
 	ExpiredLicenseCount int32 `json:"expiredLicenseCount"`
 	// Number of active machines of the licenses of the product.
 	ActiveMachineCount int32 `json:"activeMachineCount"`
 	// Number of licenses with at least one active machine.
 	InUseLicenseCount int32 `json:"inUseLicenseCount"`
-	// Sum of the maximum numbers of machines of the licenses that haven't expired. Licenses without a maximum are left out.
+	// Sum of the maximum numbers of machines of the licenses that haven't expired nor were canceled. Licenses without a maximum are left out.
 	SeatCount int32 `json:"seatCount"`
 	// Number of active machines of the licenses counted in `seatCount`, at most their maximum number of machines each.
 	UsedSeatCount int32 `json:"usedSeatCount"`
@@ -50,6 +50,8 @@ type ProductStats struct {
 	NewLicensesByMonth []int32 `json:"newLicensesByMonth"`
 	// Number of licenses of each policy created each day and each month, for the policies with licenses created over the covered months.
 	NewLicensesByPolicy []ProductStatsNewLicensesByPolicyInner `json:"newLicensesByPolicy"`
+	// Cancellations of the licenses with a money back guarantee. `null` when no license of the product has one.
+	Cancellation NullableCancellationStats `json:"cancellation"`
 	// Revenue in each currency licenses were sold in, from the one with the most licenses sold. Amounts aren't converted between currencies.
 	Revenue []Revenue `json:"revenue"`
 	// Successful activations of the licenses of the product each day, per version of the application, from the most recent one.
@@ -67,7 +69,7 @@ type _ProductStats ProductStats
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewProductStats(licenseCount int32, activeLicenseCount int32, newLicenseCount int32, expiringLicenseCount int32, expiredLicenseCount int32, activeMachineCount int32, inUseLicenseCount int32, seatCount int32, usedSeatCount int32, fullLicenseCount int32, days []string, months []string, newLicensesByDay []int32, newLicensesByMonth []int32, newLicensesByPolicy []ProductStatsNewLicensesByPolicyInner, revenue []Revenue, activationsByVersion []ProductStatsActivationsByVersionInner, activeMachinesByVersion []ProductStatsActiveMachinesByVersionInner, activeMachinesByPlatform []ProductStatsActiveMachinesByPlatformInner) *ProductStats {
+func NewProductStats(licenseCount int32, activeLicenseCount int32, newLicenseCount int32, expiringLicenseCount int32, expiredLicenseCount int32, activeMachineCount int32, inUseLicenseCount int32, seatCount int32, usedSeatCount int32, fullLicenseCount int32, days []string, months []string, newLicensesByDay []int32, newLicensesByMonth []int32, newLicensesByPolicy []ProductStatsNewLicensesByPolicyInner, cancellation NullableCancellationStats, revenue []Revenue, activationsByVersion []ProductStatsActivationsByVersionInner, activeMachinesByVersion []ProductStatsActiveMachinesByVersionInner, activeMachinesByPlatform []ProductStatsActiveMachinesByPlatformInner) *ProductStats {
 	this := ProductStats{}
 	this.LicenseCount = licenseCount
 	this.ActiveLicenseCount = activeLicenseCount
@@ -84,6 +86,7 @@ func NewProductStats(licenseCount int32, activeLicenseCount int32, newLicenseCou
 	this.NewLicensesByDay = newLicensesByDay
 	this.NewLicensesByMonth = newLicensesByMonth
 	this.NewLicensesByPolicy = newLicensesByPolicy
+	this.Cancellation = cancellation
 	this.Revenue = revenue
 	this.ActivationsByVersion = activationsByVersion
 	this.ActiveMachinesByVersion = activeMachinesByVersion
@@ -459,6 +462,32 @@ func (o *ProductStats) SetNewLicensesByPolicy(v []ProductStatsNewLicensesByPolic
 	o.NewLicensesByPolicy = v
 }
 
+// GetCancellation returns the Cancellation field value
+// If the value is explicit nil, the zero value for CancellationStats will be returned
+func (o *ProductStats) GetCancellation() CancellationStats {
+	if o == nil || o.Cancellation.Get() == nil {
+		var ret CancellationStats
+		return ret
+	}
+
+	return *o.Cancellation.Get()
+}
+
+// GetCancellationOk returns a tuple with the Cancellation field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ProductStats) GetCancellationOk() (*CancellationStats, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Cancellation.Get(), o.Cancellation.IsSet()
+}
+
+// SetCancellation sets field value
+func (o *ProductStats) SetCancellation(v CancellationStats) {
+	o.Cancellation.Set(&v)
+}
+
 // GetRevenue returns the Revenue field value
 func (o *ProductStats) GetRevenue() []Revenue {
 	if o == nil {
@@ -580,6 +609,7 @@ func (o ProductStats) ToMap() (map[string]interface{}, error) {
 	toSerialize["newLicensesByDay"] = o.NewLicensesByDay
 	toSerialize["newLicensesByMonth"] = o.NewLicensesByMonth
 	toSerialize["newLicensesByPolicy"] = o.NewLicensesByPolicy
+	toSerialize["cancellation"] = o.Cancellation.Get()
 	toSerialize["revenue"] = o.Revenue
 	toSerialize["activationsByVersion"] = o.ActivationsByVersion
 	toSerialize["activeMachinesByVersion"] = o.ActiveMachinesByVersion
@@ -612,6 +642,7 @@ func (o *ProductStats) UnmarshalJSON(data []byte) (err error) {
 		"newLicensesByDay",
 		"newLicensesByMonth",
 		"newLicensesByPolicy",
+		"cancellation",
 		"revenue",
 		"activationsByVersion",
 		"activeMachinesByVersion",
@@ -660,6 +691,7 @@ func (o *ProductStats) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "newLicensesByDay")
 		delete(additionalProperties, "newLicensesByMonth")
 		delete(additionalProperties, "newLicensesByPolicy")
+		delete(additionalProperties, "cancellation")
 		delete(additionalProperties, "revenue")
 		delete(additionalProperties, "activationsByVersion")
 		delete(additionalProperties, "activeMachinesByVersion")

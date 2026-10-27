@@ -5,8 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Currency** | **string** | ISO 4217 code of the currency of the revenue. | 
-**LicenseCount** | **int32** | Number of licenses sold in the currency, free ones included. | 
-**Total** | **float32** | Sum of the prices of the licenses sold in the currency, in major units. | 
+**LicenseCount** | **int32** | Number of licenses sold in the currency, free ones included, canceled ones left out. | 
+**Total** | **float32** | Sum of the prices of the licenses sold in the currency, in major units, canceled ones left out. | 
+**CanceledLicenseCount** | **int32** | Number of canceled licenses sold in the currency. | 
+**CanceledTotal** | **float32** | Sum of the prices of the canceled licenses sold in the currency, in major units: revenue lost to cancellations. | 
 **ThisMonth** | **float32** | Revenue of the current month, in UTC. | 
 **LastMonth** | **float32** | Revenue of the previous month, in UTC. | 
 **Last30Days** | **float32** | Revenue of the last 30 days, today included, in UTC. | 
@@ -18,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewRevenue
 
-`func NewRevenue(currency string, licenseCount int32, total float32, thisMonth float32, lastMonth float32, last30Days float32, byDay []float32, byMonth []float32, byPolicy []ProductStatsNewLicensesByPolicyInner, ) *Revenue`
+`func NewRevenue(currency string, licenseCount int32, total float32, canceledLicenseCount int32, canceledTotal float32, thisMonth float32, lastMonth float32, last30Days float32, byDay []float32, byMonth []float32, byPolicy []ProductStatsNewLicensesByPolicyInner, ) *Revenue`
 
 NewRevenue instantiates a new Revenue object
 This constructor will assign default values to properties that have it defined,
@@ -91,6 +93,46 @@ and a boolean to check if the value has been set.
 `func (o *Revenue) SetTotal(v float32)`
 
 SetTotal sets Total field to given value.
+
+
+### GetCanceledLicenseCount
+
+`func (o *Revenue) GetCanceledLicenseCount() int32`
+
+GetCanceledLicenseCount returns the CanceledLicenseCount field if non-nil, zero value otherwise.
+
+### GetCanceledLicenseCountOk
+
+`func (o *Revenue) GetCanceledLicenseCountOk() (*int32, bool)`
+
+GetCanceledLicenseCountOk returns a tuple with the CanceledLicenseCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanceledLicenseCount
+
+`func (o *Revenue) SetCanceledLicenseCount(v int32)`
+
+SetCanceledLicenseCount sets CanceledLicenseCount field to given value.
+
+
+### GetCanceledTotal
+
+`func (o *Revenue) GetCanceledTotal() float32`
+
+GetCanceledTotal returns the CanceledTotal field if non-nil, zero value otherwise.
+
+### GetCanceledTotalOk
+
+`func (o *Revenue) GetCanceledTotalOk() (*float32, bool)`
+
+GetCanceledTotalOk returns a tuple with the CanceledTotal field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanceledTotal
+
+`func (o *Revenue) SetCanceledTotal(v float32)`
+
+SetCanceledTotal sets CanceledTotal field to given value.
 
 
 ### GetThisMonth

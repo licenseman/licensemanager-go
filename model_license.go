@@ -45,6 +45,15 @@ type License struct {
 	MaxVersion LicenseMaxVersion `json:"maxVersion"`
 	Price NullablePrice `json:"price"`
 	Status LicenseStatus `json:"status"`
+	// End of the money back guarantee: until then, the customer can cancel the license from the customer portal, or with a token. Set from the policy's `moneyBackGuaranteeDays` when the license is created. `null` when the customer can't cancel it.
+	CancellableUntil NullableTime `json:"cancellableUntil"`
+	// When the license was canceled: validating its key fails since. `null` when it wasn't.
+	CanceledAt NullableTime `json:"canceledAt"`
+	CancellationReason CancellationReason `json:"cancellationReason"`
+	// Comment given when the license was canceled. `null` when there's none.
+	CancellationComment NullableString `json:"cancellationComment"`
+	// Id of the Stripe refund of the license's payment once it was canceled, through the Stripe integration. `null` otherwise.
+	StripeRefundId NullableString `json:"stripeRefundId"`
 	// Last time the license's settings were edited, not when its key was validated.
 	UpdatedAt time.Time `json:"updatedAt"`
 	AdditionalProperties map[string]interface{}
@@ -56,7 +65,7 @@ type _License License
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLicense(id string, productId string, policyId string, customerId string, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, updatedAt time.Time) *License {
+func NewLicense(id string, productId string, policyId string, customerId string, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason CancellationReason, cancellationComment NullableString, stripeRefundId NullableString, updatedAt time.Time) *License {
 	this := License{}
 	this.Id = id
 	this.ProductId = productId
@@ -74,6 +83,11 @@ func NewLicense(id string, productId string, policyId string, customerId string,
 	this.MaxVersion = maxVersion
 	this.Price = price
 	this.Status = status
+	this.CancellableUntil = cancellableUntil
+	this.CanceledAt = canceledAt
+	this.CancellationReason = cancellationReason
+	this.CancellationComment = cancellationComment
+	this.StripeRefundId = stripeRefundId
 	this.UpdatedAt = updatedAt
 	return &this
 }
@@ -482,6 +496,134 @@ func (o *License) SetStatus(v LicenseStatus) {
 	o.Status = v
 }
 
+// GetCancellableUntil returns the CancellableUntil field value
+// If the value is explicit nil, the zero value for time.Time will be returned
+func (o *License) GetCancellableUntil() time.Time {
+	if o == nil || o.CancellableUntil.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return *o.CancellableUntil.Get()
+}
+
+// GetCancellableUntilOk returns a tuple with the CancellableUntil field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *License) GetCancellableUntilOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.CancellableUntil.Get(), o.CancellableUntil.IsSet()
+}
+
+// SetCancellableUntil sets field value
+func (o *License) SetCancellableUntil(v time.Time) {
+	o.CancellableUntil.Set(&v)
+}
+
+// GetCanceledAt returns the CanceledAt field value
+// If the value is explicit nil, the zero value for time.Time will be returned
+func (o *License) GetCanceledAt() time.Time {
+	if o == nil || o.CanceledAt.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return *o.CanceledAt.Get()
+}
+
+// GetCanceledAtOk returns a tuple with the CanceledAt field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *License) GetCanceledAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.CanceledAt.Get(), o.CanceledAt.IsSet()
+}
+
+// SetCanceledAt sets field value
+func (o *License) SetCanceledAt(v time.Time) {
+	o.CanceledAt.Set(&v)
+}
+
+// GetCancellationReason returns the CancellationReason field value
+func (o *License) GetCancellationReason() CancellationReason {
+	if o == nil {
+		var ret CancellationReason
+		return ret
+	}
+
+	return o.CancellationReason
+}
+
+// GetCancellationReasonOk returns a tuple with the CancellationReason field value
+// and a boolean to check if the value has been set.
+func (o *License) GetCancellationReasonOk() (*CancellationReason, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CancellationReason, true
+}
+
+// SetCancellationReason sets field value
+func (o *License) SetCancellationReason(v CancellationReason) {
+	o.CancellationReason = v
+}
+
+// GetCancellationComment returns the CancellationComment field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *License) GetCancellationComment() string {
+	if o == nil || o.CancellationComment.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.CancellationComment.Get()
+}
+
+// GetCancellationCommentOk returns a tuple with the CancellationComment field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *License) GetCancellationCommentOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.CancellationComment.Get(), o.CancellationComment.IsSet()
+}
+
+// SetCancellationComment sets field value
+func (o *License) SetCancellationComment(v string) {
+	o.CancellationComment.Set(&v)
+}
+
+// GetStripeRefundId returns the StripeRefundId field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *License) GetStripeRefundId() string {
+	if o == nil || o.StripeRefundId.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.StripeRefundId.Get()
+}
+
+// GetStripeRefundIdOk returns a tuple with the StripeRefundId field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *License) GetStripeRefundIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.StripeRefundId.Get(), o.StripeRefundId.IsSet()
+}
+
+// SetStripeRefundId sets field value
+func (o *License) SetStripeRefundId(v string) {
+	o.StripeRefundId.Set(&v)
+}
+
 // GetUpdatedAt returns the UpdatedAt field value
 func (o *License) GetUpdatedAt() time.Time {
 	if o == nil {
@@ -534,6 +676,11 @@ func (o License) ToMap() (map[string]interface{}, error) {
 	toSerialize["maxVersion"] = o.MaxVersion
 	toSerialize["price"] = o.Price.Get()
 	toSerialize["status"] = o.Status
+	toSerialize["cancellableUntil"] = o.CancellableUntil.Get()
+	toSerialize["canceledAt"] = o.CanceledAt.Get()
+	toSerialize["cancellationReason"] = o.CancellationReason
+	toSerialize["cancellationComment"] = o.CancellationComment.Get()
+	toSerialize["stripeRefundId"] = o.StripeRefundId.Get()
 	toSerialize["updatedAt"] = o.UpdatedAt
 
 	for key, value := range o.AdditionalProperties {
@@ -564,6 +711,11 @@ func (o *License) UnmarshalJSON(data []byte) (err error) {
 		"maxVersion",
 		"price",
 		"status",
+		"cancellableUntil",
+		"canceledAt",
+		"cancellationReason",
+		"cancellationComment",
+		"stripeRefundId",
 		"updatedAt",
 	}
 
@@ -610,6 +762,11 @@ func (o *License) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "maxVersion")
 		delete(additionalProperties, "price")
 		delete(additionalProperties, "status")
+		delete(additionalProperties, "cancellableUntil")
+		delete(additionalProperties, "canceledAt")
+		delete(additionalProperties, "cancellationReason")
+		delete(additionalProperties, "cancellationComment")
+		delete(additionalProperties, "stripeRefundId")
 		delete(additionalProperties, "updatedAt")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -9,8 +9,9 @@ Name | Type | Description | Notes
 **Fingerprint** | **string** | Identifies the machine. Unique within the license. | 
 **Platform** | **NullableString** |  | 
 **Name** | **NullableString** |  | 
-**Status** | **string** | Whether the machine counts as using the license. | 
+**Status** | **string** | Whether the machine counts as using the license. A &#x60;locked&#x60; machine doesn&#39;t, and its validations are refused with &#x60;machine_locked&#x60;: it overrode a machine that came back. See &#x60;validateKey&#x60;. | 
 **Version** | **NullableString** | Version of the application last validated on the machine. | 
+**OverriddenByMachineId** | **NullableString** | For a machine deactivated or locked by automatic machine changes, the machine that took its place. Validating the key on a deactivated machine that has one takes its place back. &#x60;null&#x60; otherwise. | 
 **LastValidatedAt** | **NullableTime** | When the license was last validated on the machine. | 
 **CreatedAt** | **time.Time** |  | 
 **UpdatedAt** | **time.Time** |  | 
@@ -19,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewMachine
 
-`func NewMachine(id string, licenseId string, fingerprint string, platform NullableString, name NullableString, status string, version NullableString, lastValidatedAt NullableTime, createdAt time.Time, updatedAt time.Time, ) *Machine`
+`func NewMachine(id string, licenseId string, fingerprint string, platform NullableString, name NullableString, status string, version NullableString, overriddenByMachineId NullableString, lastValidatedAt NullableTime, createdAt time.Time, updatedAt time.Time, ) *Machine`
 
 NewMachine instantiates a new Machine object
 This constructor will assign default values to properties that have it defined,
@@ -204,6 +205,36 @@ SetVersion sets Version field to given value.
 `func (o *Machine) UnsetVersion()`
 
 UnsetVersion ensures that no value is present for Version, not even an explicit nil
+### GetOverriddenByMachineId
+
+`func (o *Machine) GetOverriddenByMachineId() string`
+
+GetOverriddenByMachineId returns the OverriddenByMachineId field if non-nil, zero value otherwise.
+
+### GetOverriddenByMachineIdOk
+
+`func (o *Machine) GetOverriddenByMachineIdOk() (*string, bool)`
+
+GetOverriddenByMachineIdOk returns a tuple with the OverriddenByMachineId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOverriddenByMachineId
+
+`func (o *Machine) SetOverriddenByMachineId(v string)`
+
+SetOverriddenByMachineId sets OverriddenByMachineId field to given value.
+
+
+### SetOverriddenByMachineIdNil
+
+`func (o *Machine) SetOverriddenByMachineIdNil(b bool)`
+
+ SetOverriddenByMachineIdNil sets the value for OverriddenByMachineId to be an explicit nil
+
+### UnsetOverriddenByMachineId
+`func (o *Machine) UnsetOverriddenByMachineId()`
+
+UnsetOverriddenByMachineId ensures that no value is present for OverriddenByMachineId, not even an explicit nil
 ### GetLastValidatedAt
 
 `func (o *Machine) GetLastValidatedAt() time.Time`

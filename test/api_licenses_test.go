@@ -22,6 +22,20 @@ func Test_licensemanager_LicensesAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test LicensesAPIService CancelLicense", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.LicensesAPI.CancelLicense(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test LicensesAPIService CreateLicense", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **Slug** | Pointer to **string** | Unique within the organization. Defaults to the name, lower cased, without accents and special characters. Starts with &#x60;test_&#x60; in test products, which is added when missing, and removed in live products. | [optional] 
 **Portal** | Pointer to [**UpdateProductPortal**](UpdateProductPortal.md) |  | [optional] 
+**AutoMachineChange** | Pointer to **bool** | Whether a new machine validating a license already on its max machines takes the place of the license&#39;s machine validated the longest ago, rather than being refused with &#x60;machine_limit_reached&#x60;. When the replaced machine is validated again, it takes its place back and the machine that replaced it is locked. See &#x60;validateKey&#x60;. | [optional] 
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetPortal sets Portal field to given value.
 `func (o *UpdateProduct) HasPortal() bool`
 
 HasPortal returns a boolean if a field has been set.
+
+### GetAutoMachineChange
+
+`func (o *UpdateProduct) GetAutoMachineChange() bool`
+
+GetAutoMachineChange returns the AutoMachineChange field if non-nil, zero value otherwise.
+
+### GetAutoMachineChangeOk
+
+`func (o *UpdateProduct) GetAutoMachineChangeOk() (*bool, bool)`
+
+GetAutoMachineChangeOk returns a tuple with the AutoMachineChange field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAutoMachineChange
+
+`func (o *UpdateProduct) SetAutoMachineChange(v bool)`
+
+SetAutoMachineChange sets AutoMachineChange field to given value.
+
+### HasAutoMachineChange
+
+`func (o *UpdateProduct) HasAutoMachineChange() bool`
+
+HasAutoMachineChange returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
