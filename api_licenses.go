@@ -1222,7 +1222,7 @@ func (r ApiListCustomerLicensesRequest) Sort(sort string) ApiListCustomerLicense
 	return r
 }
 
-// Case-insensitive text the key contains.
+// Case-insensitive text the key or the email of the customer contains.
 func (r ApiListCustomerLicensesRequest) Search(search string) ApiListCustomerLicensesRequest {
 	r.search = &search
 	return r
@@ -1629,7 +1629,7 @@ func (r ApiListLicensesRequest) Sort(sort string) ApiListLicensesRequest {
 	return r
 }
 
-// Case-insensitive text the key contains.
+// Case-insensitive text the key or the email of the customer contains.
 func (r ApiListLicensesRequest) Search(search string) ApiListLicensesRequest {
 	r.search = &search
 	return r

@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **ProductId** | **string** |  | 
 **PolicyId** | **string** |  | 
 **CustomerId** | **string** |  | 
+**Customer** | [**LicenseCustomer**](LicenseCustomer.md) |  | 
 **Key** | **string** | Unique within the product. Case sensitive: &#x60;validateKey&#x60; compares keys exactly. | 
 **CreatedAt** | **time.Time** |  | 
 **ExpiresAt** | **NullableTime** | &#x60;null&#x60; when the license never expires. | 
@@ -32,7 +33,7 @@ Name | Type | Description | Notes
 
 ### NewLicense
 
-`func NewLicense(id string, productId string, policyId string, customerId string, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason CancellationReason, subscription NullableLicenseSubscription, cancellationComment NullableString, stripeRefundId NullableString, updatedAt time.Time, ) *License`
+`func NewLicense(id string, productId string, policyId string, customerId string, customer LicenseCustomer, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason CancellationReason, subscription NullableLicenseSubscription, cancellationComment NullableString, stripeRefundId NullableString, updatedAt time.Time, ) *License`
 
 NewLicense instantiates a new License object
 This constructor will assign default values to properties that have it defined,
@@ -125,6 +126,26 @@ and a boolean to check if the value has been set.
 `func (o *License) SetCustomerId(v string)`
 
 SetCustomerId sets CustomerId field to given value.
+
+
+### GetCustomer
+
+`func (o *License) GetCustomer() LicenseCustomer`
+
+GetCustomer returns the Customer field if non-nil, zero value otherwise.
+
+### GetCustomerOk
+
+`func (o *License) GetCustomerOk() (*LicenseCustomer, bool)`
+
+GetCustomerOk returns a tuple with the Customer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomer
+
+`func (o *License) SetCustomer(v LicenseCustomer)`
+
+SetCustomer sets Customer field to given value.
 
 
 ### GetKey

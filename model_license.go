@@ -25,6 +25,7 @@ type License struct {
 	ProductId string `json:"productId"`
 	PolicyId string `json:"policyId"`
 	CustomerId string `json:"customerId"`
+	Customer LicenseCustomer `json:"customer"`
 	// Unique within the product. Case sensitive: `validateKey` compares keys exactly.
 	Key string `json:"key"`
 	CreatedAt time.Time `json:"createdAt"`
@@ -66,12 +67,13 @@ type _License License
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLicense(id string, productId string, policyId string, customerId string, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason CancellationReason, subscription NullableLicenseSubscription, cancellationComment NullableString, stripeRefundId NullableString, updatedAt time.Time) *License {
+func NewLicense(id string, productId string, policyId string, customerId string, customer LicenseCustomer, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason CancellationReason, subscription NullableLicenseSubscription, cancellationComment NullableString, stripeRefundId NullableString, updatedAt time.Time) *License {
 	this := License{}
 	this.Id = id
 	this.ProductId = productId
 	this.PolicyId = policyId
 	this.CustomerId = customerId
+	this.Customer = customer
 	this.Key = key
 	this.CreatedAt = createdAt
 	this.ExpiresAt = expiresAt
@@ -196,6 +198,30 @@ func (o *License) GetCustomerIdOk() (*string, bool) {
 // SetCustomerId sets field value
 func (o *License) SetCustomerId(v string) {
 	o.CustomerId = v
+}
+
+// GetCustomer returns the Customer field value
+func (o *License) GetCustomer() LicenseCustomer {
+	if o == nil {
+		var ret LicenseCustomer
+		return ret
+	}
+
+	return o.Customer
+}
+
+// GetCustomerOk returns a tuple with the Customer field value
+// and a boolean to check if the value has been set.
+func (o *License) GetCustomerOk() (*LicenseCustomer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Customer, true
+}
+
+// SetCustomer sets field value
+func (o *License) SetCustomer(v LicenseCustomer) {
+	o.Customer = v
 }
 
 // GetKey returns the Key field value
@@ -690,6 +716,7 @@ func (o License) ToMap() (map[string]interface{}, error) {
 	toSerialize["productId"] = o.ProductId
 	toSerialize["policyId"] = o.PolicyId
 	toSerialize["customerId"] = o.CustomerId
+	toSerialize["customer"] = o.Customer
 	toSerialize["key"] = o.Key
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["expiresAt"] = o.ExpiresAt.Get()
@@ -728,6 +755,7 @@ func (o *License) UnmarshalJSON(data []byte) (err error) {
 		"productId",
 		"policyId",
 		"customerId",
+		"customer",
 		"key",
 		"createdAt",
 		"expiresAt",
@@ -780,6 +808,7 @@ func (o *License) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "productId")
 		delete(additionalProperties, "policyId")
 		delete(additionalProperties, "customerId")
+		delete(additionalProperties, "customer")
 		delete(additionalProperties, "key")
 		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "expiresAt")
