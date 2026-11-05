@@ -114,6 +114,9 @@ docs/Revenue.md
 docs/SendLicenseKeys.md
 docs/SendPortalLink.md
 docs/SigningKey.md
+docs/SlackAuthorize.md
+docs/SlackConnection.md
+docs/SlackIntegration.md
 docs/StripeIntegration.md
 docs/StripePermission.md
 docs/StripePrice.md
@@ -129,6 +132,7 @@ docs/UpdatePolicy.md
 docs/UpdateProduct.md
 docs/UpdateProductPortal.md
 docs/UpdateRelease.md
+docs/UpdateSlackConnection.md
 docs/ValidateKey.md
 docs/ValidateKeyError.md
 docs/ValidateKeyErrorError.md
@@ -225,6 +229,9 @@ model_revenue.go
 model_send_license_keys.go
 model_send_portal_link.go
 model_signing_key.go
+model_slack_authorize.go
+model_slack_connection.go
+model_slack_integration.go
 model_stripe_integration.go
 model_stripe_permission.go
 model_stripe_price.go
@@ -239,6 +246,7 @@ model_update_policy.go
 model_update_product.go
 model_update_product_portal.go
 model_update_release.go
+model_update_slack_connection.go
 model_validate_key.go
 model_validate_key_error.go
 model_validate_key_error_error.go

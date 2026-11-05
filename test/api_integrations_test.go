@@ -22,6 +22,20 @@ func Test_licensemanager_IntegrationsAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test IntegrationsAPIService AuthorizeSlack", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var productId string
+
+		resp, httpRes, err := apiClient.IntegrationsAPI.AuthorizeSlack(context.Background(), productId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test IntegrationsAPIService CheckIntegration", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -64,6 +78,19 @@ func Test_licensemanager_IntegrationsAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test IntegrationsAPIService DeleteSlackConnection", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+
+		httpRes, err := apiClient.IntegrationsAPI.DeleteSlackConnection(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test IntegrationsAPIService DeleteStripeMapping", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -86,6 +113,20 @@ func Test_licensemanager_IntegrationsAPIService(t *testing.T) {
 		httpRes, err := apiClient.IntegrationsAPI.DisconnectIntegration(context.Background(), id).Execute()
 
 		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IntegrationsAPIService GetSlackIntegration", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var productId string
+
+		resp, httpRes, err := apiClient.IntegrationsAPI.GetSlackIntegration(context.Background(), productId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
@@ -118,6 +159,20 @@ func Test_licensemanager_IntegrationsAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test IntegrationsAPIService TestSlackConnection", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.IntegrationsAPI.TestSlackConnection(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test IntegrationsAPIService UpdateIntegration", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -125,6 +180,20 @@ func Test_licensemanager_IntegrationsAPIService(t *testing.T) {
 		var id string
 
 		resp, httpRes, err := apiClient.IntegrationsAPI.UpdateIntegration(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IntegrationsAPIService UpdateSlackConnection", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.IntegrationsAPI.UpdateSlackConnection(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

@@ -4,16 +4,91 @@ All URIs are relative to *https://api.licensemanager.dev*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**AuthorizeSlack**](IntegrationsAPI.md#AuthorizeSlack) | **Post** /v1/products/{productId}/integrations/slack/authorize | Start connecting a Slack channel
 [**CheckIntegration**](IntegrationsAPI.md#CheckIntegration) | **Post** /v1/integrations/{id}/check | Check an integration
 [**ConnectStripe**](IntegrationsAPI.md#ConnectStripe) | **Put** /v1/products/{productId}/integrations/stripe | Connect Stripe
 [**CreateStripeMapping**](IntegrationsAPI.md#CreateStripeMapping) | **Post** /v1/products/{productId}/integrations/stripe/mappings | Map a Stripe price to a policy
+[**DeleteSlackConnection**](IntegrationsAPI.md#DeleteSlackConnection) | **Delete** /v1/slack-connections/{id} | Remove a Slack connection
 [**DeleteStripeMapping**](IntegrationsAPI.md#DeleteStripeMapping) | **Delete** /v1/integration-mappings/{id} | Delete a mapping
 [**DisconnectIntegration**](IntegrationsAPI.md#DisconnectIntegration) | **Delete** /v1/integrations/{id} | Disconnect an integration
+[**GetSlackIntegration**](IntegrationsAPI.md#GetSlackIntegration) | **Get** /v1/products/{productId}/integrations/slack | Get the Slack integration of a product
 [**GetStripeIntegration**](IntegrationsAPI.md#GetStripeIntegration) | **Get** /v1/products/{productId}/integrations/stripe | Get the Stripe integration of a product
 [**ListStripePrices**](IntegrationsAPI.md#ListStripePrices) | **Get** /v1/integrations/{id}/stripe/prices | List the Stripe prices of an integration
+[**TestSlackConnection**](IntegrationsAPI.md#TestSlackConnection) | **Post** /v1/slack-connections/{id}/test | Send a test message to a Slack channel
 [**UpdateIntegration**](IntegrationsAPI.md#UpdateIntegration) | **Patch** /v1/integrations/{id} | Update an integration
+[**UpdateSlackConnection**](IntegrationsAPI.md#UpdateSlackConnection) | **Patch** /v1/slack-connections/{id} | Update a Slack connection
 [**UpdateStripeMapping**](IntegrationsAPI.md#UpdateStripeMapping) | **Patch** /v1/integration-mappings/{id} | Change the policy of a mapping
 
+
+
+## AuthorizeSlack
+
+> SlackAuthorize AuthorizeSlack(ctx, productId).Execute()
+
+Start connecting a Slack channel
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/licenseman/licensemanager-go"
+)
+
+func main() {
+	productId := "x7Kp2QaZ" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.AuthorizeSlack(context.Background(), productId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.AuthorizeSlack``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AuthorizeSlack`: SlackAuthorize
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.AuthorizeSlack`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**productId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAuthorizeSlackRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**SlackAuthorize**](SlackAuthorize.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## CheckIntegration
@@ -230,6 +305,74 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## DeleteSlackConnection
+
+> DeleteSlackConnection(ctx, id).Execute()
+
+Remove a Slack connection
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/licenseman/licensemanager-go"
+)
+
+func main() {
+	id := "s4Hq8ZpLm" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IntegrationsAPI.DeleteSlackConnection(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.DeleteSlackConnection``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteSlackConnectionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## DeleteStripeMapping
 
 > DeleteStripeMapping(ctx, id).Execute()
@@ -351,6 +494,76 @@ Name | Type | Description  | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSlackIntegration
+
+> SlackIntegration GetSlackIntegration(ctx, productId).Execute()
+
+Get the Slack integration of a product
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/licenseman/licensemanager-go"
+)
+
+func main() {
+	productId := "x7Kp2QaZ" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.GetSlackIntegration(context.Background(), productId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.GetSlackIntegration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSlackIntegration`: SlackIntegration
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.GetSlackIntegration`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**productId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSlackIntegrationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**SlackIntegration**](SlackIntegration.md)
 
 ### Authorization
 
@@ -506,6 +719,76 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## TestSlackConnection
+
+> SlackConnection TestSlackConnection(ctx, id).Execute()
+
+Send a test message to a Slack channel
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/licenseman/licensemanager-go"
+)
+
+func main() {
+	id := "s4Hq8ZpLm" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.TestSlackConnection(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.TestSlackConnection``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TestSlackConnection`: SlackConnection
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.TestSlackConnection`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiTestSlackConnectionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**SlackConnection**](SlackConnection.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## UpdateIntegration
 
 > Integration UpdateIntegration(ctx, id).UpdateIntegration(updateIntegration).Execute()
@@ -563,6 +846,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Integration**](Integration.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateSlackConnection
+
+> SlackConnection UpdateSlackConnection(ctx, id).UpdateSlackConnection(updateSlackConnection).Execute()
+
+Update a Slack connection
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/licenseman/licensemanager-go"
+)
+
+func main() {
+	id := "s4Hq8ZpLm" // string | 
+	updateSlackConnection := *openapiclient.NewUpdateSlackConnection([]string{"Events_example"}) // UpdateSlackConnection | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.UpdateSlackConnection(context.Background(), id).UpdateSlackConnection(updateSlackConnection).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.UpdateSlackConnection``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateSlackConnection`: SlackConnection
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.UpdateSlackConnection`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateSlackConnectionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **updateSlackConnection** | [**UpdateSlackConnection**](UpdateSlackConnection.md) |  | 
+
+### Return type
+
+[**SlackConnection**](SlackConnection.md)
 
 ### Authorization
 
