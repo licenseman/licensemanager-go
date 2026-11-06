@@ -50,7 +50,8 @@ type License struct {
 	CancellableUntil NullableTime `json:"cancellableUntil"`
 	// When the license was canceled: validating its key fails since. `null` when it wasn't.
 	CanceledAt NullableTime `json:"canceledAt"`
-	CancellationReason CancellationReason `json:"cancellationReason"`
+	// Why the license was canceled. `null` when it wasn't.
+	CancellationReason NullableCancellationReason `json:"cancellationReason"`
 	Subscription NullableLicenseSubscription `json:"subscription"`
 	// Comment given when the license was canceled. `null` when there's none.
 	CancellationComment NullableString `json:"cancellationComment"`
@@ -67,7 +68,7 @@ type _License License
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLicense(id string, productId string, policyId string, customerId string, customer LicenseCustomer, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason CancellationReason, subscription NullableLicenseSubscription, cancellationComment NullableString, stripeRefundId NullableString, updatedAt time.Time) *License {
+func NewLicense(id string, productId string, policyId string, customerId string, customer LicenseCustomer, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason NullableCancellationReason, subscription NullableLicenseSubscription, cancellationComment NullableString, stripeRefundId NullableString, updatedAt time.Time) *License {
 	this := License{}
 	this.Id = id
 	this.ProductId = productId
@@ -577,27 +578,29 @@ func (o *License) SetCanceledAt(v time.Time) {
 }
 
 // GetCancellationReason returns the CancellationReason field value
+// If the value is explicit nil, the zero value for CancellationReason will be returned
 func (o *License) GetCancellationReason() CancellationReason {
-	if o == nil {
+	if o == nil || o.CancellationReason.Get() == nil {
 		var ret CancellationReason
 		return ret
 	}
 
-	return o.CancellationReason
+	return *o.CancellationReason.Get()
 }
 
 // GetCancellationReasonOk returns a tuple with the CancellationReason field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *License) GetCancellationReasonOk() (*CancellationReason, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.CancellationReason, true
+	return o.CancellationReason.Get(), o.CancellationReason.IsSet()
 }
 
 // SetCancellationReason sets field value
 func (o *License) SetCancellationReason(v CancellationReason) {
-	o.CancellationReason = v
+	o.CancellationReason.Set(&v)
 }
 
 // GetSubscription returns the Subscription field value
@@ -733,7 +736,7 @@ func (o License) ToMap() (map[string]interface{}, error) {
 	toSerialize["status"] = o.Status
 	toSerialize["cancellableUntil"] = o.CancellableUntil.Get()
 	toSerialize["canceledAt"] = o.CanceledAt.Get()
-	toSerialize["cancellationReason"] = o.CancellationReason
+	toSerialize["cancellationReason"] = o.CancellationReason.Get()
 	toSerialize["subscription"] = o.Subscription.Get()
 	toSerialize["cancellationComment"] = o.CancellationComment.Get()
 	toSerialize["stripeRefundId"] = o.StripeRefundId.Get()
