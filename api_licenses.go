@@ -1188,6 +1188,7 @@ type ApiListCustomerLicensesRequest struct {
 	key *string
 	policyId *string
 	machineVersion *string
+	machinePlatform *string
 	status *LicenseStatus
 	createdFrom *time.Time
 	createdTo *time.Time
@@ -1243,6 +1244,12 @@ func (r ApiListCustomerLicensesRequest) PolicyId(policyId string) ApiListCustome
 // Only returns the licenses with at least one active machine running this version of the product.
 func (r ApiListCustomerLicensesRequest) MachineVersion(machineVersion string) ApiListCustomerLicensesRequest {
 	r.machineVersion = &machineVersion
+	return r
+}
+
+// Only returns the licenses with at least one active machine on this platform.
+func (r ApiListCustomerLicensesRequest) MachinePlatform(machinePlatform string) ApiListCustomerLicensesRequest {
+	r.machinePlatform = &machinePlatform
 	return r
 }
 
@@ -1407,6 +1414,9 @@ func (a *LicensesAPIService) ListCustomerLicensesExecute(r ApiListCustomerLicens
 	}
 	if r.machineVersion != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "machineVersion", r.machineVersion, "form", "")
+	}
+	if r.machinePlatform != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "machinePlatform", r.machinePlatform, "form", "")
 	}
 	if r.status != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
@@ -1595,6 +1605,7 @@ type ApiListLicensesRequest struct {
 	policyId *string
 	customerId *string
 	machineVersion *string
+	machinePlatform *string
 	status *LicenseStatus
 	createdFrom *time.Time
 	createdTo *time.Time
@@ -1656,6 +1667,12 @@ func (r ApiListLicensesRequest) CustomerId(customerId string) ApiListLicensesReq
 // Only returns the licenses with at least one active machine running this version of the product.
 func (r ApiListLicensesRequest) MachineVersion(machineVersion string) ApiListLicensesRequest {
 	r.machineVersion = &machineVersion
+	return r
+}
+
+// Only returns the licenses with at least one active machine on this platform.
+func (r ApiListLicensesRequest) MachinePlatform(machinePlatform string) ApiListLicensesRequest {
+	r.machinePlatform = &machinePlatform
 	return r
 }
 
@@ -1821,6 +1838,9 @@ func (a *LicensesAPIService) ListLicensesExecute(r ApiListLicensesRequest) (*Lic
 	}
 	if r.machineVersion != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "machineVersion", r.machineVersion, "form", "")
+	}
+	if r.machinePlatform != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "machinePlatform", r.machinePlatform, "form", "")
 	}
 	if r.status != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")

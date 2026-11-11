@@ -433,7 +433,7 @@ Other parameters are passed through a pointer to a apiGetSigningKeyRequest struc
 
 ## ListCustomerLicenses
 
-> LicenseList ListCustomerLicenses(ctx, customerId).Page(page).PageSize(pageSize).Sort(sort).Search(search).Key(key).PolicyId(policyId).MachineVersion(machineVersion).Status(status).CreatedFrom(createdFrom).CreatedTo(createdTo).LastActivatedFrom(lastActivatedFrom).LastActivatedTo(lastActivatedTo).NeverActivated(neverActivated).ExpiresFrom(expiresFrom).ExpiresTo(expiresTo).NeverExpires(neverExpires).Currency(currency).Price(price).PriceMin(priceMin).PriceMax(priceMax).HasPrice(hasPrice).Execute()
+> LicenseList ListCustomerLicenses(ctx, customerId).Page(page).PageSize(pageSize).Sort(sort).Search(search).Key(key).PolicyId(policyId).MachineVersion(machineVersion).MachinePlatform(machinePlatform).Status(status).CreatedFrom(createdFrom).CreatedTo(createdTo).LastActivatedFrom(lastActivatedFrom).LastActivatedTo(lastActivatedTo).NeverActivated(neverActivated).ExpiresFrom(expiresFrom).ExpiresTo(expiresTo).NeverExpires(neverExpires).Currency(currency).Price(price).PriceMin(priceMin).PriceMax(priceMax).HasPrice(hasPrice).Execute()
 
 List the licenses of a customer
 
@@ -461,6 +461,7 @@ func main() {
 	key := "7KQ2M-X9ZPA-H4TRC-WN6EY-B3JDF" // string | Only returns the license with this exact key, case included. Keys of test products start with `TEST-`. (optional)
 	policyId := "p4Rt8LmQ" // string | Only returns the licenses following this policy. (optional)
 	machineVersion := "2.3.1" // string | Only returns the licenses with at least one active machine running this version of the product. (optional)
+	machinePlatform := "macOS 15.1" // string | Only returns the licenses with at least one active machine on this platform. (optional)
 	status := openapiclient.LicenseStatus("active") // LicenseStatus | Only returns the licenses with this status. (optional)
 	createdFrom := time.Now() // time.Time | Only returns the licenses created at or after this date. (optional)
 	createdTo := time.Now() // time.Time | Only returns the licenses created at or before this date. (optional)
@@ -478,7 +479,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LicensesAPI.ListCustomerLicenses(context.Background(), customerId).Page(page).PageSize(pageSize).Sort(sort).Search(search).Key(key).PolicyId(policyId).MachineVersion(machineVersion).Status(status).CreatedFrom(createdFrom).CreatedTo(createdTo).LastActivatedFrom(lastActivatedFrom).LastActivatedTo(lastActivatedTo).NeverActivated(neverActivated).ExpiresFrom(expiresFrom).ExpiresTo(expiresTo).NeverExpires(neverExpires).Currency(currency).Price(price).PriceMin(priceMin).PriceMax(priceMax).HasPrice(hasPrice).Execute()
+	resp, r, err := apiClient.LicensesAPI.ListCustomerLicenses(context.Background(), customerId).Page(page).PageSize(pageSize).Sort(sort).Search(search).Key(key).PolicyId(policyId).MachineVersion(machineVersion).MachinePlatform(machinePlatform).Status(status).CreatedFrom(createdFrom).CreatedTo(createdTo).LastActivatedFrom(lastActivatedFrom).LastActivatedTo(lastActivatedTo).NeverActivated(neverActivated).ExpiresFrom(expiresFrom).ExpiresTo(expiresTo).NeverExpires(neverExpires).Currency(currency).Price(price).PriceMin(priceMin).PriceMax(priceMax).HasPrice(hasPrice).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LicensesAPI.ListCustomerLicenses``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -511,6 +512,7 @@ Name | Type | Description  | Notes
  **key** | **string** | Only returns the license with this exact key, case included. Keys of test products start with &#x60;TEST-&#x60;. | 
  **policyId** | **string** | Only returns the licenses following this policy. | 
  **machineVersion** | **string** | Only returns the licenses with at least one active machine running this version of the product. | 
+ **machinePlatform** | **string** | Only returns the licenses with at least one active machine on this platform. | 
  **status** | [**LicenseStatus**](LicenseStatus.md) | Only returns the licenses with this status. | 
  **createdFrom** | **time.Time** | Only returns the licenses created at or after this date. | 
  **createdTo** | **time.Time** | Only returns the licenses created at or before this date. | 
@@ -546,7 +548,7 @@ Name | Type | Description  | Notes
 
 ## ListLicenses
 
-> LicenseList ListLicenses(ctx, productId).Page(page).PageSize(pageSize).Sort(sort).Search(search).Key(key).PolicyId(policyId).CustomerId(customerId).MachineVersion(machineVersion).Status(status).CreatedFrom(createdFrom).CreatedTo(createdTo).LastActivatedFrom(lastActivatedFrom).LastActivatedTo(lastActivatedTo).NeverActivated(neverActivated).ExpiresFrom(expiresFrom).ExpiresTo(expiresTo).NeverExpires(neverExpires).Currency(currency).Price(price).PriceMin(priceMin).PriceMax(priceMax).HasPrice(hasPrice).Execute()
+> LicenseList ListLicenses(ctx, productId).Page(page).PageSize(pageSize).Sort(sort).Search(search).Key(key).PolicyId(policyId).CustomerId(customerId).MachineVersion(machineVersion).MachinePlatform(machinePlatform).Status(status).CreatedFrom(createdFrom).CreatedTo(createdTo).LastActivatedFrom(lastActivatedFrom).LastActivatedTo(lastActivatedTo).NeverActivated(neverActivated).ExpiresFrom(expiresFrom).ExpiresTo(expiresTo).NeverExpires(neverExpires).Currency(currency).Price(price).PriceMin(priceMin).PriceMax(priceMax).HasPrice(hasPrice).Execute()
 
 List the licenses of a product
 
@@ -575,6 +577,7 @@ func main() {
 	policyId := "p4Rt8LmQ" // string | Only returns the licenses following this policy. (optional)
 	customerId := "c9Wd3RtE" // string | Only returns the licenses of this customer. (optional)
 	machineVersion := "2.3.1" // string | Only returns the licenses with at least one active machine running this version of the product. (optional)
+	machinePlatform := "macOS 15.1" // string | Only returns the licenses with at least one active machine on this platform. (optional)
 	status := openapiclient.LicenseStatus("active") // LicenseStatus | Only returns the licenses with this status. (optional)
 	createdFrom := time.Now() // time.Time | Only returns the licenses created at or after this date. (optional)
 	createdTo := time.Now() // time.Time | Only returns the licenses created at or before this date. (optional)
@@ -592,7 +595,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.LicensesAPI.ListLicenses(context.Background(), productId).Page(page).PageSize(pageSize).Sort(sort).Search(search).Key(key).PolicyId(policyId).CustomerId(customerId).MachineVersion(machineVersion).Status(status).CreatedFrom(createdFrom).CreatedTo(createdTo).LastActivatedFrom(lastActivatedFrom).LastActivatedTo(lastActivatedTo).NeverActivated(neverActivated).ExpiresFrom(expiresFrom).ExpiresTo(expiresTo).NeverExpires(neverExpires).Currency(currency).Price(price).PriceMin(priceMin).PriceMax(priceMax).HasPrice(hasPrice).Execute()
+	resp, r, err := apiClient.LicensesAPI.ListLicenses(context.Background(), productId).Page(page).PageSize(pageSize).Sort(sort).Search(search).Key(key).PolicyId(policyId).CustomerId(customerId).MachineVersion(machineVersion).MachinePlatform(machinePlatform).Status(status).CreatedFrom(createdFrom).CreatedTo(createdTo).LastActivatedFrom(lastActivatedFrom).LastActivatedTo(lastActivatedTo).NeverActivated(neverActivated).ExpiresFrom(expiresFrom).ExpiresTo(expiresTo).NeverExpires(neverExpires).Currency(currency).Price(price).PriceMin(priceMin).PriceMax(priceMax).HasPrice(hasPrice).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `LicensesAPI.ListLicenses``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -626,6 +629,7 @@ Name | Type | Description  | Notes
  **policyId** | **string** | Only returns the licenses following this policy. | 
  **customerId** | **string** | Only returns the licenses of this customer. | 
  **machineVersion** | **string** | Only returns the licenses with at least one active machine running this version of the product. | 
+ **machinePlatform** | **string** | Only returns the licenses with at least one active machine on this platform. | 
  **status** | [**LicenseStatus**](LicenseStatus.md) | Only returns the licenses with this status. | 
  **createdFrom** | **time.Time** | Only returns the licenses created at or after this date. | 
  **createdTo** | **time.Time** | Only returns the licenses created at or before this date. | 
