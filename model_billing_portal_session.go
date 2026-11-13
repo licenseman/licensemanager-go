@@ -20,7 +20,7 @@ var _ MappedNullable = &BillingPortalSession{}
 
 // BillingPortalSession struct for BillingPortalSession
 type BillingPortalSession struct {
-	// Link to the Stripe customer portal, to open right away: it expires shortly.
+	// Link to the Stripe or Paddle customer portal, to open right away: it expires shortly.
 	Url string `json:"url"`
 	AdditionalProperties map[string]interface{}
 }

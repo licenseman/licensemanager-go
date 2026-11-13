@@ -6,11 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **IntegrationId** | **string** |  | 
+**Provider** | **string** |  | 
 **ProductId** | **string** |  | 
 **PolicyId** | **string** |  | 
-**StripeProductId** | **string** |  | 
-**StripePriceId** | **string** |  | 
-**ProductName** | **string** | Name of the Stripe product when it was mapped. | 
+**ExternalProductId** | **string** | Id of the product in the provider: &#x60;prod_…&#x60; in Stripe, &#x60;pro_…&#x60; in Paddle. | 
+**ExternalPriceId** | **string** | Id of the price in the provider: &#x60;price_…&#x60; in Stripe, &#x60;pri_…&#x60; in Paddle. | 
+**StripeProductId** | **string** | Deprecated: use &#x60;externalProductId&#x60;, which it equals. | 
+**StripePriceId** | **string** | Deprecated: use &#x60;externalPriceId&#x60;, which it equals. | 
+**ProductName** | **string** | Name of the provider&#39;s product when it was mapped. | 
 **Price** | [**NullablePrice**](Price.md) |  | 
 **Recurring** | [**NullableIntegrationMappingRecurring**](IntegrationMappingRecurring.md) |  | 
 **Status** | **string** | &#x60;error&#x60; when the price can no longer be paid, explained by &#x60;statusReason&#x60;. | 
@@ -21,7 +24,7 @@ Name | Type | Description | Notes
 
 ### NewIntegrationMapping
 
-`func NewIntegrationMapping(id string, integrationId string, productId string, policyId string, stripeProductId string, stripePriceId string, productName string, price NullablePrice, recurring NullableIntegrationMappingRecurring, status string, statusReason NullableString, createdAt time.Time, ) *IntegrationMapping`
+`func NewIntegrationMapping(id string, integrationId string, provider string, productId string, policyId string, externalProductId string, externalPriceId string, stripeProductId string, stripePriceId string, productName string, price NullablePrice, recurring NullableIntegrationMappingRecurring, status string, statusReason NullableString, createdAt time.Time, ) *IntegrationMapping`
 
 NewIntegrationMapping instantiates a new IntegrationMapping object
 This constructor will assign default values to properties that have it defined,
@@ -76,6 +79,26 @@ and a boolean to check if the value has been set.
 SetIntegrationId sets IntegrationId field to given value.
 
 
+### GetProvider
+
+`func (o *IntegrationMapping) GetProvider() string`
+
+GetProvider returns the Provider field if non-nil, zero value otherwise.
+
+### GetProviderOk
+
+`func (o *IntegrationMapping) GetProviderOk() (*string, bool)`
+
+GetProviderOk returns a tuple with the Provider field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProvider
+
+`func (o *IntegrationMapping) SetProvider(v string)`
+
+SetProvider sets Provider field to given value.
+
+
 ### GetProductId
 
 `func (o *IntegrationMapping) GetProductId() string`
@@ -114,6 +137,46 @@ and a boolean to check if the value has been set.
 `func (o *IntegrationMapping) SetPolicyId(v string)`
 
 SetPolicyId sets PolicyId field to given value.
+
+
+### GetExternalProductId
+
+`func (o *IntegrationMapping) GetExternalProductId() string`
+
+GetExternalProductId returns the ExternalProductId field if non-nil, zero value otherwise.
+
+### GetExternalProductIdOk
+
+`func (o *IntegrationMapping) GetExternalProductIdOk() (*string, bool)`
+
+GetExternalProductIdOk returns a tuple with the ExternalProductId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExternalProductId
+
+`func (o *IntegrationMapping) SetExternalProductId(v string)`
+
+SetExternalProductId sets ExternalProductId field to given value.
+
+
+### GetExternalPriceId
+
+`func (o *IntegrationMapping) GetExternalPriceId() string`
+
+GetExternalPriceId returns the ExternalPriceId field if non-nil, zero value otherwise.
+
+### GetExternalPriceIdOk
+
+`func (o *IntegrationMapping) GetExternalPriceIdOk() (*string, bool)`
+
+GetExternalPriceIdOk returns a tuple with the ExternalPriceId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExternalPriceId
+
+`func (o *IntegrationMapping) SetExternalPriceId(v string)`
+
+SetExternalPriceId sets ExternalPriceId field to given value.
 
 
 ### GetStripeProductId

@@ -29,7 +29,7 @@ type SlackConnection struct {
 	ChannelName NullableString `json:"channelName"`
 	// Page of the installation in Slack.
 	ConfigurationUrl NullableString `json:"configurationUrl"`
-	// Notifications the channel gets: `purchased` (a license bought through Stripe), `renewed` (a subscription renewal paid), `payment_failed` (a subscription payment failed) and `canceled` (a license canceled, or its subscription ended).
+	// Notifications the channel gets: `purchased` (a license bought through Stripe or Paddle), `renewed` (a subscription renewal paid), `payment_failed` (a subscription payment failed) and `canceled` (a license canceled, or its subscription ended).
 	Events []string `json:"events"`
 	// `revoked` once Slack refuses the messages, like when the app was removed from the workspace or the channel deleted: remove it and add it again.
 	Status string `json:"status"`

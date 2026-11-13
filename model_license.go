@@ -35,6 +35,8 @@ type License struct {
 	Meta map[string]*interface{} `json:"meta"`
 	// Id of the Stripe payment intent that paid the license, when it was bought through the Stripe integration. `null` otherwise, or when nothing was paid.
 	StripePaymentIntentId NullableString `json:"stripePaymentIntentId"`
+	// Id of the Paddle transaction that paid the license, when it was bought through the Paddle integration. `null` otherwise.
+	PaddleTransactionId NullableString `json:"paddleTransactionId"`
 	// Maximum number of active machines the license can be used on. `null` when there's no limit. Can be lower than `activeMachineCount` after it was lowered: machines aren't deactivated to match it.
 	MaxMachines NullableInt32 `json:"maxMachines"`
 	// Longest the applications can run offline with the license: the license tokens returned by `validateKey` expire this long after they're issued, unless the license expires sooner.
@@ -57,6 +59,10 @@ type License struct {
 	CancellationComment NullableString `json:"cancellationComment"`
 	// Id of the Stripe refund of the license's payment once it was canceled, through the Stripe integration. `null` otherwise.
 	StripeRefundId NullableString `json:"stripeRefundId"`
+	// Id of the Paddle refund adjustment of the license's transaction once it was canceled, through the Paddle integration. `null` otherwise.
+	PaddleAdjustmentId NullableString `json:"paddleAdjustmentId"`
+	// Outcome of the Paddle refund: `pending_approval` while Paddle reviews it, then `approved` or `rejected`. `null` without a Paddle refund.
+	PaddleRefundStatus NullableString `json:"paddleRefundStatus"`
 	// Last time the license's settings were edited, not when its key was validated.
 	UpdatedAt time.Time `json:"updatedAt"`
 	AdditionalProperties map[string]interface{}
@@ -68,7 +74,7 @@ type _License License
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLicense(id string, productId string, policyId string, customerId string, customer LicenseCustomer, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason NullableCancellationReason, subscription NullableLicenseSubscription, cancellationComment NullableString, stripeRefundId NullableString, updatedAt time.Time) *License {
+func NewLicense(id string, productId string, policyId string, customerId string, customer LicenseCustomer, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, paddleTransactionId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason NullableCancellationReason, subscription NullableLicenseSubscription, cancellationComment NullableString, stripeRefundId NullableString, paddleAdjustmentId NullableString, paddleRefundStatus NullableString, updatedAt time.Time) *License {
 	this := License{}
 	this.Id = id
 	this.ProductId = productId
@@ -80,6 +86,7 @@ func NewLicense(id string, productId string, policyId string, customerId string,
 	this.ExpiresAt = expiresAt
 	this.Meta = meta
 	this.StripePaymentIntentId = stripePaymentIntentId
+	this.PaddleTransactionId = paddleTransactionId
 	this.MaxMachines = maxMachines
 	this.MaxOfflineDurationSeconds = maxOfflineDurationSeconds
 	this.ActiveMachineCount = activeMachineCount
@@ -93,6 +100,8 @@ func NewLicense(id string, productId string, policyId string, customerId string,
 	this.Subscription = subscription
 	this.CancellationComment = cancellationComment
 	this.StripeRefundId = stripeRefundId
+	this.PaddleAdjustmentId = paddleAdjustmentId
+	this.PaddleRefundStatus = paddleRefundStatus
 	this.UpdatedAt = updatedAt
 	return &this
 }
@@ -349,6 +358,32 @@ func (o *License) GetStripePaymentIntentIdOk() (*string, bool) {
 // SetStripePaymentIntentId sets field value
 func (o *License) SetStripePaymentIntentId(v string) {
 	o.StripePaymentIntentId.Set(&v)
+}
+
+// GetPaddleTransactionId returns the PaddleTransactionId field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *License) GetPaddleTransactionId() string {
+	if o == nil || o.PaddleTransactionId.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.PaddleTransactionId.Get()
+}
+
+// GetPaddleTransactionIdOk returns a tuple with the PaddleTransactionId field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *License) GetPaddleTransactionIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PaddleTransactionId.Get(), o.PaddleTransactionId.IsSet()
+}
+
+// SetPaddleTransactionId sets field value
+func (o *License) SetPaddleTransactionId(v string) {
+	o.PaddleTransactionId.Set(&v)
 }
 
 // GetMaxMachines returns the MaxMachines field value
@@ -681,6 +716,58 @@ func (o *License) SetStripeRefundId(v string) {
 	o.StripeRefundId.Set(&v)
 }
 
+// GetPaddleAdjustmentId returns the PaddleAdjustmentId field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *License) GetPaddleAdjustmentId() string {
+	if o == nil || o.PaddleAdjustmentId.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.PaddleAdjustmentId.Get()
+}
+
+// GetPaddleAdjustmentIdOk returns a tuple with the PaddleAdjustmentId field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *License) GetPaddleAdjustmentIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PaddleAdjustmentId.Get(), o.PaddleAdjustmentId.IsSet()
+}
+
+// SetPaddleAdjustmentId sets field value
+func (o *License) SetPaddleAdjustmentId(v string) {
+	o.PaddleAdjustmentId.Set(&v)
+}
+
+// GetPaddleRefundStatus returns the PaddleRefundStatus field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *License) GetPaddleRefundStatus() string {
+	if o == nil || o.PaddleRefundStatus.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.PaddleRefundStatus.Get()
+}
+
+// GetPaddleRefundStatusOk returns a tuple with the PaddleRefundStatus field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *License) GetPaddleRefundStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PaddleRefundStatus.Get(), o.PaddleRefundStatus.IsSet()
+}
+
+// SetPaddleRefundStatus sets field value
+func (o *License) SetPaddleRefundStatus(v string) {
+	o.PaddleRefundStatus.Set(&v)
+}
+
 // GetUpdatedAt returns the UpdatedAt field value
 func (o *License) GetUpdatedAt() time.Time {
 	if o == nil {
@@ -727,6 +814,7 @@ func (o License) ToMap() (map[string]interface{}, error) {
 		toSerialize["meta"] = o.Meta
 	}
 	toSerialize["stripePaymentIntentId"] = o.StripePaymentIntentId.Get()
+	toSerialize["paddleTransactionId"] = o.PaddleTransactionId.Get()
 	toSerialize["maxMachines"] = o.MaxMachines.Get()
 	toSerialize["maxOfflineDurationSeconds"] = o.MaxOfflineDurationSeconds
 	toSerialize["activeMachineCount"] = o.ActiveMachineCount
@@ -740,6 +828,8 @@ func (o License) ToMap() (map[string]interface{}, error) {
 	toSerialize["subscription"] = o.Subscription.Get()
 	toSerialize["cancellationComment"] = o.CancellationComment.Get()
 	toSerialize["stripeRefundId"] = o.StripeRefundId.Get()
+	toSerialize["paddleAdjustmentId"] = o.PaddleAdjustmentId.Get()
+	toSerialize["paddleRefundStatus"] = o.PaddleRefundStatus.Get()
 	toSerialize["updatedAt"] = o.UpdatedAt
 
 	for key, value := range o.AdditionalProperties {
@@ -764,6 +854,7 @@ func (o *License) UnmarshalJSON(data []byte) (err error) {
 		"expiresAt",
 		"meta",
 		"stripePaymentIntentId",
+		"paddleTransactionId",
 		"maxMachines",
 		"maxOfflineDurationSeconds",
 		"activeMachineCount",
@@ -777,6 +868,8 @@ func (o *License) UnmarshalJSON(data []byte) (err error) {
 		"subscription",
 		"cancellationComment",
 		"stripeRefundId",
+		"paddleAdjustmentId",
+		"paddleRefundStatus",
 		"updatedAt",
 	}
 
@@ -817,6 +910,7 @@ func (o *License) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "expiresAt")
 		delete(additionalProperties, "meta")
 		delete(additionalProperties, "stripePaymentIntentId")
+		delete(additionalProperties, "paddleTransactionId")
 		delete(additionalProperties, "maxMachines")
 		delete(additionalProperties, "maxOfflineDurationSeconds")
 		delete(additionalProperties, "activeMachineCount")
@@ -830,6 +924,8 @@ func (o *License) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "subscription")
 		delete(additionalProperties, "cancellationComment")
 		delete(additionalProperties, "stripeRefundId")
+		delete(additionalProperties, "paddleAdjustmentId")
+		delete(additionalProperties, "paddleRefundStatus")
 		delete(additionalProperties, "updatedAt")
 		o.AdditionalProperties = additionalProperties
 	}

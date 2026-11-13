@@ -10,13 +10,14 @@ Name | Type | Description | Notes
 **Name** | **NullableString** | Display name of the customer. &#x60;null&#x60; when unknown. | 
 **LicenseCount** | **int32** | Number of licenses of this customer. | 
 **StripeCustomerId** | **NullableString** | Id of the Stripe customer, when the customer bought licenses through the Stripe integration as a Stripe customer. &#x60;null&#x60; otherwise, e.g. for a guest checkout. | 
+**PaddleCustomerId** | **NullableString** | Id of the Paddle customer, when the customer bought licenses through the Paddle integration. &#x60;null&#x60; otherwise. | 
 **CreatedAt** | **time.Time** |  | 
 
 ## Methods
 
 ### NewCustomer
 
-`func NewCustomer(id string, productId string, email string, name NullableString, licenseCount int32, stripeCustomerId NullableString, createdAt time.Time, ) *Customer`
+`func NewCustomer(id string, productId string, email string, name NullableString, licenseCount int32, stripeCustomerId NullableString, paddleCustomerId NullableString, createdAt time.Time, ) *Customer`
 
 NewCustomer instantiates a new Customer object
 This constructor will assign default values to properties that have it defined,
@@ -171,6 +172,36 @@ SetStripeCustomerId sets StripeCustomerId field to given value.
 `func (o *Customer) UnsetStripeCustomerId()`
 
 UnsetStripeCustomerId ensures that no value is present for StripeCustomerId, not even an explicit nil
+### GetPaddleCustomerId
+
+`func (o *Customer) GetPaddleCustomerId() string`
+
+GetPaddleCustomerId returns the PaddleCustomerId field if non-nil, zero value otherwise.
+
+### GetPaddleCustomerIdOk
+
+`func (o *Customer) GetPaddleCustomerIdOk() (*string, bool)`
+
+GetPaddleCustomerIdOk returns a tuple with the PaddleCustomerId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPaddleCustomerId
+
+`func (o *Customer) SetPaddleCustomerId(v string)`
+
+SetPaddleCustomerId sets PaddleCustomerId field to given value.
+
+
+### SetPaddleCustomerIdNil
+
+`func (o *Customer) SetPaddleCustomerIdNil(b bool)`
+
+ SetPaddleCustomerIdNil sets the value for PaddleCustomerId to be an explicit nil
+
+### UnsetPaddleCustomerId
+`func (o *Customer) UnsetPaddleCustomerId()`
+
+UnsetPaddleCustomerId ensures that no value is present for PaddleCustomerId, not even an explicit nil
 ### GetCreatedAt
 
 `func (o *Customer) GetCreatedAt() time.Time`

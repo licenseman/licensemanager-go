@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StripeSubscriptionId** | **string** |  | 
-**Status** | **string** | Status of the subscription in Stripe: &#x60;active&#x60;, &#x60;trialing&#x60;, &#x60;past_due&#x60; while a failed payment is retried, &#x60;canceled&#x60;, &#x60;unpaid&#x60;, &#x60;paused&#x60;, &#x60;incomplete&#x60; or &#x60;incomplete_expired&#x60;. | 
+**Provider** | **string** | Provider of the subscription. | 
+**ExternalId** | **string** | Id of the subscription in the provider: &#x60;sub_…&#x60; in Stripe and in Paddle. | 
+**StripeSubscriptionId** | **string** | Deprecated: use &#x60;externalId&#x60;, which it equals. | 
+**Status** | **string** | Status of the subscription in the provider. Stripe: &#x60;active&#x60;, &#x60;trialing&#x60;, &#x60;past_due&#x60; while a failed payment is retried, &#x60;canceled&#x60;, &#x60;unpaid&#x60;, &#x60;paused&#x60;, &#x60;incomplete&#x60; or &#x60;incomplete_expired&#x60;. Paddle: &#x60;active&#x60;, &#x60;trialing&#x60;, &#x60;past_due&#x60;, &#x60;paused&#x60; or &#x60;canceled&#x60;. | 
 **Interval** | **string** |  | 
 **IntervalCount** | **int32** | Number of intervals between payments. | 
 **Quantity** | **int32** | Units subscribed, multiplying the policy&#39;s machines. | 
@@ -18,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewLicenseSubscription
 
-`func NewLicenseSubscription(stripeSubscriptionId string, status string, interval string, intervalCount int32, quantity int32, price NullablePrice, currentPeriodEnd time.Time, cancelAtPeriodEnd bool, endedAt NullableTime, ) *LicenseSubscription`
+`func NewLicenseSubscription(provider string, externalId string, stripeSubscriptionId string, status string, interval string, intervalCount int32, quantity int32, price NullablePrice, currentPeriodEnd time.Time, cancelAtPeriodEnd bool, endedAt NullableTime, ) *LicenseSubscription`
 
 NewLicenseSubscription instantiates a new LicenseSubscription object
 This constructor will assign default values to properties that have it defined,
@@ -32,6 +34,46 @@ will change when the set of required properties is changed
 NewLicenseSubscriptionWithDefaults instantiates a new LicenseSubscription object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetProvider
+
+`func (o *LicenseSubscription) GetProvider() string`
+
+GetProvider returns the Provider field if non-nil, zero value otherwise.
+
+### GetProviderOk
+
+`func (o *LicenseSubscription) GetProviderOk() (*string, bool)`
+
+GetProviderOk returns a tuple with the Provider field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProvider
+
+`func (o *LicenseSubscription) SetProvider(v string)`
+
+SetProvider sets Provider field to given value.
+
+
+### GetExternalId
+
+`func (o *LicenseSubscription) GetExternalId() string`
+
+GetExternalId returns the ExternalId field if non-nil, zero value otherwise.
+
+### GetExternalIdOk
+
+`func (o *LicenseSubscription) GetExternalIdOk() (*string, bool)`
+
+GetExternalIdOk returns a tuple with the ExternalId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExternalId
+
+`func (o *LicenseSubscription) SetExternalId(v string)`
+
+SetExternalId sets ExternalId field to given value.
+
 
 ### GetStripeSubscriptionId
 

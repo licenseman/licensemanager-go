@@ -6,13 +6,17 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AuthorizeSlack**](IntegrationsAPI.md#AuthorizeSlack) | **Post** /v1/products/{productId}/integrations/slack/authorize | Start connecting a Slack channel
 [**CheckIntegration**](IntegrationsAPI.md#CheckIntegration) | **Post** /v1/integrations/{id}/check | Check an integration
+[**ConnectPaddle**](IntegrationsAPI.md#ConnectPaddle) | **Put** /v1/products/{productId}/integrations/paddle | Connect Paddle
 [**ConnectStripe**](IntegrationsAPI.md#ConnectStripe) | **Put** /v1/products/{productId}/integrations/stripe | Connect Stripe
+[**CreatePaddleMapping**](IntegrationsAPI.md#CreatePaddleMapping) | **Post** /v1/products/{productId}/integrations/paddle/mappings | Map a Paddle price to a policy
 [**CreateStripeMapping**](IntegrationsAPI.md#CreateStripeMapping) | **Post** /v1/products/{productId}/integrations/stripe/mappings | Map a Stripe price to a policy
 [**DeleteSlackConnection**](IntegrationsAPI.md#DeleteSlackConnection) | **Delete** /v1/slack-connections/{id} | Remove a Slack connection
 [**DeleteStripeMapping**](IntegrationsAPI.md#DeleteStripeMapping) | **Delete** /v1/integration-mappings/{id} | Delete a mapping
 [**DisconnectIntegration**](IntegrationsAPI.md#DisconnectIntegration) | **Delete** /v1/integrations/{id} | Disconnect an integration
+[**GetPaddleIntegration**](IntegrationsAPI.md#GetPaddleIntegration) | **Get** /v1/products/{productId}/integrations/paddle | Get the Paddle integration of a product
 [**GetSlackIntegration**](IntegrationsAPI.md#GetSlackIntegration) | **Get** /v1/products/{productId}/integrations/slack | Get the Slack integration of a product
 [**GetStripeIntegration**](IntegrationsAPI.md#GetStripeIntegration) | **Get** /v1/products/{productId}/integrations/stripe | Get the Stripe integration of a product
+[**ListPaddlePrices**](IntegrationsAPI.md#ListPaddlePrices) | **Get** /v1/integrations/{id}/paddle/prices | List the Paddle prices of an integration
 [**ListStripePrices**](IntegrationsAPI.md#ListStripePrices) | **Get** /v1/integrations/{id}/stripe/prices | List the Stripe prices of an integration
 [**TestSlackConnection**](IntegrationsAPI.md#TestSlackConnection) | **Post** /v1/slack-connections/{id}/test | Send a test message to a Slack channel
 [**UpdateIntegration**](IntegrationsAPI.md#UpdateIntegration) | **Patch** /v1/integrations/{id} | Update an integration
@@ -161,6 +165,78 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ConnectPaddle
+
+> PaddleIntegration ConnectPaddle(ctx, productId).ConnectPaddle(connectPaddle).Execute()
+
+Connect Paddle
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/licenseman/licensemanager-go"
+)
+
+func main() {
+	productId := "x7Kp2QaZ" // string | 
+	connectPaddle := *openapiclient.NewConnectPaddle("pdl_live_apikey_01gtgztp8f…") // ConnectPaddle | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.ConnectPaddle(context.Background(), productId).ConnectPaddle(connectPaddle).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.ConnectPaddle``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ConnectPaddle`: PaddleIntegration
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.ConnectPaddle`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**productId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiConnectPaddleRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **connectPaddle** | [**ConnectPaddle**](ConnectPaddle.md) |  | 
+
+### Return type
+
+[**PaddleIntegration**](PaddleIntegration.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ConnectStripe
 
 > StripeIntegration ConnectStripe(ctx, productId).ConnectStripe(connectStripe).Execute()
@@ -218,6 +294,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**StripeIntegration**](StripeIntegration.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreatePaddleMapping
+
+> IntegrationMapping CreatePaddleMapping(ctx, productId).CreatePaddleMapping(createPaddleMapping).Execute()
+
+Map a Paddle price to a policy
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/licenseman/licensemanager-go"
+)
+
+func main() {
+	productId := "x7Kp2QaZ" // string | 
+	createPaddleMapping := *openapiclient.NewCreatePaddleMapping("pri_01gsz8x8sawmvhz1pv30nge1ke", "p4Rt8LmQ") // CreatePaddleMapping | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.CreatePaddleMapping(context.Background(), productId).CreatePaddleMapping(createPaddleMapping).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.CreatePaddleMapping``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreatePaddleMapping`: IntegrationMapping
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.CreatePaddleMapping`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**productId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreatePaddleMappingRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **createPaddleMapping** | [**CreatePaddleMapping**](CreatePaddleMapping.md) |  | 
+
+### Return type
+
+[**IntegrationMapping**](IntegrationMapping.md)
 
 ### Authorization
 
@@ -509,6 +657,76 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetPaddleIntegration
+
+> PaddleIntegration GetPaddleIntegration(ctx, productId).Execute()
+
+Get the Paddle integration of a product
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/licenseman/licensemanager-go"
+)
+
+func main() {
+	productId := "x7Kp2QaZ" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.GetPaddleIntegration(context.Background(), productId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.GetPaddleIntegration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPaddleIntegration`: PaddleIntegration
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.GetPaddleIntegration`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**productId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetPaddleIntegrationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**PaddleIntegration**](PaddleIntegration.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetSlackIntegration
 
 > SlackIntegration GetSlackIntegration(ctx, productId).Execute()
@@ -634,6 +852,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**StripeIntegration**](StripeIntegration.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListPaddlePrices
+
+> ListPaddlePrices200Response ListPaddlePrices(ctx, id).Execute()
+
+List the Paddle prices of an integration
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/licenseman/licensemanager-go"
+)
+
+func main() {
+	id := "i8Fz4QnRt" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.ListPaddlePrices(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.ListPaddlePrices``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListPaddlePrices`: ListPaddlePrices200Response
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.ListPaddlePrices`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListPaddlePricesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ListPaddlePrices200Response**](ListPaddlePrices200Response.md)
 
 ### Authorization
 

@@ -20,11 +20,13 @@ docs/CancelLicense.md
 docs/CancellationReason.md
 docs/CancellationStats.md
 docs/CancellationStatsByReasonInner.md
+docs/ConnectPaddle.md
 docs/ConnectStripe.md
 docs/CreateBillingPortalSession.md
 docs/CreateCustomer.md
 docs/CreateIntegrationMapping.md
 docs/CreateLicense.md
+docs/CreatePaddleMapping.md
 docs/CreatePolicy.md
 docs/CreatePortalLink.md
 docs/CreateProduct.md
@@ -67,6 +69,7 @@ docs/LicenseStatus.md
 docs/LicenseSubscription.md
 docs/LicenseToken.md
 docs/LicensesAPI.md
+docs/ListPaddlePrices200Response.md
 docs/ListPolicyEventsTypeParameter.md
 docs/ListStripePrices200Response.md
 docs/LockMaxVersion.md
@@ -80,6 +83,9 @@ docs/MachinesAPI.md
 docs/Mrr.md
 docs/MrrByIntervalInner.md
 docs/MrrByPolicyInner.md
+docs/PaddleIntegration.md
+docs/PaddlePermission.md
+docs/PaddlePrice.md
 docs/Pagination.md
 docs/PoliciesAPI.md
 docs/Policy.md
@@ -144,11 +150,13 @@ model_cancel_license.go
 model_cancellation_reason.go
 model_cancellation_stats.go
 model_cancellation_stats_by_reason_inner.go
+model_connect_paddle.go
 model_connect_stripe.go
 model_create_billing_portal_session.go
 model_create_customer.go
 model_create_integration_mapping.go
 model_create_license.go
+model_create_paddle_mapping.go
 model_create_policy.go
 model_create_portal_link.go
 model_create_product.go
@@ -187,6 +195,7 @@ model_license_stats_activations_by_version_inner.go
 model_license_status.go
 model_license_subscription.go
 model_license_token.go
+model_list_paddle_prices_200_response.go
 model_list_policy_events_type_parameter.go
 model_list_stripe_prices_200_response.go
 model_lock_max_version.go
@@ -199,6 +208,9 @@ model_machine_list.go
 model_mrr.go
 model_mrr_by_interval_inner.go
 model_mrr_by_policy_inner.go
+model_paddle_integration.go
+model_paddle_permission.go
+model_paddle_price.go
 model_pagination.go
 model_policy.go
 model_policy_duration.go

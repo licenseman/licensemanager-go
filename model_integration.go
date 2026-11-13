@@ -25,11 +25,11 @@ type Integration struct {
 	Provider string `json:"provider"`
 	// Whether it's connected in live mode, for the live products, or in test mode, for the test products.
 	Livemode bool `json:"livemode"`
-	// Name of the Stripe account, `null` when the API key can't read it.
+	// Name of the Stripe account, `null` when the API key can't read it, and for Paddle, whose API doesn't give it.
 	AccountName NullableString `json:"accountName"`
 	// Start and end of the API key, to recognize it.
 	ApiKeyHint string `json:"apiKeyHint"`
-	// URL of the webhook endpoint created on the Stripe account.
+	// URL of the webhook endpoint created on the Stripe account, or of the notification destination created on the Paddle account.
 	WebhookUrl string `json:"webhookUrl"`
 	Status IntegrationStatus `json:"status"`
 	// Why the integration isn't `active`, `null` when it is.
@@ -38,15 +38,15 @@ type Integration struct {
 	LastCheckedAt NullableTime `json:"lastCheckedAt"`
 	// Last time it received an event from the provider.
 	LastEventAt NullableTime `json:"lastEventAt"`
-	// Whether canceling a license bought through Stripe refunds its payment. On by default, always off when `canRefund` is false.
+	// Whether canceling a license bought through the integration refunds its payment. On by default, always off when `canRefund` is false.
 	AutoRefund bool `json:"autoRefund"`
-	// Whether the API key has the optional Refunds: Write permission, checked when connecting and every day. Without it, canceled licenses aren't refunded: refund their payments from Stripe.
+	// Whether the API key has the optional refund permission (Stripe: Refunds: Write, Paddle: Adjustments: Write), checked when connecting and every day. Without it, canceled licenses aren't refunded: refund their payments from the provider.
 	CanRefund bool `json:"canRefund"`
-	// Whether the API key has the optional Subscriptions: Write permission, checked when connecting and every day. Without it, subscription licenses can't be canceled from the app: cancel their subscriptions from Stripe.
+	// Whether the API key has the optional Subscriptions: Write permission, checked when connecting and every day. Without it, subscription licenses can't be canceled from the app: cancel their subscriptions from the provider.
 	CanManageSubscriptions bool `json:"canManageSubscriptions"`
-	// Whether the API key has the optional Customer portal: Write permission, checked when connecting and every day. Without it, the license portal doesn't link to the Stripe customer portal.
+	// Whether the API key has the optional customer portal permission (Stripe: Customer portal: Write, Paddle: Customer portal sessions: Write), checked when connecting and every day. Without it, the license portal doesn't link to the provider's customer portal.
 	CanBillingPortal bool `json:"canBillingPortal"`
-	// Days a subscription license stays valid after its period ends while its renewal is unpaid, as Stripe retries the payment. 7 by default.
+	// Days a subscription license stays valid after its period ends while its renewal is unpaid, as the provider retries the payment. 7 by default.
 	SubscriptionGraceDays int32 `json:"subscriptionGraceDays"`
 	CreatedAt time.Time `json:"createdAt"`
 	AdditionalProperties map[string]interface{}

@@ -120,7 +120,7 @@ Every method is documented, with its parameters and responses, in the [`docs`](d
 | [`ReleasesAPI`](docs/ReleasesAPI.md) | `ListReleases`, `CreateRelease`, `GetRelease`, `DeleteRelease`, `UpdateRelease` |
 | [`TokensAPI`](docs/TokensAPI.md) | `CreateCustomerToken`, `CreateLicenseToken`, `CreateMachineToken` |
 | [`EventsAPI`](docs/EventsAPI.md) | `ListPolicyEvents`, `ListLicenseEvents` |
-| [`IntegrationsAPI`](docs/IntegrationsAPI.md) | `GetStripeIntegration`, `ConnectStripe`, `DisconnectIntegration`, `UpdateIntegration`, `CheckIntegration`, `ListStripePrices`, `CreateStripeMapping`, `DeleteStripeMapping`, `UpdateStripeMapping`, `GetSlackIntegration`, `AuthorizeSlack`, `DeleteSlackConnection`, `UpdateSlackConnection`, `TestSlackConnection` |
+| [`IntegrationsAPI`](docs/IntegrationsAPI.md) | `GetStripeIntegration`, `ConnectStripe`, `DisconnectIntegration`, `UpdateIntegration`, `CheckIntegration`, `ListStripePrices`, `CreateStripeMapping`, `DeleteStripeMapping`, `UpdateStripeMapping`, `GetPaddleIntegration`, `ConnectPaddle`, `ListPaddlePrices`, `CreatePaddleMapping`, `GetSlackIntegration`, `AuthorizeSlack`, `DeleteSlackConnection`, `UpdateSlackConnection`, `TestSlackConnection` |
 
 ## Versioning
 

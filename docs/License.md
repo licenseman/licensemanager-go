@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **ExpiresAt** | **NullableTime** | &#x60;null&#x60; when the license never expires. | 
 **Meta** | **map[string]interface{}** | Free-form JSON object. | 
 **StripePaymentIntentId** | **NullableString** | Id of the Stripe payment intent that paid the license, when it was bought through the Stripe integration. &#x60;null&#x60; otherwise, or when nothing was paid. | 
+**PaddleTransactionId** | **NullableString** | Id of the Paddle transaction that paid the license, when it was bought through the Paddle integration. &#x60;null&#x60; otherwise. | 
 **MaxMachines** | **NullableInt32** | Maximum number of active machines the license can be used on. &#x60;null&#x60; when there&#39;s no limit. Can be lower than &#x60;activeMachineCount&#x60; after it was lowered: machines aren&#39;t deactivated to match it. | 
 **MaxOfflineDurationSeconds** | **int32** | Longest the applications can run offline with the license: the license tokens returned by &#x60;validateKey&#x60; expire this long after they&#39;re issued, unless the license expires sooner. | 
 **ActiveMachineCount** | **int32** | Number of active machines the license is used on. | 
@@ -27,13 +28,15 @@ Name | Type | Description | Notes
 **Subscription** | [**NullableLicenseSubscription**](LicenseSubscription.md) |  | 
 **CancellationComment** | **NullableString** | Comment given when the license was canceled. &#x60;null&#x60; when there&#39;s none. | 
 **StripeRefundId** | **NullableString** | Id of the Stripe refund of the license&#39;s payment once it was canceled, through the Stripe integration. &#x60;null&#x60; otherwise. | 
+**PaddleAdjustmentId** | **NullableString** | Id of the Paddle refund adjustment of the license&#39;s transaction once it was canceled, through the Paddle integration. &#x60;null&#x60; otherwise. | 
+**PaddleRefundStatus** | **NullableString** | Outcome of the Paddle refund: &#x60;pending_approval&#x60; while Paddle reviews it, then &#x60;approved&#x60; or &#x60;rejected&#x60;. &#x60;null&#x60; without a Paddle refund. | 
 **UpdatedAt** | **time.Time** | Last time the license&#39;s settings were edited, not when its key was validated. | 
 
 ## Methods
 
 ### NewLicense
 
-`func NewLicense(id string, productId string, policyId string, customerId string, customer LicenseCustomer, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason NullableCancellationReason, subscription NullableLicenseSubscription, cancellationComment NullableString, stripeRefundId NullableString, updatedAt time.Time, ) *License`
+`func NewLicense(id string, productId string, policyId string, customerId string, customer LicenseCustomer, key string, createdAt time.Time, expiresAt NullableTime, meta map[string]*interface{}, stripePaymentIntentId NullableString, paddleTransactionId NullableString, maxMachines NullableInt32, maxOfflineDurationSeconds int32, activeMachineCount int32, lastActivatedAt NullableTime, maxVersion LicenseMaxVersion, price NullablePrice, status LicenseStatus, cancellableUntil NullableTime, canceledAt NullableTime, cancellationReason NullableCancellationReason, subscription NullableLicenseSubscription, cancellationComment NullableString, stripeRefundId NullableString, paddleAdjustmentId NullableString, paddleRefundStatus NullableString, updatedAt time.Time, ) *License`
 
 NewLicense instantiates a new License object
 This constructor will assign default values to properties that have it defined,
@@ -278,6 +281,36 @@ SetStripePaymentIntentId sets StripePaymentIntentId field to given value.
 `func (o *License) UnsetStripePaymentIntentId()`
 
 UnsetStripePaymentIntentId ensures that no value is present for StripePaymentIntentId, not even an explicit nil
+### GetPaddleTransactionId
+
+`func (o *License) GetPaddleTransactionId() string`
+
+GetPaddleTransactionId returns the PaddleTransactionId field if non-nil, zero value otherwise.
+
+### GetPaddleTransactionIdOk
+
+`func (o *License) GetPaddleTransactionIdOk() (*string, bool)`
+
+GetPaddleTransactionIdOk returns a tuple with the PaddleTransactionId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPaddleTransactionId
+
+`func (o *License) SetPaddleTransactionId(v string)`
+
+SetPaddleTransactionId sets PaddleTransactionId field to given value.
+
+
+### SetPaddleTransactionIdNil
+
+`func (o *License) SetPaddleTransactionIdNil(b bool)`
+
+ SetPaddleTransactionIdNil sets the value for PaddleTransactionId to be an explicit nil
+
+### UnsetPaddleTransactionId
+`func (o *License) UnsetPaddleTransactionId()`
+
+UnsetPaddleTransactionId ensures that no value is present for PaddleTransactionId, not even an explicit nil
 ### GetMaxMachines
 
 `func (o *License) GetMaxMachines() int32`
@@ -628,6 +661,66 @@ SetStripeRefundId sets StripeRefundId field to given value.
 `func (o *License) UnsetStripeRefundId()`
 
 UnsetStripeRefundId ensures that no value is present for StripeRefundId, not even an explicit nil
+### GetPaddleAdjustmentId
+
+`func (o *License) GetPaddleAdjustmentId() string`
+
+GetPaddleAdjustmentId returns the PaddleAdjustmentId field if non-nil, zero value otherwise.
+
+### GetPaddleAdjustmentIdOk
+
+`func (o *License) GetPaddleAdjustmentIdOk() (*string, bool)`
+
+GetPaddleAdjustmentIdOk returns a tuple with the PaddleAdjustmentId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPaddleAdjustmentId
+
+`func (o *License) SetPaddleAdjustmentId(v string)`
+
+SetPaddleAdjustmentId sets PaddleAdjustmentId field to given value.
+
+
+### SetPaddleAdjustmentIdNil
+
+`func (o *License) SetPaddleAdjustmentIdNil(b bool)`
+
+ SetPaddleAdjustmentIdNil sets the value for PaddleAdjustmentId to be an explicit nil
+
+### UnsetPaddleAdjustmentId
+`func (o *License) UnsetPaddleAdjustmentId()`
+
+UnsetPaddleAdjustmentId ensures that no value is present for PaddleAdjustmentId, not even an explicit nil
+### GetPaddleRefundStatus
+
+`func (o *License) GetPaddleRefundStatus() string`
+
+GetPaddleRefundStatus returns the PaddleRefundStatus field if non-nil, zero value otherwise.
+
+### GetPaddleRefundStatusOk
+
+`func (o *License) GetPaddleRefundStatusOk() (*string, bool)`
+
+GetPaddleRefundStatusOk returns a tuple with the PaddleRefundStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPaddleRefundStatus
+
+`func (o *License) SetPaddleRefundStatus(v string)`
+
+SetPaddleRefundStatus sets PaddleRefundStatus field to given value.
+
+
+### SetPaddleRefundStatusNil
+
+`func (o *License) SetPaddleRefundStatusNil(b bool)`
+
+ SetPaddleRefundStatusNil sets the value for PaddleRefundStatus to be an explicit nil
+
+### UnsetPaddleRefundStatus
+`func (o *License) UnsetPaddleRefundStatus()`
+
+UnsetPaddleRefundStatus ensures that no value is present for PaddleRefundStatus, not even an explicit nil
 ### GetUpdatedAt
 
 `func (o *License) GetUpdatedAt() time.Time`

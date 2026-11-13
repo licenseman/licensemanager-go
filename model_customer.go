@@ -30,6 +30,8 @@ type Customer struct {
 	LicenseCount int32 `json:"licenseCount"`
 	// Id of the Stripe customer, when the customer bought licenses through the Stripe integration as a Stripe customer. `null` otherwise, e.g. for a guest checkout.
 	StripeCustomerId NullableString `json:"stripeCustomerId"`
+	// Id of the Paddle customer, when the customer bought licenses through the Paddle integration. `null` otherwise.
+	PaddleCustomerId NullableString `json:"paddleCustomerId"`
 	CreatedAt time.Time `json:"createdAt"`
 	AdditionalProperties map[string]interface{}
 }
@@ -40,7 +42,7 @@ type _Customer Customer
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCustomer(id string, productId string, email string, name NullableString, licenseCount int32, stripeCustomerId NullableString, createdAt time.Time) *Customer {
+func NewCustomer(id string, productId string, email string, name NullableString, licenseCount int32, stripeCustomerId NullableString, paddleCustomerId NullableString, createdAt time.Time) *Customer {
 	this := Customer{}
 	this.Id = id
 	this.ProductId = productId
@@ -48,6 +50,7 @@ func NewCustomer(id string, productId string, email string, name NullableString,
 	this.Name = name
 	this.LicenseCount = licenseCount
 	this.StripeCustomerId = stripeCustomerId
+	this.PaddleCustomerId = paddleCustomerId
 	this.CreatedAt = createdAt
 	return &this
 }
@@ -208,6 +211,32 @@ func (o *Customer) SetStripeCustomerId(v string) {
 	o.StripeCustomerId.Set(&v)
 }
 
+// GetPaddleCustomerId returns the PaddleCustomerId field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *Customer) GetPaddleCustomerId() string {
+	if o == nil || o.PaddleCustomerId.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.PaddleCustomerId.Get()
+}
+
+// GetPaddleCustomerIdOk returns a tuple with the PaddleCustomerId field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Customer) GetPaddleCustomerIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PaddleCustomerId.Get(), o.PaddleCustomerId.IsSet()
+}
+
+// SetPaddleCustomerId sets field value
+func (o *Customer) SetPaddleCustomerId(v string) {
+	o.PaddleCustomerId.Set(&v)
+}
+
 // GetCreatedAt returns the CreatedAt field value
 func (o *Customer) GetCreatedAt() time.Time {
 	if o == nil {
@@ -248,6 +277,7 @@ func (o Customer) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name.Get()
 	toSerialize["licenseCount"] = o.LicenseCount
 	toSerialize["stripeCustomerId"] = o.StripeCustomerId.Get()
+	toSerialize["paddleCustomerId"] = o.PaddleCustomerId.Get()
 	toSerialize["createdAt"] = o.CreatedAt
 
 	for key, value := range o.AdditionalProperties {
@@ -268,6 +298,7 @@ func (o *Customer) UnmarshalJSON(data []byte) (err error) {
 		"name",
 		"licenseCount",
 		"stripeCustomerId",
+		"paddleCustomerId",
 		"createdAt",
 	}
 
@@ -304,6 +335,7 @@ func (o *Customer) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "licenseCount")
 		delete(additionalProperties, "stripeCustomerId")
+		delete(additionalProperties, "paddleCustomerId")
 		delete(additionalProperties, "createdAt")
 		o.AdditionalProperties = additionalProperties
 	}

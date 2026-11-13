@@ -23,11 +23,20 @@ var _ MappedNullable = &IntegrationMapping{}
 type IntegrationMapping struct {
 	Id string `json:"id"`
 	IntegrationId string `json:"integrationId"`
+	Provider string `json:"provider"`
 	ProductId string `json:"productId"`
 	PolicyId string `json:"policyId"`
+	// Id of the product in the provider: `prod_…` in Stripe, `pro_…` in Paddle.
+	ExternalProductId string `json:"externalProductId"`
+	// Id of the price in the provider: `price_…` in Stripe, `pri_…` in Paddle.
+	ExternalPriceId string `json:"externalPriceId"`
+	// Deprecated: use `externalProductId`, which it equals.
+	// Deprecated
 	StripeProductId string `json:"stripeProductId"`
+	// Deprecated: use `externalPriceId`, which it equals.
+	// Deprecated
 	StripePriceId string `json:"stripePriceId"`
-	// Name of the Stripe product when it was mapped.
+	// Name of the provider's product when it was mapped.
 	ProductName string `json:"productName"`
 	Price NullablePrice `json:"price"`
 	Recurring NullableIntegrationMappingRecurring `json:"recurring"`
@@ -44,12 +53,15 @@ type _IntegrationMapping IntegrationMapping
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIntegrationMapping(id string, integrationId string, productId string, policyId string, stripeProductId string, stripePriceId string, productName string, price NullablePrice, recurring NullableIntegrationMappingRecurring, status string, statusReason NullableString, createdAt time.Time) *IntegrationMapping {
+func NewIntegrationMapping(id string, integrationId string, provider string, productId string, policyId string, externalProductId string, externalPriceId string, stripeProductId string, stripePriceId string, productName string, price NullablePrice, recurring NullableIntegrationMappingRecurring, status string, statusReason NullableString, createdAt time.Time) *IntegrationMapping {
 	this := IntegrationMapping{}
 	this.Id = id
 	this.IntegrationId = integrationId
+	this.Provider = provider
 	this.ProductId = productId
 	this.PolicyId = policyId
+	this.ExternalProductId = externalProductId
+	this.ExternalPriceId = externalPriceId
 	this.StripeProductId = stripeProductId
 	this.StripePriceId = stripePriceId
 	this.ProductName = productName
@@ -117,6 +129,30 @@ func (o *IntegrationMapping) SetIntegrationId(v string) {
 	o.IntegrationId = v
 }
 
+// GetProvider returns the Provider field value
+func (o *IntegrationMapping) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *IntegrationMapping) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *IntegrationMapping) SetProvider(v string) {
+	o.Provider = v
+}
+
 // GetProductId returns the ProductId field value
 func (o *IntegrationMapping) GetProductId() string {
 	if o == nil {
@@ -165,7 +201,56 @@ func (o *IntegrationMapping) SetPolicyId(v string) {
 	o.PolicyId = v
 }
 
+// GetExternalProductId returns the ExternalProductId field value
+func (o *IntegrationMapping) GetExternalProductId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ExternalProductId
+}
+
+// GetExternalProductIdOk returns a tuple with the ExternalProductId field value
+// and a boolean to check if the value has been set.
+func (o *IntegrationMapping) GetExternalProductIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ExternalProductId, true
+}
+
+// SetExternalProductId sets field value
+func (o *IntegrationMapping) SetExternalProductId(v string) {
+	o.ExternalProductId = v
+}
+
+// GetExternalPriceId returns the ExternalPriceId field value
+func (o *IntegrationMapping) GetExternalPriceId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ExternalPriceId
+}
+
+// GetExternalPriceIdOk returns a tuple with the ExternalPriceId field value
+// and a boolean to check if the value has been set.
+func (o *IntegrationMapping) GetExternalPriceIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ExternalPriceId, true
+}
+
+// SetExternalPriceId sets field value
+func (o *IntegrationMapping) SetExternalPriceId(v string) {
+	o.ExternalPriceId = v
+}
+
 // GetStripeProductId returns the StripeProductId field value
+// Deprecated
 func (o *IntegrationMapping) GetStripeProductId() string {
 	if o == nil {
 		var ret string
@@ -177,6 +262,7 @@ func (o *IntegrationMapping) GetStripeProductId() string {
 
 // GetStripeProductIdOk returns a tuple with the StripeProductId field value
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *IntegrationMapping) GetStripeProductIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
@@ -185,11 +271,13 @@ func (o *IntegrationMapping) GetStripeProductIdOk() (*string, bool) {
 }
 
 // SetStripeProductId sets field value
+// Deprecated
 func (o *IntegrationMapping) SetStripeProductId(v string) {
 	o.StripeProductId = v
 }
 
 // GetStripePriceId returns the StripePriceId field value
+// Deprecated
 func (o *IntegrationMapping) GetStripePriceId() string {
 	if o == nil {
 		var ret string
@@ -201,6 +289,7 @@ func (o *IntegrationMapping) GetStripePriceId() string {
 
 // GetStripePriceIdOk returns a tuple with the StripePriceId field value
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *IntegrationMapping) GetStripePriceIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
@@ -209,6 +298,7 @@ func (o *IntegrationMapping) GetStripePriceIdOk() (*string, bool) {
 }
 
 // SetStripePriceId sets field value
+// Deprecated
 func (o *IntegrationMapping) SetStripePriceId(v string) {
 	o.StripePriceId = v
 }
@@ -375,8 +465,11 @@ func (o IntegrationMapping) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["integrationId"] = o.IntegrationId
+	toSerialize["provider"] = o.Provider
 	toSerialize["productId"] = o.ProductId
 	toSerialize["policyId"] = o.PolicyId
+	toSerialize["externalProductId"] = o.ExternalProductId
+	toSerialize["externalPriceId"] = o.ExternalPriceId
 	toSerialize["stripeProductId"] = o.StripeProductId
 	toSerialize["stripePriceId"] = o.StripePriceId
 	toSerialize["productName"] = o.ProductName
@@ -400,8 +493,11 @@ func (o *IntegrationMapping) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"id",
 		"integrationId",
+		"provider",
 		"productId",
 		"policyId",
+		"externalProductId",
+		"externalPriceId",
 		"stripeProductId",
 		"stripePriceId",
 		"productName",
@@ -441,8 +537,11 @@ func (o *IntegrationMapping) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "integrationId")
+		delete(additionalProperties, "provider")
 		delete(additionalProperties, "productId")
 		delete(additionalProperties, "policyId")
+		delete(additionalProperties, "externalProductId")
+		delete(additionalProperties, "externalPriceId")
 		delete(additionalProperties, "stripeProductId")
 		delete(additionalProperties, "stripePriceId")
 		delete(additionalProperties, "productName")

@@ -19,10 +19,16 @@ import (
 // checks if the LicenseSubscription type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &LicenseSubscription{}
 
-// LicenseSubscription The Stripe subscription keeping the license valid, `null` when it isn't a subscription license. The license expires when it stops being paid, includes every update, and can't be canceled during a money back guarantee.
+// LicenseSubscription The Stripe or Paddle subscription keeping the license valid, `null` when it isn't a subscription license. The license expires when it stops being paid, includes every update, and can't be canceled during a money back guarantee.
 type LicenseSubscription struct {
+	// Provider of the subscription.
+	Provider string `json:"provider"`
+	// Id of the subscription in the provider: `sub_…` in Stripe and in Paddle.
+	ExternalId string `json:"externalId"`
+	// Deprecated: use `externalId`, which it equals.
+	// Deprecated
 	StripeSubscriptionId string `json:"stripeSubscriptionId"`
-	// Status of the subscription in Stripe: `active`, `trialing`, `past_due` while a failed payment is retried, `canceled`, `unpaid`, `paused`, `incomplete` or `incomplete_expired`.
+	// Status of the subscription in the provider. Stripe: `active`, `trialing`, `past_due` while a failed payment is retried, `canceled`, `unpaid`, `paused`, `incomplete` or `incomplete_expired`. Paddle: `active`, `trialing`, `past_due`, `paused` or `canceled`.
 	Status string `json:"status"`
 	Interval string `json:"interval"`
 	// Number of intervals between payments.
@@ -45,8 +51,10 @@ type _LicenseSubscription LicenseSubscription
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLicenseSubscription(stripeSubscriptionId string, status string, interval string, intervalCount int32, quantity int32, price NullablePrice, currentPeriodEnd time.Time, cancelAtPeriodEnd bool, endedAt NullableTime) *LicenseSubscription {
+func NewLicenseSubscription(provider string, externalId string, stripeSubscriptionId string, status string, interval string, intervalCount int32, quantity int32, price NullablePrice, currentPeriodEnd time.Time, cancelAtPeriodEnd bool, endedAt NullableTime) *LicenseSubscription {
 	this := LicenseSubscription{}
+	this.Provider = provider
+	this.ExternalId = externalId
 	this.StripeSubscriptionId = stripeSubscriptionId
 	this.Status = status
 	this.Interval = interval
@@ -67,7 +75,56 @@ func NewLicenseSubscriptionWithDefaults() *LicenseSubscription {
 	return &this
 }
 
+// GetProvider returns the Provider field value
+func (o *LicenseSubscription) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *LicenseSubscription) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *LicenseSubscription) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetExternalId returns the ExternalId field value
+func (o *LicenseSubscription) GetExternalId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ExternalId
+}
+
+// GetExternalIdOk returns a tuple with the ExternalId field value
+// and a boolean to check if the value has been set.
+func (o *LicenseSubscription) GetExternalIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ExternalId, true
+}
+
+// SetExternalId sets field value
+func (o *LicenseSubscription) SetExternalId(v string) {
+	o.ExternalId = v
+}
+
 // GetStripeSubscriptionId returns the StripeSubscriptionId field value
+// Deprecated
 func (o *LicenseSubscription) GetStripeSubscriptionId() string {
 	if o == nil {
 		var ret string
@@ -79,6 +136,7 @@ func (o *LicenseSubscription) GetStripeSubscriptionId() string {
 
 // GetStripeSubscriptionIdOk returns a tuple with the StripeSubscriptionId field value
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *LicenseSubscription) GetStripeSubscriptionIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
@@ -87,6 +145,7 @@ func (o *LicenseSubscription) GetStripeSubscriptionIdOk() (*string, bool) {
 }
 
 // SetStripeSubscriptionId sets field value
+// Deprecated
 func (o *LicenseSubscription) SetStripeSubscriptionId(v string) {
 	o.StripeSubscriptionId = v
 }
@@ -297,6 +356,8 @@ func (o LicenseSubscription) MarshalJSON() ([]byte, error) {
 
 func (o LicenseSubscription) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["provider"] = o.Provider
+	toSerialize["externalId"] = o.ExternalId
 	toSerialize["stripeSubscriptionId"] = o.StripeSubscriptionId
 	toSerialize["status"] = o.Status
 	toSerialize["interval"] = o.Interval
@@ -319,6 +380,8 @@ func (o *LicenseSubscription) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"provider",
+		"externalId",
 		"stripeSubscriptionId",
 		"status",
 		"interval",
@@ -357,6 +420,8 @@ func (o *LicenseSubscription) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "provider")
+		delete(additionalProperties, "externalId")
 		delete(additionalProperties, "stripeSubscriptionId")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "interval")
