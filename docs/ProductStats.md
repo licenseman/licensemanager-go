@@ -25,12 +25,13 @@ Name | Type | Description | Notes
 **ActivationsByVersion** | [**[]ProductStatsActivationsByVersionInner**](ProductStatsActivationsByVersionInner.md) | Successful activations of the licenses of the product each day, per version of the application, from the most recent one. | 
 **ActiveMachinesByVersion** | [**[]ProductStatsActiveMachinesByVersionInner**](ProductStatsActiveMachinesByVersionInner.md) | Number of active machines running each version of the application, from the most recent one. | 
 **ActiveMachinesByPlatform** | [**[]ProductStatsActiveMachinesByPlatformInner**](ProductStatsActiveMachinesByPlatformInner.md) | Number of active machines on each platform, from the one with the most machines. | 
+**ActiveMachinesByCountry** | [**[]ProductStatsActiveMachinesByCountryInner**](ProductStatsActiveMachinesByCountryInner.md) | Number of active machines in each country, from the one with the most machines. | 
 
 ## Methods
 
 ### NewProductStats
 
-`func NewProductStats(licenseCount int32, activeLicenseCount int32, newLicenseCount int32, expiringLicenseCount int32, expiredLicenseCount int32, activeMachineCount int32, inUseLicenseCount int32, seatCount int32, usedSeatCount int32, fullLicenseCount int32, days []string, months []string, newLicensesByDay []int32, newLicensesByMonth []int32, newLicensesByPolicy []ProductStatsNewLicensesByPolicyInner, cancellation NullableCancellationStats, subscriptions NullableSubscriptionStats, revenue []Revenue, activationsByVersion []ProductStatsActivationsByVersionInner, activeMachinesByVersion []ProductStatsActiveMachinesByVersionInner, activeMachinesByPlatform []ProductStatsActiveMachinesByPlatformInner, ) *ProductStats`
+`func NewProductStats(licenseCount int32, activeLicenseCount int32, newLicenseCount int32, expiringLicenseCount int32, expiredLicenseCount int32, activeMachineCount int32, inUseLicenseCount int32, seatCount int32, usedSeatCount int32, fullLicenseCount int32, days []string, months []string, newLicensesByDay []int32, newLicensesByMonth []int32, newLicensesByPolicy []ProductStatsNewLicensesByPolicyInner, cancellation NullableCancellationStats, subscriptions NullableSubscriptionStats, revenue []Revenue, activationsByVersion []ProductStatsActivationsByVersionInner, activeMachinesByVersion []ProductStatsActiveMachinesByVersionInner, activeMachinesByPlatform []ProductStatsActiveMachinesByPlatformInner, activeMachinesByCountry []ProductStatsActiveMachinesByCountryInner, ) *ProductStats`
 
 NewProductStats instantiates a new ProductStats object
 This constructor will assign default values to properties that have it defined,
@@ -483,6 +484,26 @@ and a boolean to check if the value has been set.
 `func (o *ProductStats) SetActiveMachinesByPlatform(v []ProductStatsActiveMachinesByPlatformInner)`
 
 SetActiveMachinesByPlatform sets ActiveMachinesByPlatform field to given value.
+
+
+### GetActiveMachinesByCountry
+
+`func (o *ProductStats) GetActiveMachinesByCountry() []ProductStatsActiveMachinesByCountryInner`
+
+GetActiveMachinesByCountry returns the ActiveMachinesByCountry field if non-nil, zero value otherwise.
+
+### GetActiveMachinesByCountryOk
+
+`func (o *ProductStats) GetActiveMachinesByCountryOk() (*[]ProductStatsActiveMachinesByCountryInner, bool)`
+
+GetActiveMachinesByCountryOk returns a tuple with the ActiveMachinesByCountry field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActiveMachinesByCountry
+
+`func (o *ProductStats) SetActiveMachinesByCountry(v []ProductStatsActiveMachinesByCountryInner)`
+
+SetActiveMachinesByCountry sets ActiveMachinesByCountry field to given value.
 
 
 

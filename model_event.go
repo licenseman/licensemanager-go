@@ -31,6 +31,12 @@ type Event struct {
 	MachineId NullableString `json:"machineId"`
 	Machine NullableEventMachine `json:"machine"`
 	Actor NullableEventActor `json:"actor"`
+	// ISO 3166-1 alpha-2 code of the country of the IP address the request came from, for `license.validated` and `license.validation_failed` events. `null` until it's looked up, shortly after, or when it can't be.
+	Country NullableString `json:"country"`
+	// Approximate latitude of the IP address the request came from, for `license.validated` and `license.validation_failed` events. `null` until it's looked up, shortly after, or when it can't be.
+	Latitude NullableFloat32 `json:"latitude"`
+	// Approximate longitude of the IP address the request came from, for `license.validated` and `license.validation_failed` events. `null` until it's looked up, shortly after, or when it can't be.
+	Longitude NullableFloat32 `json:"longitude"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -40,7 +46,7 @@ type _Event Event
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEvent(id string, type_ EventType, createdAt time.Time, payload map[string]*interface{}, policyId NullableString, licenseId NullableString, machineId NullableString, machine NullableEventMachine, actor NullableEventActor) *Event {
+func NewEvent(id string, type_ EventType, createdAt time.Time, payload map[string]*interface{}, policyId NullableString, licenseId NullableString, machineId NullableString, machine NullableEventMachine, actor NullableEventActor, country NullableString, latitude NullableFloat32, longitude NullableFloat32) *Event {
 	this := Event{}
 	this.Id = id
 	this.Type = type_
@@ -51,6 +57,9 @@ func NewEvent(id string, type_ EventType, createdAt time.Time, payload map[strin
 	this.MachineId = machineId
 	this.Machine = machine
 	this.Actor = actor
+	this.Country = country
+	this.Latitude = latitude
+	this.Longitude = longitude
 	return &this
 }
 
@@ -288,6 +297,84 @@ func (o *Event) SetActor(v EventActor) {
 	o.Actor.Set(&v)
 }
 
+// GetCountry returns the Country field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *Event) GetCountry() string {
+	if o == nil || o.Country.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.Country.Get()
+}
+
+// GetCountryOk returns a tuple with the Country field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Event) GetCountryOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Country.Get(), o.Country.IsSet()
+}
+
+// SetCountry sets field value
+func (o *Event) SetCountry(v string) {
+	o.Country.Set(&v)
+}
+
+// GetLatitude returns the Latitude field value
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *Event) GetLatitude() float32 {
+	if o == nil || o.Latitude.Get() == nil {
+		var ret float32
+		return ret
+	}
+
+	return *o.Latitude.Get()
+}
+
+// GetLatitudeOk returns a tuple with the Latitude field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Event) GetLatitudeOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Latitude.Get(), o.Latitude.IsSet()
+}
+
+// SetLatitude sets field value
+func (o *Event) SetLatitude(v float32) {
+	o.Latitude.Set(&v)
+}
+
+// GetLongitude returns the Longitude field value
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *Event) GetLongitude() float32 {
+	if o == nil || o.Longitude.Get() == nil {
+		var ret float32
+		return ret
+	}
+
+	return *o.Longitude.Get()
+}
+
+// GetLongitudeOk returns a tuple with the Longitude field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Event) GetLongitudeOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Longitude.Get(), o.Longitude.IsSet()
+}
+
+// SetLongitude sets field value
+func (o *Event) SetLongitude(v float32) {
+	o.Longitude.Set(&v)
+}
+
 func (o Event) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -307,6 +394,9 @@ func (o Event) ToMap() (map[string]interface{}, error) {
 	toSerialize["machineId"] = o.MachineId.Get()
 	toSerialize["machine"] = o.Machine.Get()
 	toSerialize["actor"] = o.Actor.Get()
+	toSerialize["country"] = o.Country.Get()
+	toSerialize["latitude"] = o.Latitude.Get()
+	toSerialize["longitude"] = o.Longitude.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -329,6 +419,9 @@ func (o *Event) UnmarshalJSON(data []byte) (err error) {
 		"machineId",
 		"machine",
 		"actor",
+		"country",
+		"latitude",
+		"longitude",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -367,6 +460,9 @@ func (o *Event) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "machineId")
 		delete(additionalProperties, "machine")
 		delete(additionalProperties, "actor")
+		delete(additionalProperties, "country")
+		delete(additionalProperties, "latitude")
+		delete(additionalProperties, "longitude")
 		o.AdditionalProperties = additionalProperties
 	}
 

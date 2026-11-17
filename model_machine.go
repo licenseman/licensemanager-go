@@ -35,6 +35,12 @@ type Machine struct {
 	OverriddenByMachineId NullableString `json:"overriddenByMachineId"`
 	// When the license was last validated on the machine.
 	LastValidatedAt NullableTime `json:"lastValidatedAt"`
+	// ISO 3166-1 alpha-2 code of the country of the IP address the license was last successfully validated from on the machine. `null` until it's looked up, shortly after, or when it can't be.
+	Country NullableString `json:"country"`
+	// Approximate latitude of the IP address the license was last successfully validated from on the machine. `null` until it's looked up, shortly after, or when it can't be.
+	Latitude NullableFloat32 `json:"latitude"`
+	// Approximate longitude of the IP address the license was last successfully validated from on the machine. `null` until it's looked up, shortly after, or when it can't be.
+	Longitude NullableFloat32 `json:"longitude"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 	AdditionalProperties map[string]interface{}
@@ -46,7 +52,7 @@ type _Machine Machine
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMachine(id string, licenseId string, fingerprint string, platform NullableString, name NullableString, status string, version NullableString, overriddenByMachineId NullableString, lastValidatedAt NullableTime, createdAt time.Time, updatedAt time.Time) *Machine {
+func NewMachine(id string, licenseId string, fingerprint string, platform NullableString, name NullableString, status string, version NullableString, overriddenByMachineId NullableString, lastValidatedAt NullableTime, country NullableString, latitude NullableFloat32, longitude NullableFloat32, createdAt time.Time, updatedAt time.Time) *Machine {
 	this := Machine{}
 	this.Id = id
 	this.LicenseId = licenseId
@@ -57,6 +63,9 @@ func NewMachine(id string, licenseId string, fingerprint string, platform Nullab
 	this.Version = version
 	this.OverriddenByMachineId = overriddenByMachineId
 	this.LastValidatedAt = lastValidatedAt
+	this.Country = country
+	this.Latitude = latitude
+	this.Longitude = longitude
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
 	return &this
@@ -296,6 +305,84 @@ func (o *Machine) SetLastValidatedAt(v time.Time) {
 	o.LastValidatedAt.Set(&v)
 }
 
+// GetCountry returns the Country field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *Machine) GetCountry() string {
+	if o == nil || o.Country.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.Country.Get()
+}
+
+// GetCountryOk returns a tuple with the Country field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Machine) GetCountryOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Country.Get(), o.Country.IsSet()
+}
+
+// SetCountry sets field value
+func (o *Machine) SetCountry(v string) {
+	o.Country.Set(&v)
+}
+
+// GetLatitude returns the Latitude field value
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *Machine) GetLatitude() float32 {
+	if o == nil || o.Latitude.Get() == nil {
+		var ret float32
+		return ret
+	}
+
+	return *o.Latitude.Get()
+}
+
+// GetLatitudeOk returns a tuple with the Latitude field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Machine) GetLatitudeOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Latitude.Get(), o.Latitude.IsSet()
+}
+
+// SetLatitude sets field value
+func (o *Machine) SetLatitude(v float32) {
+	o.Latitude.Set(&v)
+}
+
+// GetLongitude returns the Longitude field value
+// If the value is explicit nil, the zero value for float32 will be returned
+func (o *Machine) GetLongitude() float32 {
+	if o == nil || o.Longitude.Get() == nil {
+		var ret float32
+		return ret
+	}
+
+	return *o.Longitude.Get()
+}
+
+// GetLongitudeOk returns a tuple with the Longitude field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Machine) GetLongitudeOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Longitude.Get(), o.Longitude.IsSet()
+}
+
+// SetLongitude sets field value
+func (o *Machine) SetLongitude(v float32) {
+	o.Longitude.Set(&v)
+}
+
 // GetCreatedAt returns the CreatedAt field value
 func (o *Machine) GetCreatedAt() time.Time {
 	if o == nil {
@@ -363,6 +450,9 @@ func (o Machine) ToMap() (map[string]interface{}, error) {
 	toSerialize["version"] = o.Version.Get()
 	toSerialize["overriddenByMachineId"] = o.OverriddenByMachineId.Get()
 	toSerialize["lastValidatedAt"] = o.LastValidatedAt.Get()
+	toSerialize["country"] = o.Country.Get()
+	toSerialize["latitude"] = o.Latitude.Get()
+	toSerialize["longitude"] = o.Longitude.Get()
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
 
@@ -387,6 +477,9 @@ func (o *Machine) UnmarshalJSON(data []byte) (err error) {
 		"version",
 		"overriddenByMachineId",
 		"lastValidatedAt",
+		"country",
+		"latitude",
+		"longitude",
 		"createdAt",
 		"updatedAt",
 	}
@@ -427,6 +520,9 @@ func (o *Machine) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "overriddenByMachineId")
 		delete(additionalProperties, "lastValidatedAt")
+		delete(additionalProperties, "country")
+		delete(additionalProperties, "latitude")
+		delete(additionalProperties, "longitude")
 		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "updatedAt")
 		o.AdditionalProperties = additionalProperties

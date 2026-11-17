@@ -62,6 +62,8 @@ type ProductStats struct {
 	ActiveMachinesByVersion []ProductStatsActiveMachinesByVersionInner `json:"activeMachinesByVersion"`
 	// Number of active machines on each platform, from the one with the most machines.
 	ActiveMachinesByPlatform []ProductStatsActiveMachinesByPlatformInner `json:"activeMachinesByPlatform"`
+	// Number of active machines in each country, from the one with the most machines.
+	ActiveMachinesByCountry []ProductStatsActiveMachinesByCountryInner `json:"activeMachinesByCountry"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -71,7 +73,7 @@ type _ProductStats ProductStats
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewProductStats(licenseCount int32, activeLicenseCount int32, newLicenseCount int32, expiringLicenseCount int32, expiredLicenseCount int32, activeMachineCount int32, inUseLicenseCount int32, seatCount int32, usedSeatCount int32, fullLicenseCount int32, days []string, months []string, newLicensesByDay []int32, newLicensesByMonth []int32, newLicensesByPolicy []ProductStatsNewLicensesByPolicyInner, cancellation NullableCancellationStats, subscriptions NullableSubscriptionStats, revenue []Revenue, activationsByVersion []ProductStatsActivationsByVersionInner, activeMachinesByVersion []ProductStatsActiveMachinesByVersionInner, activeMachinesByPlatform []ProductStatsActiveMachinesByPlatformInner) *ProductStats {
+func NewProductStats(licenseCount int32, activeLicenseCount int32, newLicenseCount int32, expiringLicenseCount int32, expiredLicenseCount int32, activeMachineCount int32, inUseLicenseCount int32, seatCount int32, usedSeatCount int32, fullLicenseCount int32, days []string, months []string, newLicensesByDay []int32, newLicensesByMonth []int32, newLicensesByPolicy []ProductStatsNewLicensesByPolicyInner, cancellation NullableCancellationStats, subscriptions NullableSubscriptionStats, revenue []Revenue, activationsByVersion []ProductStatsActivationsByVersionInner, activeMachinesByVersion []ProductStatsActiveMachinesByVersionInner, activeMachinesByPlatform []ProductStatsActiveMachinesByPlatformInner, activeMachinesByCountry []ProductStatsActiveMachinesByCountryInner) *ProductStats {
 	this := ProductStats{}
 	this.LicenseCount = licenseCount
 	this.ActiveLicenseCount = activeLicenseCount
@@ -94,6 +96,7 @@ func NewProductStats(licenseCount int32, activeLicenseCount int32, newLicenseCou
 	this.ActivationsByVersion = activationsByVersion
 	this.ActiveMachinesByVersion = activeMachinesByVersion
 	this.ActiveMachinesByPlatform = activeMachinesByPlatform
+	this.ActiveMachinesByCountry = activeMachinesByCountry
 	return &this
 }
 
@@ -613,6 +616,30 @@ func (o *ProductStats) SetActiveMachinesByPlatform(v []ProductStatsActiveMachine
 	o.ActiveMachinesByPlatform = v
 }
 
+// GetActiveMachinesByCountry returns the ActiveMachinesByCountry field value
+func (o *ProductStats) GetActiveMachinesByCountry() []ProductStatsActiveMachinesByCountryInner {
+	if o == nil {
+		var ret []ProductStatsActiveMachinesByCountryInner
+		return ret
+	}
+
+	return o.ActiveMachinesByCountry
+}
+
+// GetActiveMachinesByCountryOk returns a tuple with the ActiveMachinesByCountry field value
+// and a boolean to check if the value has been set.
+func (o *ProductStats) GetActiveMachinesByCountryOk() ([]ProductStatsActiveMachinesByCountryInner, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ActiveMachinesByCountry, true
+}
+
+// SetActiveMachinesByCountry sets field value
+func (o *ProductStats) SetActiveMachinesByCountry(v []ProductStatsActiveMachinesByCountryInner) {
+	o.ActiveMachinesByCountry = v
+}
+
 func (o ProductStats) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -644,6 +671,7 @@ func (o ProductStats) ToMap() (map[string]interface{}, error) {
 	toSerialize["activationsByVersion"] = o.ActivationsByVersion
 	toSerialize["activeMachinesByVersion"] = o.ActiveMachinesByVersion
 	toSerialize["activeMachinesByPlatform"] = o.ActiveMachinesByPlatform
+	toSerialize["activeMachinesByCountry"] = o.ActiveMachinesByCountry
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -678,6 +706,7 @@ func (o *ProductStats) UnmarshalJSON(data []byte) (err error) {
 		"activationsByVersion",
 		"activeMachinesByVersion",
 		"activeMachinesByPlatform",
+		"activeMachinesByCountry",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -728,6 +757,7 @@ func (o *ProductStats) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "activationsByVersion")
 		delete(additionalProperties, "activeMachinesByVersion")
 		delete(additionalProperties, "activeMachinesByPlatform")
+		delete(additionalProperties, "activeMachinesByCountry")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -103,6 +103,20 @@ func Test_licensemanager_LicensesAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test LicensesAPIService ImportLicenses", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var productId string
+
+		resp, httpRes, err := apiClient.LicensesAPI.ImportLicenses(context.Background(), productId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test LicensesAPIService ListCustomerLicenses", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

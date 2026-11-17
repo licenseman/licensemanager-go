@@ -13,12 +13,15 @@ Name | Type | Description | Notes
 **MachineId** | **NullableString** |  | 
 **Machine** | [**NullableEventMachine**](EventMachine.md) |  | 
 **Actor** | [**NullableEventActor**](EventActor.md) |  | 
+**Country** | **NullableString** | ISO 3166-1 alpha-2 code of the country of the IP address the request came from, for &#x60;license.validated&#x60; and &#x60;license.validation_failed&#x60; events. &#x60;null&#x60; until it&#39;s looked up, shortly after, or when it can&#39;t be. | 
+**Latitude** | **NullableFloat32** | Approximate latitude of the IP address the request came from, for &#x60;license.validated&#x60; and &#x60;license.validation_failed&#x60; events. &#x60;null&#x60; until it&#39;s looked up, shortly after, or when it can&#39;t be. | 
+**Longitude** | **NullableFloat32** | Approximate longitude of the IP address the request came from, for &#x60;license.validated&#x60; and &#x60;license.validation_failed&#x60; events. &#x60;null&#x60; until it&#39;s looked up, shortly after, or when it can&#39;t be. | 
 
 ## Methods
 
 ### NewEvent
 
-`func NewEvent(id string, type_ EventType, createdAt time.Time, payload map[string]*interface{}, policyId NullableString, licenseId NullableString, machineId NullableString, machine NullableEventMachine, actor NullableEventActor, ) *Event`
+`func NewEvent(id string, type_ EventType, createdAt time.Time, payload map[string]*interface{}, policyId NullableString, licenseId NullableString, machineId NullableString, machine NullableEventMachine, actor NullableEventActor, country NullableString, latitude NullableFloat32, longitude NullableFloat32, ) *Event`
 
 NewEvent instantiates a new Event object
 This constructor will assign default values to properties that have it defined,
@@ -263,6 +266,96 @@ SetActor sets Actor field to given value.
 `func (o *Event) UnsetActor()`
 
 UnsetActor ensures that no value is present for Actor, not even an explicit nil
+### GetCountry
+
+`func (o *Event) GetCountry() string`
+
+GetCountry returns the Country field if non-nil, zero value otherwise.
+
+### GetCountryOk
+
+`func (o *Event) GetCountryOk() (*string, bool)`
+
+GetCountryOk returns a tuple with the Country field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCountry
+
+`func (o *Event) SetCountry(v string)`
+
+SetCountry sets Country field to given value.
+
+
+### SetCountryNil
+
+`func (o *Event) SetCountryNil(b bool)`
+
+ SetCountryNil sets the value for Country to be an explicit nil
+
+### UnsetCountry
+`func (o *Event) UnsetCountry()`
+
+UnsetCountry ensures that no value is present for Country, not even an explicit nil
+### GetLatitude
+
+`func (o *Event) GetLatitude() float32`
+
+GetLatitude returns the Latitude field if non-nil, zero value otherwise.
+
+### GetLatitudeOk
+
+`func (o *Event) GetLatitudeOk() (*float32, bool)`
+
+GetLatitudeOk returns a tuple with the Latitude field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLatitude
+
+`func (o *Event) SetLatitude(v float32)`
+
+SetLatitude sets Latitude field to given value.
+
+
+### SetLatitudeNil
+
+`func (o *Event) SetLatitudeNil(b bool)`
+
+ SetLatitudeNil sets the value for Latitude to be an explicit nil
+
+### UnsetLatitude
+`func (o *Event) UnsetLatitude()`
+
+UnsetLatitude ensures that no value is present for Latitude, not even an explicit nil
+### GetLongitude
+
+`func (o *Event) GetLongitude() float32`
+
+GetLongitude returns the Longitude field if non-nil, zero value otherwise.
+
+### GetLongitudeOk
+
+`func (o *Event) GetLongitudeOk() (*float32, bool)`
+
+GetLongitudeOk returns a tuple with the Longitude field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLongitude
+
+`func (o *Event) SetLongitude(v float32)`
+
+SetLongitude sets Longitude field to given value.
+
+
+### SetLongitudeNil
+
+`func (o *Event) SetLongitudeNil(b bool)`
+
+ SetLongitudeNil sets the value for Longitude to be an explicit nil
+
+### UnsetLongitude
+`func (o *Event) UnsetLongitude()`
+
+UnsetLongitude ensures that no value is present for Longitude, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

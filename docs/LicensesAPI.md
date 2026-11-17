@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**GetLicense**](LicensesAPI.md#GetLicense) | **Get** /v1/licenses/{id} | Get a license
 [**GetLicenseStats**](LicensesAPI.md#GetLicenseStats) | **Get** /v1/licenses/{id}/stats | Get the stats of a license
 [**GetSigningKey**](LicensesAPI.md#GetSigningKey) | **Get** /v1/signing-key | Get the organization&#39;s signing key
+[**ImportLicenses**](LicensesAPI.md#ImportLicenses) | **Post** /v1/products/{productId}/licenses/import | Import licenses
 [**ListCustomerLicenses**](LicensesAPI.md#ListCustomerLicenses) | **Get** /v1/customers/{customerId}/licenses | List the licenses of a customer
 [**ListLicenses**](LicensesAPI.md#ListLicenses) | **Get** /v1/products/{productId}/licenses | List the licenses of a product
 [**SendLicenseKeys**](LicensesAPI.md#SendLicenseKeys) | **Post** /v1/licenses/send-keys | Email license keys to their customers
@@ -424,6 +425,78 @@ Other parameters are passed through a pointer to a apiGetSigningKeyRequest struc
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ImportLicenses
+
+> ImportLicensesResult ImportLicenses(ctx, productId).ImportLicenses(importLicenses).Execute()
+
+Import licenses
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/licenseman/licensemanager-go"
+)
+
+func main() {
+	productId := "x7Kp2QaZ" // string | 
+	importLicenses := *openapiclient.NewImportLicenses([]openapiclient.ImportLicense{*openapiclient.NewImportLicense("jane@example.com", "7KQ2M-X9ZPA-H4TRC-WN6EY-B3JDF")}) // ImportLicenses | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LicensesAPI.ImportLicenses(context.Background(), productId).ImportLicenses(importLicenses).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LicensesAPI.ImportLicenses``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ImportLicenses`: ImportLicensesResult
+	fmt.Fprintf(os.Stdout, "Response from `LicensesAPI.ImportLicenses`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**productId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiImportLicensesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **importLicenses** | [**ImportLicenses**](ImportLicenses.md) |  | 
+
+### Return type
+
+[**ImportLicensesResult**](ImportLicensesResult.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

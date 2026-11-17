@@ -13,6 +13,9 @@ Name | Type | Description | Notes
 **Version** | **NullableString** | Version of the application last validated on the machine. | 
 **OverriddenByMachineId** | **NullableString** | For a machine deactivated or locked by automatic machine changes, the machine that took its place. Validating the key on a deactivated machine that has one takes its place back. &#x60;null&#x60; otherwise. | 
 **LastValidatedAt** | **NullableTime** | When the license was last validated on the machine. | 
+**Country** | **NullableString** | ISO 3166-1 alpha-2 code of the country of the IP address the license was last successfully validated from on the machine. &#x60;null&#x60; until it&#39;s looked up, shortly after, or when it can&#39;t be. | 
+**Latitude** | **NullableFloat32** | Approximate latitude of the IP address the license was last successfully validated from on the machine. &#x60;null&#x60; until it&#39;s looked up, shortly after, or when it can&#39;t be. | 
+**Longitude** | **NullableFloat32** | Approximate longitude of the IP address the license was last successfully validated from on the machine. &#x60;null&#x60; until it&#39;s looked up, shortly after, or when it can&#39;t be. | 
 **CreatedAt** | **time.Time** |  | 
 **UpdatedAt** | **time.Time** |  | 
 
@@ -20,7 +23,7 @@ Name | Type | Description | Notes
 
 ### NewMachine
 
-`func NewMachine(id string, licenseId string, fingerprint string, platform NullableString, name NullableString, status string, version NullableString, overriddenByMachineId NullableString, lastValidatedAt NullableTime, createdAt time.Time, updatedAt time.Time, ) *Machine`
+`func NewMachine(id string, licenseId string, fingerprint string, platform NullableString, name NullableString, status string, version NullableString, overriddenByMachineId NullableString, lastValidatedAt NullableTime, country NullableString, latitude NullableFloat32, longitude NullableFloat32, createdAt time.Time, updatedAt time.Time, ) *Machine`
 
 NewMachine instantiates a new Machine object
 This constructor will assign default values to properties that have it defined,
@@ -265,6 +268,96 @@ SetLastValidatedAt sets LastValidatedAt field to given value.
 `func (o *Machine) UnsetLastValidatedAt()`
 
 UnsetLastValidatedAt ensures that no value is present for LastValidatedAt, not even an explicit nil
+### GetCountry
+
+`func (o *Machine) GetCountry() string`
+
+GetCountry returns the Country field if non-nil, zero value otherwise.
+
+### GetCountryOk
+
+`func (o *Machine) GetCountryOk() (*string, bool)`
+
+GetCountryOk returns a tuple with the Country field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCountry
+
+`func (o *Machine) SetCountry(v string)`
+
+SetCountry sets Country field to given value.
+
+
+### SetCountryNil
+
+`func (o *Machine) SetCountryNil(b bool)`
+
+ SetCountryNil sets the value for Country to be an explicit nil
+
+### UnsetCountry
+`func (o *Machine) UnsetCountry()`
+
+UnsetCountry ensures that no value is present for Country, not even an explicit nil
+### GetLatitude
+
+`func (o *Machine) GetLatitude() float32`
+
+GetLatitude returns the Latitude field if non-nil, zero value otherwise.
+
+### GetLatitudeOk
+
+`func (o *Machine) GetLatitudeOk() (*float32, bool)`
+
+GetLatitudeOk returns a tuple with the Latitude field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLatitude
+
+`func (o *Machine) SetLatitude(v float32)`
+
+SetLatitude sets Latitude field to given value.
+
+
+### SetLatitudeNil
+
+`func (o *Machine) SetLatitudeNil(b bool)`
+
+ SetLatitudeNil sets the value for Latitude to be an explicit nil
+
+### UnsetLatitude
+`func (o *Machine) UnsetLatitude()`
+
+UnsetLatitude ensures that no value is present for Latitude, not even an explicit nil
+### GetLongitude
+
+`func (o *Machine) GetLongitude() float32`
+
+GetLongitude returns the Longitude field if non-nil, zero value otherwise.
+
+### GetLongitudeOk
+
+`func (o *Machine) GetLongitudeOk() (*float32, bool)`
+
+GetLongitudeOk returns a tuple with the Longitude field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLongitude
+
+`func (o *Machine) SetLongitude(v float32)`
+
+SetLongitude sets Longitude field to given value.
+
+
+### SetLongitudeNil
+
+`func (o *Machine) SetLongitudeNil(b bool)`
+
+ SetLongitudeNil sets the value for Longitude to be an explicit nil
+
+### UnsetLongitude
+`func (o *Machine) UnsetLongitude()`
+
+UnsetLongitude ensures that no value is present for Longitude, not even an explicit nil
 ### GetCreatedAt
 
 `func (o *Machine) GetCreatedAt() time.Time`
