@@ -28,6 +28,10 @@ type Product struct {
 	IsTestFromProductId NullableString `json:"isTestFromProductId"`
 	// Public URL of the product's logo, shown in the web app and the customer portal. `null` without a logo.
 	LogoUrl NullableString `json:"logoUrl"`
+	// The product's website, linked from the customer portal, when its URL has no allowed `return_url`, and from the emails sent to customers. `null` for no link.
+	WebsiteUrl NullableString `json:"websiteUrl"`
+	// Where customers download the product, linked from the email sending their license keys. `null` for no link.
+	DownloadUrl NullableString `json:"downloadUrl"`
 	Portal PortalSettings `json:"portal"`
 	// Whether a new machine validating a license already on its max machines takes the place of the license's machine validated the longest ago, rather than being refused with `machine_limit_reached`. When the replaced machine is validated again, it takes its place back and the machine that replaced it is locked. See `validateKey`.
 	AutoMachineChange bool `json:"autoMachineChange"`
@@ -42,13 +46,15 @@ type _Product Product
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewProduct(id string, slug string, name string, isTestFromProductId NullableString, logoUrl NullableString, portal PortalSettings, autoMachineChange bool, createdAt time.Time, updatedAt time.Time) *Product {
+func NewProduct(id string, slug string, name string, isTestFromProductId NullableString, logoUrl NullableString, websiteUrl NullableString, downloadUrl NullableString, portal PortalSettings, autoMachineChange bool, createdAt time.Time, updatedAt time.Time) *Product {
 	this := Product{}
 	this.Id = id
 	this.Slug = slug
 	this.Name = name
 	this.IsTestFromProductId = isTestFromProductId
 	this.LogoUrl = logoUrl
+	this.WebsiteUrl = websiteUrl
+	this.DownloadUrl = downloadUrl
 	this.Portal = portal
 	this.AutoMachineChange = autoMachineChange
 	this.CreatedAt = createdAt
@@ -188,6 +194,58 @@ func (o *Product) SetLogoUrl(v string) {
 	o.LogoUrl.Set(&v)
 }
 
+// GetWebsiteUrl returns the WebsiteUrl field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *Product) GetWebsiteUrl() string {
+	if o == nil || o.WebsiteUrl.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.WebsiteUrl.Get()
+}
+
+// GetWebsiteUrlOk returns a tuple with the WebsiteUrl field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Product) GetWebsiteUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.WebsiteUrl.Get(), o.WebsiteUrl.IsSet()
+}
+
+// SetWebsiteUrl sets field value
+func (o *Product) SetWebsiteUrl(v string) {
+	o.WebsiteUrl.Set(&v)
+}
+
+// GetDownloadUrl returns the DownloadUrl field value
+// If the value is explicit nil, the zero value for string will be returned
+func (o *Product) GetDownloadUrl() string {
+	if o == nil || o.DownloadUrl.Get() == nil {
+		var ret string
+		return ret
+	}
+
+	return *o.DownloadUrl.Get()
+}
+
+// GetDownloadUrlOk returns a tuple with the DownloadUrl field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Product) GetDownloadUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.DownloadUrl.Get(), o.DownloadUrl.IsSet()
+}
+
+// SetDownloadUrl sets field value
+func (o *Product) SetDownloadUrl(v string) {
+	o.DownloadUrl.Set(&v)
+}
+
 // GetPortal returns the Portal field value
 func (o *Product) GetPortal() PortalSettings {
 	if o == nil {
@@ -299,6 +357,8 @@ func (o Product) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	toSerialize["isTestFromProductId"] = o.IsTestFromProductId.Get()
 	toSerialize["logoUrl"] = o.LogoUrl.Get()
+	toSerialize["websiteUrl"] = o.WebsiteUrl.Get()
+	toSerialize["downloadUrl"] = o.DownloadUrl.Get()
 	toSerialize["portal"] = o.Portal
 	toSerialize["autoMachineChange"] = o.AutoMachineChange
 	toSerialize["createdAt"] = o.CreatedAt
@@ -321,6 +381,8 @@ func (o *Product) UnmarshalJSON(data []byte) (err error) {
 		"name",
 		"isTestFromProductId",
 		"logoUrl",
+		"websiteUrl",
+		"downloadUrl",
 		"portal",
 		"autoMachineChange",
 		"createdAt",
@@ -359,6 +421,8 @@ func (o *Product) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "isTestFromProductId")
 		delete(additionalProperties, "logoUrl")
+		delete(additionalProperties, "websiteUrl")
+		delete(additionalProperties, "downloadUrl")
 		delete(additionalProperties, "portal")
 		delete(additionalProperties, "autoMachineChange")
 		delete(additionalProperties, "createdAt")

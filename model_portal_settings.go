@@ -26,9 +26,7 @@ type PortalSettings struct {
 	BrandColor NullableString `json:"brandColor" validate:"regexp=^#[0-9a-f]{6}$/i"`
 	// Color of the portal's inputs and buttons, as `#rrggbb`, stored lower cased. `null` for the default color.
 	AccentColor NullableString `json:"accentColor" validate:"regexp=^#[0-9a-f]{6}$/i"`
-	// Link back to your website shown in the portal, when the portal's URL has no allowed `return_url`. `null` for no link.
-	ReturnUrl NullableString `json:"returnUrl"`
-	// Domains the portal's `return_url` query parameter may point to, their subdomains included. Other return URLs are ignored, in favor of `returnUrl`.
+	// Domains the portal's `return_url` query parameter may point to, their subdomains included. Other return URLs are ignored, in favor of the product's `websiteUrl`.
 	ReturnDomains []string `json:"returnDomains"`
 	AdditionalProperties map[string]interface{}
 }
@@ -39,12 +37,11 @@ type _PortalSettings PortalSettings
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPortalSettings(enabled bool, brandColor NullableString, accentColor NullableString, returnUrl NullableString, returnDomains []string) *PortalSettings {
+func NewPortalSettings(enabled bool, brandColor NullableString, accentColor NullableString, returnDomains []string) *PortalSettings {
 	this := PortalSettings{}
 	this.Enabled = enabled
 	this.BrandColor = brandColor
 	this.AccentColor = accentColor
-	this.ReturnUrl = returnUrl
 	this.ReturnDomains = returnDomains
 	return &this
 }
@@ -133,32 +130,6 @@ func (o *PortalSettings) SetAccentColor(v string) {
 	o.AccentColor.Set(&v)
 }
 
-// GetReturnUrl returns the ReturnUrl field value
-// If the value is explicit nil, the zero value for string will be returned
-func (o *PortalSettings) GetReturnUrl() string {
-	if o == nil || o.ReturnUrl.Get() == nil {
-		var ret string
-		return ret
-	}
-
-	return *o.ReturnUrl.Get()
-}
-
-// GetReturnUrlOk returns a tuple with the ReturnUrl field value
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PortalSettings) GetReturnUrlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.ReturnUrl.Get(), o.ReturnUrl.IsSet()
-}
-
-// SetReturnUrl sets field value
-func (o *PortalSettings) SetReturnUrl(v string) {
-	o.ReturnUrl.Set(&v)
-}
-
 // GetReturnDomains returns the ReturnDomains field value
 func (o *PortalSettings) GetReturnDomains() []string {
 	if o == nil {
@@ -196,7 +167,6 @@ func (o PortalSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize["enabled"] = o.Enabled
 	toSerialize["brandColor"] = o.BrandColor.Get()
 	toSerialize["accentColor"] = o.AccentColor.Get()
-	toSerialize["returnUrl"] = o.ReturnUrl.Get()
 	toSerialize["returnDomains"] = o.ReturnDomains
 
 	for key, value := range o.AdditionalProperties {
@@ -214,7 +184,6 @@ func (o *PortalSettings) UnmarshalJSON(data []byte) (err error) {
 		"enabled",
 		"brandColor",
 		"accentColor",
-		"returnUrl",
 		"returnDomains",
 	}
 
@@ -248,7 +217,6 @@ func (o *PortalSettings) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "enabled")
 		delete(additionalProperties, "brandColor")
 		delete(additionalProperties, "accentColor")
-		delete(additionalProperties, "returnUrl")
 		delete(additionalProperties, "returnDomains")
 		o.AdditionalProperties = additionalProperties
 	}

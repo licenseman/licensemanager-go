@@ -6,6 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
 **Slug** | Pointer to **string** | Unique within the organization. Defaults to the name, lower cased, without accents and special characters. Starts with &#x60;test_&#x60; in test products, which is added when missing, and removed in live products. | [optional] 
+**WebsiteUrl** | Pointer to **NullableString** | The product&#39;s website, linked from the customer portal, when its URL has no allowed &#x60;return_url&#x60;, and from the emails sent to customers. &#x60;null&#x60; for no link. | [optional] 
+**DownloadUrl** | Pointer to **NullableString** | Where customers download the product, linked from the email sending their license keys. &#x60;null&#x60; for no link. | [optional] 
 **Portal** | Pointer to [**UpdateProductPortal**](UpdateProductPortal.md) |  | [optional] 
 **AutoMachineChange** | Pointer to **bool** | Whether a new machine validating a license already on its max machines takes the place of the license&#39;s machine validated the longest ago, rather than being refused with &#x60;machine_limit_reached&#x60;. When the replaced machine is validated again, it takes its place back and the machine that replaced it is locked. See &#x60;validateKey&#x60;. | [optional] 
 
@@ -78,6 +80,76 @@ SetSlug sets Slug field to given value.
 
 HasSlug returns a boolean if a field has been set.
 
+### GetWebsiteUrl
+
+`func (o *UpdateProduct) GetWebsiteUrl() string`
+
+GetWebsiteUrl returns the WebsiteUrl field if non-nil, zero value otherwise.
+
+### GetWebsiteUrlOk
+
+`func (o *UpdateProduct) GetWebsiteUrlOk() (*string, bool)`
+
+GetWebsiteUrlOk returns a tuple with the WebsiteUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWebsiteUrl
+
+`func (o *UpdateProduct) SetWebsiteUrl(v string)`
+
+SetWebsiteUrl sets WebsiteUrl field to given value.
+
+### HasWebsiteUrl
+
+`func (o *UpdateProduct) HasWebsiteUrl() bool`
+
+HasWebsiteUrl returns a boolean if a field has been set.
+
+### SetWebsiteUrlNil
+
+`func (o *UpdateProduct) SetWebsiteUrlNil(b bool)`
+
+ SetWebsiteUrlNil sets the value for WebsiteUrl to be an explicit nil
+
+### UnsetWebsiteUrl
+`func (o *UpdateProduct) UnsetWebsiteUrl()`
+
+UnsetWebsiteUrl ensures that no value is present for WebsiteUrl, not even an explicit nil
+### GetDownloadUrl
+
+`func (o *UpdateProduct) GetDownloadUrl() string`
+
+GetDownloadUrl returns the DownloadUrl field if non-nil, zero value otherwise.
+
+### GetDownloadUrlOk
+
+`func (o *UpdateProduct) GetDownloadUrlOk() (*string, bool)`
+
+GetDownloadUrlOk returns a tuple with the DownloadUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDownloadUrl
+
+`func (o *UpdateProduct) SetDownloadUrl(v string)`
+
+SetDownloadUrl sets DownloadUrl field to given value.
+
+### HasDownloadUrl
+
+`func (o *UpdateProduct) HasDownloadUrl() bool`
+
+HasDownloadUrl returns a boolean if a field has been set.
+
+### SetDownloadUrlNil
+
+`func (o *UpdateProduct) SetDownloadUrlNil(b bool)`
+
+ SetDownloadUrlNil sets the value for DownloadUrl to be an explicit nil
+
+### UnsetDownloadUrl
+`func (o *UpdateProduct) UnsetDownloadUrl()`
+
+UnsetDownloadUrl ensures that no value is present for DownloadUrl, not even an explicit nil
 ### GetPortal
 
 `func (o *UpdateProduct) GetPortal() UpdateProductPortal`

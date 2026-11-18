@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **IsTestFromProductId** | **NullableString** | For test products, id of the live product they&#39;re a sandbox of. &#x60;null&#x60; for live products. | 
 **LogoUrl** | **NullableString** | Public URL of the product&#39;s logo, shown in the web app and the customer portal. &#x60;null&#x60; without a logo. | 
+**WebsiteUrl** | **NullableString** | The product&#39;s website, linked from the customer portal, when its URL has no allowed &#x60;return_url&#x60;, and from the emails sent to customers. &#x60;null&#x60; for no link. | 
+**DownloadUrl** | **NullableString** | Where customers download the product, linked from the email sending their license keys. &#x60;null&#x60; for no link. | 
 **Portal** | [**PortalSettings**](PortalSettings.md) |  | 
 **AutoMachineChange** | **bool** | Whether a new machine validating a license already on its max machines takes the place of the license&#39;s machine validated the longest ago, rather than being refused with &#x60;machine_limit_reached&#x60;. When the replaced machine is validated again, it takes its place back and the machine that replaced it is locked. See &#x60;validateKey&#x60;. | 
 **CreatedAt** | **time.Time** |  | 
@@ -18,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewProduct
 
-`func NewProduct(id string, slug string, name string, isTestFromProductId NullableString, logoUrl NullableString, portal PortalSettings, autoMachineChange bool, createdAt time.Time, updatedAt time.Time, ) *Product`
+`func NewProduct(id string, slug string, name string, isTestFromProductId NullableString, logoUrl NullableString, websiteUrl NullableString, downloadUrl NullableString, portal PortalSettings, autoMachineChange bool, createdAt time.Time, updatedAt time.Time, ) *Product`
 
 NewProduct instantiates a new Product object
 This constructor will assign default values to properties that have it defined,
@@ -153,6 +155,66 @@ SetLogoUrl sets LogoUrl field to given value.
 `func (o *Product) UnsetLogoUrl()`
 
 UnsetLogoUrl ensures that no value is present for LogoUrl, not even an explicit nil
+### GetWebsiteUrl
+
+`func (o *Product) GetWebsiteUrl() string`
+
+GetWebsiteUrl returns the WebsiteUrl field if non-nil, zero value otherwise.
+
+### GetWebsiteUrlOk
+
+`func (o *Product) GetWebsiteUrlOk() (*string, bool)`
+
+GetWebsiteUrlOk returns a tuple with the WebsiteUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWebsiteUrl
+
+`func (o *Product) SetWebsiteUrl(v string)`
+
+SetWebsiteUrl sets WebsiteUrl field to given value.
+
+
+### SetWebsiteUrlNil
+
+`func (o *Product) SetWebsiteUrlNil(b bool)`
+
+ SetWebsiteUrlNil sets the value for WebsiteUrl to be an explicit nil
+
+### UnsetWebsiteUrl
+`func (o *Product) UnsetWebsiteUrl()`
+
+UnsetWebsiteUrl ensures that no value is present for WebsiteUrl, not even an explicit nil
+### GetDownloadUrl
+
+`func (o *Product) GetDownloadUrl() string`
+
+GetDownloadUrl returns the DownloadUrl field if non-nil, zero value otherwise.
+
+### GetDownloadUrlOk
+
+`func (o *Product) GetDownloadUrlOk() (*string, bool)`
+
+GetDownloadUrlOk returns a tuple with the DownloadUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDownloadUrl
+
+`func (o *Product) SetDownloadUrl(v string)`
+
+SetDownloadUrl sets DownloadUrl field to given value.
+
+
+### SetDownloadUrlNil
+
+`func (o *Product) SetDownloadUrlNil(b bool)`
+
+ SetDownloadUrlNil sets the value for DownloadUrl to be an explicit nil
+
+### UnsetDownloadUrl
+`func (o *Product) UnsetDownloadUrl()`
+
+UnsetDownloadUrl ensures that no value is present for DownloadUrl, not even an explicit nil
 ### GetPortal
 
 `func (o *Product) GetPortal() PortalSettings`

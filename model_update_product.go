@@ -22,6 +22,10 @@ type UpdateProduct struct {
 	Name *string `json:"name,omitempty"`
 	// Unique within the organization. Defaults to the name, lower cased, without accents and special characters. Starts with `test_` in test products, which is added when missing, and removed in live products.
 	Slug *string `json:"slug,omitempty" validate:"regexp=^(test_)?[a-z0-9]+(-[a-z0-9]+)*$"`
+	// The product's website, linked from the customer portal, when its URL has no allowed `return_url`, and from the emails sent to customers. `null` for no link.
+	WebsiteUrl NullableString `json:"websiteUrl,omitempty"`
+	// Where customers download the product, linked from the email sending their license keys. `null` for no link.
+	DownloadUrl NullableString `json:"downloadUrl,omitempty"`
 	Portal *UpdateProductPortal `json:"portal,omitempty"`
 	// Whether a new machine validating a license already on its max machines takes the place of the license's machine validated the longest ago, rather than being refused with `machine_limit_reached`. When the replaced machine is validated again, it takes its place back and the machine that replaced it is locked. See `validateKey`.
 	AutoMachineChange *bool `json:"autoMachineChange,omitempty"`
@@ -111,6 +115,90 @@ func (o *UpdateProduct) SetSlug(v string) {
 	o.Slug = &v
 }
 
+// GetWebsiteUrl returns the WebsiteUrl field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateProduct) GetWebsiteUrl() string {
+	if o == nil || IsNil(o.WebsiteUrl.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.WebsiteUrl.Get()
+}
+
+// GetWebsiteUrlOk returns a tuple with the WebsiteUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateProduct) GetWebsiteUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.WebsiteUrl.Get(), o.WebsiteUrl.IsSet()
+}
+
+// HasWebsiteUrl returns a boolean if a field has been set.
+func (o *UpdateProduct) HasWebsiteUrl() bool {
+	if o != nil && o.WebsiteUrl.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetWebsiteUrl gets a reference to the given NullableString and assigns it to the WebsiteUrl field.
+func (o *UpdateProduct) SetWebsiteUrl(v string) {
+	o.WebsiteUrl.Set(&v)
+}
+// SetWebsiteUrlNil sets the value for WebsiteUrl to be an explicit nil
+func (o *UpdateProduct) SetWebsiteUrlNil() {
+	o.WebsiteUrl.Set(nil)
+}
+
+// UnsetWebsiteUrl ensures that no value is present for WebsiteUrl, not even an explicit nil
+func (o *UpdateProduct) UnsetWebsiteUrl() {
+	o.WebsiteUrl.Unset()
+}
+
+// GetDownloadUrl returns the DownloadUrl field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateProduct) GetDownloadUrl() string {
+	if o == nil || IsNil(o.DownloadUrl.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.DownloadUrl.Get()
+}
+
+// GetDownloadUrlOk returns a tuple with the DownloadUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateProduct) GetDownloadUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.DownloadUrl.Get(), o.DownloadUrl.IsSet()
+}
+
+// HasDownloadUrl returns a boolean if a field has been set.
+func (o *UpdateProduct) HasDownloadUrl() bool {
+	if o != nil && o.DownloadUrl.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDownloadUrl gets a reference to the given NullableString and assigns it to the DownloadUrl field.
+func (o *UpdateProduct) SetDownloadUrl(v string) {
+	o.DownloadUrl.Set(&v)
+}
+// SetDownloadUrlNil sets the value for DownloadUrl to be an explicit nil
+func (o *UpdateProduct) SetDownloadUrlNil() {
+	o.DownloadUrl.Set(nil)
+}
+
+// UnsetDownloadUrl ensures that no value is present for DownloadUrl, not even an explicit nil
+func (o *UpdateProduct) UnsetDownloadUrl() {
+	o.DownloadUrl.Unset()
+}
+
 // GetPortal returns the Portal field value if set, zero value otherwise.
 func (o *UpdateProduct) GetPortal() UpdateProductPortal {
 	if o == nil || IsNil(o.Portal) {
@@ -191,6 +279,12 @@ func (o UpdateProduct) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Slug) {
 		toSerialize["slug"] = o.Slug
 	}
+	if o.WebsiteUrl.IsSet() {
+		toSerialize["websiteUrl"] = o.WebsiteUrl.Get()
+	}
+	if o.DownloadUrl.IsSet() {
+		toSerialize["downloadUrl"] = o.DownloadUrl.Get()
+	}
 	if !IsNil(o.Portal) {
 		toSerialize["portal"] = o.Portal
 	}
@@ -221,6 +315,8 @@ func (o *UpdateProduct) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "slug")
+		delete(additionalProperties, "websiteUrl")
+		delete(additionalProperties, "downloadUrl")
 		delete(additionalProperties, "portal")
 		delete(additionalProperties, "autoMachineChange")
 		o.AdditionalProperties = additionalProperties

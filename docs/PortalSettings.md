@@ -7,14 +7,13 @@ Name | Type | Description | Notes
 **Enabled** | **bool** | Whether customers can use the customer portal. When disabled, it answers &#x60;404&#x60;. | 
 **BrandColor** | **NullableString** | Background of the portal&#39;s side panel, as &#x60;#rrggbb&#x60;, stored lower cased. &#x60;null&#x60; for the default color. | 
 **AccentColor** | **NullableString** | Color of the portal&#39;s inputs and buttons, as &#x60;#rrggbb&#x60;, stored lower cased. &#x60;null&#x60; for the default color. | 
-**ReturnUrl** | **NullableString** | Link back to your website shown in the portal, when the portal&#39;s URL has no allowed &#x60;return_url&#x60;. &#x60;null&#x60; for no link. | 
-**ReturnDomains** | **[]string** | Domains the portal&#39;s &#x60;return_url&#x60; query parameter may point to, their subdomains included. Other return URLs are ignored, in favor of &#x60;returnUrl&#x60;. | 
+**ReturnDomains** | **[]string** | Domains the portal&#39;s &#x60;return_url&#x60; query parameter may point to, their subdomains included. Other return URLs are ignored, in favor of the product&#39;s &#x60;websiteUrl&#x60;. | 
 
 ## Methods
 
 ### NewPortalSettings
 
-`func NewPortalSettings(enabled bool, brandColor NullableString, accentColor NullableString, returnUrl NullableString, returnDomains []string, ) *PortalSettings`
+`func NewPortalSettings(enabled bool, brandColor NullableString, accentColor NullableString, returnDomains []string, ) *PortalSettings`
 
 NewPortalSettings instantiates a new PortalSettings object
 This constructor will assign default values to properties that have it defined,
@@ -109,36 +108,6 @@ SetAccentColor sets AccentColor field to given value.
 `func (o *PortalSettings) UnsetAccentColor()`
 
 UnsetAccentColor ensures that no value is present for AccentColor, not even an explicit nil
-### GetReturnUrl
-
-`func (o *PortalSettings) GetReturnUrl() string`
-
-GetReturnUrl returns the ReturnUrl field if non-nil, zero value otherwise.
-
-### GetReturnUrlOk
-
-`func (o *PortalSettings) GetReturnUrlOk() (*string, bool)`
-
-GetReturnUrlOk returns a tuple with the ReturnUrl field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetReturnUrl
-
-`func (o *PortalSettings) SetReturnUrl(v string)`
-
-SetReturnUrl sets ReturnUrl field to given value.
-
-
-### SetReturnUrlNil
-
-`func (o *PortalSettings) SetReturnUrlNil(b bool)`
-
- SetReturnUrlNil sets the value for ReturnUrl to be an explicit nil
-
-### UnsetReturnUrl
-`func (o *PortalSettings) UnsetReturnUrl()`
-
-UnsetReturnUrl ensures that no value is present for ReturnUrl, not even an explicit nil
 ### GetReturnDomains
 
 `func (o *PortalSettings) GetReturnDomains() []string`

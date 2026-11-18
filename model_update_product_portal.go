@@ -25,9 +25,7 @@ type UpdateProductPortal struct {
 	BrandColor NullableString `json:"brandColor,omitempty" validate:"regexp=^#[0-9a-f]{6}$/i"`
 	// Color of the portal's inputs and buttons, as `#rrggbb`, stored lower cased. `null` for the default color.
 	AccentColor NullableString `json:"accentColor,omitempty" validate:"regexp=^#[0-9a-f]{6}$/i"`
-	// Link back to your website shown in the portal, when the portal's URL has no allowed `return_url`. `null` for no link.
-	ReturnUrl NullableString `json:"returnUrl,omitempty"`
-	// Domains the portal's `return_url` query parameter may point to, their subdomains included. Other return URLs are ignored, in favor of `returnUrl`.
+	// Domains the portal's `return_url` query parameter may point to, their subdomains included. Other return URLs are ignored, in favor of the product's `websiteUrl`.
 	ReturnDomains []string `json:"returnDomains,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -167,48 +165,6 @@ func (o *UpdateProductPortal) UnsetAccentColor() {
 	o.AccentColor.Unset()
 }
 
-// GetReturnUrl returns the ReturnUrl field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateProductPortal) GetReturnUrl() string {
-	if o == nil || IsNil(o.ReturnUrl.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.ReturnUrl.Get()
-}
-
-// GetReturnUrlOk returns a tuple with the ReturnUrl field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateProductPortal) GetReturnUrlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.ReturnUrl.Get(), o.ReturnUrl.IsSet()
-}
-
-// HasReturnUrl returns a boolean if a field has been set.
-func (o *UpdateProductPortal) HasReturnUrl() bool {
-	if o != nil && o.ReturnUrl.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetReturnUrl gets a reference to the given NullableString and assigns it to the ReturnUrl field.
-func (o *UpdateProductPortal) SetReturnUrl(v string) {
-	o.ReturnUrl.Set(&v)
-}
-// SetReturnUrlNil sets the value for ReturnUrl to be an explicit nil
-func (o *UpdateProductPortal) SetReturnUrlNil() {
-	o.ReturnUrl.Set(nil)
-}
-
-// UnsetReturnUrl ensures that no value is present for ReturnUrl, not even an explicit nil
-func (o *UpdateProductPortal) UnsetReturnUrl() {
-	o.ReturnUrl.Unset()
-}
-
 // GetReturnDomains returns the ReturnDomains field value if set, zero value otherwise.
 func (o *UpdateProductPortal) GetReturnDomains() []string {
 	if o == nil || IsNil(o.ReturnDomains) {
@@ -260,9 +216,6 @@ func (o UpdateProductPortal) ToMap() (map[string]interface{}, error) {
 	if o.AccentColor.IsSet() {
 		toSerialize["accentColor"] = o.AccentColor.Get()
 	}
-	if o.ReturnUrl.IsSet() {
-		toSerialize["returnUrl"] = o.ReturnUrl.Get()
-	}
 	if !IsNil(o.ReturnDomains) {
 		toSerialize["returnDomains"] = o.ReturnDomains
 	}
@@ -291,7 +244,6 @@ func (o *UpdateProductPortal) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "enabled")
 		delete(additionalProperties, "brandColor")
 		delete(additionalProperties, "accentColor")
-		delete(additionalProperties, "returnUrl")
 		delete(additionalProperties, "returnDomains")
 		o.AdditionalProperties = additionalProperties
 	}

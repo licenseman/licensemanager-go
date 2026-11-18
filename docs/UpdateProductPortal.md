@@ -7,8 +7,7 @@ Name | Type | Description | Notes
 **Enabled** | Pointer to **bool** | Whether customers can use the customer portal. When disabled, it answers &#x60;404&#x60;. | [optional] 
 **BrandColor** | Pointer to **NullableString** | Background of the portal&#39;s side panel, as &#x60;#rrggbb&#x60;, stored lower cased. &#x60;null&#x60; for the default color. | [optional] 
 **AccentColor** | Pointer to **NullableString** | Color of the portal&#39;s inputs and buttons, as &#x60;#rrggbb&#x60;, stored lower cased. &#x60;null&#x60; for the default color. | [optional] 
-**ReturnUrl** | Pointer to **NullableString** | Link back to your website shown in the portal, when the portal&#39;s URL has no allowed &#x60;return_url&#x60;. &#x60;null&#x60; for no link. | [optional] 
-**ReturnDomains** | Pointer to **[]string** | Domains the portal&#39;s &#x60;return_url&#x60; query parameter may point to, their subdomains included. Other return URLs are ignored, in favor of &#x60;returnUrl&#x60;. | [optional] 
+**ReturnDomains** | Pointer to **[]string** | Domains the portal&#39;s &#x60;return_url&#x60; query parameter may point to, their subdomains included. Other return URLs are ignored, in favor of the product&#39;s &#x60;websiteUrl&#x60;. | [optional] 
 
 ## Methods
 
@@ -124,41 +123,6 @@ HasAccentColor returns a boolean if a field has been set.
 `func (o *UpdateProductPortal) UnsetAccentColor()`
 
 UnsetAccentColor ensures that no value is present for AccentColor, not even an explicit nil
-### GetReturnUrl
-
-`func (o *UpdateProductPortal) GetReturnUrl() string`
-
-GetReturnUrl returns the ReturnUrl field if non-nil, zero value otherwise.
-
-### GetReturnUrlOk
-
-`func (o *UpdateProductPortal) GetReturnUrlOk() (*string, bool)`
-
-GetReturnUrlOk returns a tuple with the ReturnUrl field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetReturnUrl
-
-`func (o *UpdateProductPortal) SetReturnUrl(v string)`
-
-SetReturnUrl sets ReturnUrl field to given value.
-
-### HasReturnUrl
-
-`func (o *UpdateProductPortal) HasReturnUrl() bool`
-
-HasReturnUrl returns a boolean if a field has been set.
-
-### SetReturnUrlNil
-
-`func (o *UpdateProductPortal) SetReturnUrlNil(b bool)`
-
- SetReturnUrlNil sets the value for ReturnUrl to be an explicit nil
-
-### UnsetReturnUrl
-`func (o *UpdateProductPortal) UnsetReturnUrl()`
-
-UnsetReturnUrl ensures that no value is present for ReturnUrl, not even an explicit nil
 ### GetReturnDomains
 
 `func (o *UpdateProductPortal) GetReturnDomains() []string`
